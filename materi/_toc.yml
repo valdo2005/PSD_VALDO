@@ -4,6 +4,6 @@
 format: jb-book
 root: intro
 chapters:
-- file: markdown
-- file: notebooks
-- file: markdown-notebooks
+- file: Busines_Understanding.ipynb
+- file: Preprocessing_Data.ipynb
+- file: Penyeimbang_Data.ipynb
