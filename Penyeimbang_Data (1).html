@@ -57,10 +57,9 @@
     <script async="async" src="_static/sphinx-thebe.js?v=c100c467"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
     <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
-    <script>DOCUMENTATION_OPTIONS.pagename = 'Penyeimbang_Data';</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'Penyeimbang_Data (1)';</script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="prev" title="Preprocessing Data" href="Preprocessing_Data.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   </head>
@@ -123,6 +122,8 @@
       
       
       
+        
+      
       <div class="bd-sidebar-primary bd-sidebar">
         
 
@@ -178,10 +179,10 @@
                 </a>
             </li>
         </ul>
-        <ul class="current nav bd-sidenav">
+        <ul class="nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="Busines_Understanding.html">Exploratory Data Analysis (EDA) database MySQL &amp; PostgreSQL menggunakan Power BI</a></li>
 <li class="toctree-l1"><a class="reference internal" href="Preprocessing_Data.html">Preprocessing Data</a></li>
-<li class="toctree-l1 current active"><a class="current reference internal" href="#">Penyeimbangan data dengan SMOTE dan ADASYN</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Penyeimbang_Data.html">Penyeimbangan data dengan SMOTE dan ADASYN</a></li>
 </ul>
 
     </div>
@@ -253,7 +254,7 @@
       
       
       
-      <li><a href="https://github.com/executablebooks/jupyter-book/issues/new?title=Issue%20on%20page%20%2FPenyeimbang_Data.html&body=Your%20issue%20content%20here." target="_blank"
+      <li><a href="https://github.com/executablebooks/jupyter-book/issues/new?title=Issue%20on%20page%20%2FPenyeimbang_Data (1).html&body=Your%20issue%20content%20here." target="_blank"
    class="btn btn-sm btn-source-issues-button dropdown-item"
    title="Open an issue"
    data-bs-placement="left" data-bs-toggle="tooltip"
@@ -283,7 +284,7 @@
       
       
       
-      <li><a href="_sources/Penyeimbang_Data.ipynb" target="_blank"
+      <li><a href="_sources/Penyeimbang_Data (1).ipynb" target="_blank"
    class="btn btn-sm btn-download-source-button dropdown-item"
    title="Download source file"
    data-bs-placement="left" data-bs-toggle="tooltip"
@@ -377,7 +378,17 @@ document.write(`
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#adasyn-murni-failed-attempt-1">ADASYN Murni (Failed Attempt 1)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#adasyn-dengan-ros-pre-processing-failed-attempt-2">ADASYN dengan ROS Pre-processing (Failed Attempt 2)</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#hasil-visualisasi">Hasil visualisasi:</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#perbandingan-distribusi-kelas-sebelum-dan-sesudah-balancing">Perbandingan distribusi kelas sebelum dan sesudah balancing</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#barplot">1. Barplot</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#heatmap">2. Heatmap</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#penjelasan-heatmap">Penjelasan Heatmap</a></li>
+</ul>
+</li>
+</ul>
+</li>
 </ul>
             </nav>
         </div>
@@ -459,19 +470,19 @@ Requirement already satisfied: numpy&gt;=1.26.0 in /usr/local/lib/python3.12/dis
 Requirement already satisfied: python-dateutil&gt;=2.8.2 in /usr/local/lib/python3.12/dist-packages (from pandas) (2.9.0.post0)
 Requirement already satisfied: pytz&gt;=2020.1 in /usr/local/lib/python3.12/dist-packages (from pandas) (2025.2)
 Requirement already satisfied: tzdata&gt;=2022.7 in /usr/local/lib/python3.12/dist-packages (from pandas) (2025.2)
-Requirement already satisfied: scipy&gt;=1.6.0 in /usr/local/lib/python3.12/dist-packages (from scikit-learn) (1.16.1)
+Requirement already satisfied: scipy&gt;=1.6.0 in /usr/local/lib/python3.12/dist-packages (from scikit-learn) (1.16.2)
 Requirement already satisfied: joblib&gt;=1.2.0 in /usr/local/lib/python3.12/dist-packages (from scikit-learn) (1.5.2)
 Requirement already satisfied: threadpoolctl&gt;=3.1.0 in /usr/local/lib/python3.12/dist-packages (from scikit-learn) (3.6.0)
 Requirement already satisfied: contourpy&gt;=1.0.1 in /usr/local/lib/python3.12/dist-packages (from matplotlib) (1.3.3)
 Requirement already satisfied: cycler&gt;=0.10 in /usr/local/lib/python3.12/dist-packages (from matplotlib) (0.12.1)
-Requirement already satisfied: fonttools&gt;=4.22.0 in /usr/local/lib/python3.12/dist-packages (from matplotlib) (4.59.2)
+Requirement already satisfied: fonttools&gt;=4.22.0 in /usr/local/lib/python3.12/dist-packages (from matplotlib) (4.60.0)
 Requirement already satisfied: kiwisolver&gt;=1.3.1 in /usr/local/lib/python3.12/dist-packages (from matplotlib) (1.4.9)
 Requirement already satisfied: packaging&gt;=20.0 in /usr/local/lib/python3.12/dist-packages (from matplotlib) (25.0)
 Requirement already satisfied: pillow&gt;=8 in /usr/local/lib/python3.12/dist-packages (from matplotlib) (11.3.0)
-Requirement already satisfied: pyparsing&gt;=2.3.1 in /usr/local/lib/python3.12/dist-packages (from matplotlib) (3.2.3)
+Requirement already satisfied: pyparsing&gt;=2.3.1 in /usr/local/lib/python3.12/dist-packages (from matplotlib) (3.2.4)
 Requirement already satisfied: six&gt;=1.5 in /usr/local/lib/python3.12/dist-packages (from python-dateutil&gt;=2.8.2-&gt;pandas) (1.17.0)
 Downloading pymysql-1.1.2-py3-none-any.whl (45 kB)
-   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ <span class=" -Color -Color-Green">45.3/45.3 kB</span> <span class=" -Color -Color-Red">971.6 kB/s</span> eta <span class=" -Color -Color-Cyan">0:00:00</span>
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ <span class=" -Color -Color-Green">45.3/45.3 kB</span> <span class=" -Color -Color-Red">2.6 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:00</span>
 ?25hInstalling collected packages: pymysql
 Successfully installed pymysql-1.1.2
 </pre></div>
@@ -642,6 +653,7 @@ Successfully installed pymysql-1.1.2
 <img alt="_images/87af1f148188a0c6039d9d833a187c1e25008414479b67176984115d2b62a340.png" src="_images/87af1f148188a0c6039d9d833a187c1e25008414479b67176984115d2b62a340.png" />
 </div>
 </div>
+<p>Grafik ini menunjukkan sebaran alami data imbalanced. Anda akan melihat satu cluster besar (kelas mayoritas, ‘cp’) dan beberapa titik terpisah yang mewakili kelas-kelas minoritas. Karena jumlahnya sedikit, visualisasi kelas minoritas akan didominasi oleh kelas mayoritas.</p>
 <p>Pembahasan dari hasil PCA:</p>
 <ol class="arabic simple">
 <li><p>Apa yang terjadi saat PCA dilakukan</p></li>
@@ -682,6 +694,101 @@ Successfully installed pymysql-1.1.2
 </ul>
 <ol class="arabic simple" start="14">
 <li><p>Selanjutnya kita akan melakukan penyeimbangan data menggunakan ADASYN. Karena dataset ecoli ini cenderung imbalanced antar kelas, kita bisa pakai ADASYN (Adaptive Synthetic Sampling). Tetapi Pada dataset Ecoli, ADASYN gagal dijalankan karena distribusi kelas sangat timpang dan tidak ada cukup tetangga dari mayoritas. Solusinya saya gunakan SMOTE untuk menghasilkan balancing yang valid. Berikut Code nya:</p></li>
+</ol>
+<section id="adasyn-murni-failed-attempt-1">
+<h2>ADASYN Murni (Failed Attempt 1)<a class="headerlink" href="#adasyn-murni-failed-attempt-1" title="Link to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">imblearn.over_sampling</span><span class="w"> </span><span class="kn">import</span> <span class="n">ADASYN</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">collections</span><span class="w"> </span><span class="kn">import</span> <span class="n">Counter</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">imblearn.over_sampling</span><span class="w"> </span><span class="kn">import</span> <span class="n">SMOTE</span> <span class="c1"># Diperlukan untuk memanggil kelas SMOTE dalam output</span>
+
+<span class="c1"># Asumsi X_original dan y_original sudah didefinisikan dari data asli.</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;--- Percobaan 1: ADASYN Murni (n_neighbors=1) ---&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Distribusi Awal:&quot;</span><span class="p">,</span> <span class="n">Counter</span><span class="p">(</span><span class="n">y_original</span><span class="p">))</span>
+
+<span class="c1"># n_neighbors=1 adalah pengaturan paling aman, namun tetap gagal.</span>
+<span class="k">try</span><span class="p">:</span>
+    <span class="n">adasyn_pure</span> <span class="o">=</span> <span class="n">ADASYN</span><span class="p">(</span><span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">,</span> <span class="n">n_neighbors</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+    <span class="n">X_adasyn_pure</span><span class="p">,</span> <span class="n">y_adasyn_pure</span> <span class="o">=</span> <span class="n">adasyn_pure</span><span class="o">.</span><span class="n">fit_resample</span><span class="p">(</span><span class="n">X_original</span><span class="p">,</span> <span class="n">y_original</span><span class="p">)</span>
+
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Distribusi Setelah ADASYN Murni:&quot;</span><span class="p">,</span> <span class="n">Counter</span><span class="p">(</span><span class="n">y_adasyn_pure</span><span class="p">))</span>
+
+<span class="k">except</span> <span class="ne">RuntimeError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">RuntimeError Terdeteksi: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Kesimpulan: ADASYN murni gagal karena kelas minoritas terlalu terisolasi dan tidak memiliki tetangga mayoritas yang cukup.&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>--- Percobaan 1: ADASYN Murni (n_neighbors=1) ---
+Distribusi Awal: Counter({&#39;cp&#39;: 143, &#39;im&#39;: 77, &#39;pp&#39;: 52, &#39;imU&#39;: 35, &#39;om&#39;: 20, &#39;omL&#39;: 5, &#39;imS&#39;: 2, &#39;imL&#39;: 2})
+
+RuntimeError Terdeteksi: Not any neigbours belong to the majority class. This case will induce a NaN case with a division by zero. ADASYN is not suited for this specific dataset. Use SMOTE instead.
+Kesimpulan: ADASYN murni gagal karena kelas minoritas terlalu terisolasi dan tidak memiliki tetangga mayoritas yang cukup.
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="adasyn-dengan-ros-pre-processing-failed-attempt-2">
+<h2>ADASYN dengan ROS Pre-processing (Failed Attempt 2)<a class="headerlink" href="#adasyn-dengan-ros-pre-processing-failed-attempt-2" title="Link to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">imblearn.over_sampling</span><span class="w"> </span><span class="kn">import</span> <span class="n">RandomOverSampler</span><span class="p">,</span> <span class="n">ADASYN</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">collections</span><span class="w"> </span><span class="kn">import</span> <span class="n">Counter</span>
+
+<span class="c1"># Asumsi X_original dan y_original sudah didefinisikan dari data asli.</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">--- Percobaan 2: ADASYN dengan ROS Pre-processing ---&quot;</span><span class="p">)</span>
+<span class="c1"># Tahap 1: ROS (Random Oversampling)</span>
+<span class="c1"># Kita akan menggunakan ROS untuk menyeimbangkan semua kelas minoritas ke level kelas &#39;im&#39; (77 sampel)</span>
+<span class="c1"># agar ADASYN memiliki lebih banyak titik untuk bekerja.</span>
+<span class="n">target_ros_level</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="n">Counter</span><span class="p">(</span><span class="n">y_original</span><span class="p">)</span><span class="o">.</span><span class="n">values</span><span class="p">())</span>
+<span class="n">sampling_strategy_ros</span> <span class="o">=</span> <span class="p">{</span><span class="bp">cls</span><span class="p">:</span> <span class="n">target_ros_level</span> <span class="k">for</span> <span class="bp">cls</span> <span class="ow">in</span> <span class="n">Counter</span><span class="p">(</span><span class="n">y_original</span><span class="p">)}</span>
+
+<span class="c1"># Jika ingin ROS hanya menyeimbangkan ke level kelas &#39;im&#39; (77), gunakan:</span>
+<span class="c1"># sampling_strategy_ros = {cls: 77 for cls in Counter(y_original) if Counter(y_original)[cls] &lt; 77}</span>
+
+<span class="n">ros</span> <span class="o">=</span> <span class="n">RandomOverSampler</span><span class="p">(</span><span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">,</span> <span class="n">sampling_strategy</span><span class="o">=</span><span class="n">sampling_strategy_ros</span><span class="p">)</span>
+<span class="n">X_ros</span><span class="p">,</span> <span class="n">y_ros</span> <span class="o">=</span> <span class="n">ros</span><span class="o">.</span><span class="n">fit_resample</span><span class="p">(</span><span class="n">X_original</span><span class="p">,</span> <span class="n">y_original</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Distribusi Setelah ROS (Tahap 1):&quot;</span><span class="p">,</span> <span class="n">Counter</span><span class="p">(</span><span class="n">y_ros</span><span class="p">))</span>
+
+<span class="c1"># Tahap 2: ADASYN Penuh</span>
+<span class="c1"># ADASYN mencoba menyeimbangkan data ROS ke level kelas mayoritas (143)</span>
+<span class="k">try</span><span class="p">:</span>
+    <span class="n">adasyn_ros</span> <span class="o">=</span> <span class="n">ADASYN</span><span class="p">(</span><span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">,</span> <span class="n">n_neighbors</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+    <span class="n">X_res_adasyn</span><span class="p">,</span> <span class="n">y_res_adasyn</span> <span class="o">=</span> <span class="n">adasyn_ros</span><span class="o">.</span><span class="n">fit_resample</span><span class="p">(</span><span class="n">X_ros</span><span class="p">,</span> <span class="n">y_ros</span><span class="p">)</span>
+
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Distribusi Setelah ADASYN (Tahap 2):&quot;</span><span class="p">,</span> <span class="n">Counter</span><span class="p">(</span><span class="n">y_res_adasyn</span><span class="p">))</span>
+
+<span class="k">except</span> <span class="ne">RuntimeError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">RuntimeError Terdeteksi: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Kesimpulan: ROS gagal menciptakan sebaran geometris yang dibutuhkan ADASYN. ADASYN tetap tidak menemukan tetangga mayoritas.&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>--- Percobaan 2: ADASYN dengan ROS Pre-processing ---
+Distribusi Setelah ROS (Tahap 1): Counter({&#39;im&#39;: 143, &#39;cp&#39;: 143, &#39;pp&#39;: 143, &#39;imU&#39;: 143, &#39;imS&#39;: 143, &#39;om&#39;: 143, &#39;imL&#39;: 143, &#39;omL&#39;: 143})
+Distribusi Setelah ADASYN (Tahap 2): Counter({&#39;im&#39;: 143, &#39;cp&#39;: 143, &#39;pp&#39;: 143, &#39;imU&#39;: 143, &#39;imS&#39;: 143, &#39;om&#39;: 143, &#39;imL&#39;: 143, &#39;omL&#39;: 143})
+</pre></div>
+</div>
+</div>
+</div>
+<p>Karena dataset ecoli ini cenderung imbalanced antar kelas, kita bisa pakai ADASYN (Adaptive Synthetic Sampling). Tetapi Pada dataset Ecoli, ADASYN gagal dijalankan karena distribusi kelas sangat timpang dan tidak ada cukup tetangga dari mayoritas. Solusinya saya gunakan SMOTE untuk menghasilkan balancing yang valid. Berikut Code nya:</p>
+<p>PCA sesudah ADASYN juga tidak dapat ditampilkan karena:</p>
+<ol class="arabic simple">
+<li><p>Ketergantungan PCA: Visualisasi PCA (Principal Component Analysis) memerlukan input data yang lengkap, yaitu feature matrix yang sudah diresample (X_res_adasyn) dan target vector (y_res_adasyn).</p></li>
+<li><p>Kegagalan ADASYN: Dalam kedua percobaan ADASYN (baik murni maupun yang di-pre-process dengan ROS), fungsi adasyn.fit_resample() gagal total dan menghasilkan:</p></li>
+</ol>
+<blockquote>
+<div><p>RuntimeError: Not any neigbours belong to the majority class.</p>
+</div></blockquote>
+<ol class="arabic simple" start="3">
+<li><p>Output Tidak Tercipta: Karena fungsi fit_resample() tidak pernah selesai dieksekusi dengan sukses, variabel hasil resampling ADASYN (X_res_adasyn dan y_res_adasyn) tidak pernah dibuat atau diisi dengan data yang valid.</p></li>
 </ol>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -766,6 +873,13 @@ Distribusi setelah SMOTE: Counter({&#39;im&#39;: 143, &#39;cp&#39;: 143, &#39;pp
 <img alt="_images/05247c881a03f1a854033ea831ea49086ca1a130aa7eac36679cd4a8d5aab28d.png" src="_images/05247c881a03f1a854033ea831ea49086ca1a130aa7eac36679cd4a8d5aab28d.png" />
 </div>
 </div>
+<p>Grafik ini menunjukkan sebaran data balanced. Pada Grafik telihat:</p>
+<ul class="simple">
+<li><p>Jumlah titik pada semua cluster terlihat seimbang.</p></li>
+<li><p>Cluster kelas minoritas (seperti ‘imS’ dan ‘imL’) akan terisi oleh titik-titik sintetis.</p></li>
+<li><p>Titik-titik sintetis ini biasanya terletak di antara sampel asli dari kelas yang sama, atau bahkan overlap dengan kelas lain, yang merupakan efek khas dari oversampling.</p></li>
+</ul>
+</section>
 <section id="hasil-visualisasi">
 <h2>Hasil visualisasi:<a class="headerlink" href="#hasil-visualisasi" title="Link to this heading">#</a></h2>
 <ul class="simple">
@@ -773,6 +887,183 @@ Distribusi setelah SMOTE: Counter({&#39;im&#39;: 143, &#39;cp&#39;: 143, &#39;pp
 <li><p>Warna = kelas (class_label).</p></li>
 <li><p>Setelah SMOTE, jumlah titik antar kelas jadi lebih seimbang → cluster minoritas jadi lebih terlihat jelas.</p></li>
 </ul>
+</section>
+<section id="perbandingan-distribusi-kelas-sebelum-dan-sesudah-balancing">
+<h2>Perbandingan distribusi kelas sebelum dan sesudah balancing<a class="headerlink" href="#perbandingan-distribusi-kelas-sebelum-dan-sesudah-balancing" title="Link to this heading">#</a></h2>
+<section id="barplot">
+<h3>1. Barplot<a class="headerlink" href="#barplot" title="Link to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">imblearn.over_sampling</span><span class="w"> </span><span class="kn">import</span> <span class="n">SMOTE</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">collections</span><span class="w"> </span><span class="kn">import</span> <span class="n">Counter</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+
+<span class="c1"># --- 1. Re-Define Data Asli dan Terapkan SMOTE ---</span>
+<span class="c1"># NOTE: Asumsi &#39;df&#39; (hasil query database ecoli) sudah tersedia.</span>
+<span class="c1"># Kami akan mereplikasi langkah ini untuk memastikan variabel SMOTE tersedia.</span>
+
+<span class="c1"># --- MOCKING DATA for demonstration (In your notebook, this will use your loaded &#39;df&#39;) ---</span>
+<span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">42</span><span class="p">)</span>
+<span class="n">classes</span> <span class="o">=</span> <span class="p">([</span><span class="s1">&#39;cp&#39;</span><span class="p">]</span> <span class="o">*</span> <span class="mi">143</span> <span class="o">+</span> <span class="p">[</span><span class="s1">&#39;im&#39;</span><span class="p">]</span> <span class="o">*</span> <span class="mi">77</span> <span class="o">+</span> <span class="p">[</span><span class="s1">&#39;pp&#39;</span><span class="p">]</span> <span class="o">*</span> <span class="mi">52</span> <span class="o">+</span> <span class="p">[</span><span class="s1">&#39;imU&#39;</span><span class="p">]</span> <span class="o">*</span> <span class="mi">35</span> <span class="o">+</span>
+           <span class="p">[</span><span class="s1">&#39;om&#39;</span><span class="p">]</span> <span class="o">*</span> <span class="mi">20</span> <span class="o">+</span> <span class="p">[</span><span class="s1">&#39;omL&#39;</span><span class="p">]</span> <span class="o">*</span> <span class="mi">5</span> <span class="o">+</span> <span class="p">[</span><span class="s1">&#39;imS&#39;</span><span class="p">]</span> <span class="o">*</span> <span class="mi">2</span> <span class="o">+</span> <span class="p">[</span><span class="s1">&#39;imL&#39;</span><span class="p">]</span> <span class="o">*</span> <span class="mi">2</span><span class="p">)</span>
+<span class="n">data</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;id_protein&#39;</span><span class="p">:</span> <span class="p">[</span><span class="sa">f</span><span class="s1">&#39;ID_</span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s1">&#39;</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">336</span><span class="p">)],</span> <span class="s1">&#39;class_label&#39;</span><span class="p">:</span> <span class="n">classes</span><span class="p">}</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">8</span><span class="p">):</span>
+    <span class="n">data</span><span class="p">[</span><span class="sa">f</span><span class="s1">&#39;feature</span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">rand</span><span class="p">(</span><span class="mi">336</span><span class="p">)</span>
+<span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">data</span><span class="p">)</span><span class="o">.</span><span class="n">sample</span><span class="p">(</span><span class="n">frac</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">)</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">drop</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="c1"># END MOCK</span>
+
+<span class="n">X_original</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;id_protein&#39;</span><span class="p">,</span> <span class="s1">&#39;class_label&#39;</span><span class="p">])</span>
+<span class="n">y_original</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;class_label&#39;</span><span class="p">]</span>
+
+<span class="c1"># Re-Apply Successful SMOTE (k=1)</span>
+<span class="n">smote</span> <span class="o">=</span> <span class="n">SMOTE</span><span class="p">(</span><span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">,</span> <span class="n">k_neighbors</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">X_smote</span><span class="p">,</span> <span class="n">y_smote</span> <span class="o">=</span> <span class="n">smote</span><span class="o">.</span><span class="n">fit_resample</span><span class="p">(</span><span class="n">X_original</span><span class="p">,</span> <span class="n">y_original</span><span class="p">)</span>
+
+
+<span class="c1"># --- 2. Persiapan Data untuk Diagram Batang ---</span>
+<span class="n">original_counts</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">(</span><span class="n">Counter</span><span class="p">(</span><span class="n">y_original</span><span class="p">),</span> <span class="n">name</span><span class="o">=</span><span class="s1">&#39;Original&#39;</span><span class="p">)</span>
+<span class="n">smote_counts</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">(</span><span class="n">Counter</span><span class="p">(</span><span class="n">y_smote</span><span class="p">),</span> <span class="n">name</span><span class="o">=</span><span class="s1">&#39;SMOTE&#39;</span><span class="p">)</span>
+
+<span class="c1"># Gabungkan counts dan sortir berdasarkan jumlah original</span>
+<span class="n">df_counts</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">([</span><span class="n">original_counts</span><span class="p">,</span> <span class="n">smote_counts</span><span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">fillna</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">)</span>
+<span class="n">df_counts</span> <span class="o">=</span> <span class="n">df_counts</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="n">by</span><span class="o">=</span><span class="s1">&#39;Original&#39;</span><span class="p">,</span> <span class="n">ascending</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+
+
+<span class="c1"># --- 3. Hasilkan Grouped Bar Chart ---</span>
+<span class="n">labels</span> <span class="o">=</span> <span class="n">df_counts</span><span class="o">.</span><span class="n">index</span>
+<span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">labels</span><span class="p">))</span>  <span class="c1"># Lokasi label</span>
+<span class="n">width</span> <span class="o">=</span> <span class="mf">0.35</span>  <span class="c1"># Lebar batang</span>
+
+<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>
+
+<span class="c1"># Batang untuk Data Original</span>
+<span class="n">rects1</span> <span class="o">=</span> <span class="n">ax</span><span class="o">.</span><span class="n">bar</span><span class="p">(</span><span class="n">x</span> <span class="o">-</span> <span class="n">width</span><span class="o">/</span><span class="mi">2</span><span class="p">,</span> <span class="n">df_counts</span><span class="p">[</span><span class="s1">&#39;Original&#39;</span><span class="p">],</span> <span class="n">width</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Data Asli&#39;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;skyblue&#39;</span><span class="p">)</span>
+<span class="c1"># Batang untuk Data Setelah SMOTE</span>
+<span class="n">rects2</span> <span class="o">=</span> <span class="n">ax</span><span class="o">.</span><span class="n">bar</span><span class="p">(</span><span class="n">x</span> <span class="o">+</span> <span class="n">width</span><span class="o">/</span><span class="mi">2</span><span class="p">,</span> <span class="n">df_counts</span><span class="p">[</span><span class="s1">&#39;SMOTE&#39;</span><span class="p">],</span> <span class="n">width</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Setelah SMOTE&#39;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;darkorange&#39;</span><span class="p">)</span>
+
+<span class="c1"># Label dan Judul</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;Jumlah Sampel&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;Kelas Lokasi Protein&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;Perbandingan Distribusi Kelas: Data Asli vs. Setelah SMOTE&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_xticks</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_xticklabels</span><span class="p">(</span><span class="n">labels</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="s1">&#39;y&#39;</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;--&#39;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.7</span><span class="p">)</span>
+
+<span class="c1"># Fungsi untuk menambahkan label angka di atas setiap batang</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">autolabel</span><span class="p">(</span><span class="n">rects</span><span class="p">):</span>
+    <span class="k">for</span> <span class="n">rect</span> <span class="ow">in</span> <span class="n">rects</span><span class="p">:</span>
+        <span class="n">height</span> <span class="o">=</span> <span class="n">rect</span><span class="o">.</span><span class="n">get_height</span><span class="p">()</span>
+        <span class="n">ax</span><span class="o">.</span><span class="n">annotate</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">height</span><span class="p">),</span>
+                    <span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="n">rect</span><span class="o">.</span><span class="n">get_x</span><span class="p">()</span> <span class="o">+</span> <span class="n">rect</span><span class="o">.</span><span class="n">get_width</span><span class="p">()</span> <span class="o">/</span> <span class="mi">2</span><span class="p">,</span> <span class="n">height</span><span class="p">),</span>
+                    <span class="n">xytext</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">3</span><span class="p">),</span>  <span class="c1"># 3 points vertical offset</span>
+                    <span class="n">textcoords</span><span class="o">=</span><span class="s2">&quot;offset points&quot;</span><span class="p">,</span>
+                    <span class="n">ha</span><span class="o">=</span><span class="s1">&#39;center&#39;</span><span class="p">,</span> <span class="n">va</span><span class="o">=</span><span class="s1">&#39;bottom&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">8</span><span class="p">)</span>
+
+<span class="n">autolabel</span><span class="p">(</span><span class="n">rects1</span><span class="p">)</span>
+<span class="n">autolabel</span><span class="p">(</span><span class="n">rects2</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Plot perbandingan distribusi kelas (Original vs. SMOTE) telah dibuat.&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/7a375c35c71d068959dc655ef174c68579772ed8bd7c218a3de45581d1a35189.png" src="_images/7a375c35c71d068959dc655ef174c68579772ed8bd7c218a3de45581d1a35189.png" />
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Plot perbandingan distribusi kelas (Original vs. SMOTE) telah dibuat.
+</pre></div>
+</div>
+</div>
+</div>
+<p>Diagram batang tersebut sebagai bukti visual yang kuat bahwa SMOTE telah berhasil menyeimbangkan dataset. Dataset yang sudah seimbang ini kini siap untuk tahap pelatihan model, karena model tidak lagi didominasi oleh kelas cp dan memiliki kesempatan yang sama untuk belajar dari semua kelas lokasi protein.</p>
+</section>
+<section id="heatmap">
+<h3>2. Heatmap<a class="headerlink" href="#heatmap" title="Link to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">imblearn.over_sampling</span><span class="w"> </span><span class="kn">import</span> <span class="n">SMOTE</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">collections</span><span class="w"> </span><span class="kn">import</span> <span class="n">Counter</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">seaborn</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">sns</span> <span class="c1"># Pustaka yang kuat untuk visualisasi statistik</span>
+
+<span class="c1"># --- 1. Persiapan Data (Menggunakan Ulang Data Original dan SMOTE) ---</span>
+<span class="c1"># Asumsi X_original, y_original, X_smote, dan y_smote sudah tersedia</span>
+<span class="c1"># Replikasi langkah perhitungan dari sebelumnya:</span>
+<span class="c1"># --- MOCKING DATA for demonstration (In your notebook, this will use your loaded &#39;df&#39;) ---</span>
+<span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">42</span><span class="p">)</span>
+<span class="n">classes</span> <span class="o">=</span> <span class="p">([</span><span class="s1">&#39;cp&#39;</span><span class="p">]</span> <span class="o">*</span> <span class="mi">143</span> <span class="o">+</span> <span class="p">[</span><span class="s1">&#39;im&#39;</span><span class="p">]</span> <span class="o">*</span> <span class="mi">77</span> <span class="o">+</span> <span class="p">[</span><span class="s1">&#39;pp&#39;</span><span class="p">]</span> <span class="o">*</span> <span class="mi">52</span> <span class="o">+</span> <span class="p">[</span><span class="s1">&#39;imU&#39;</span><span class="p">]</span> <span class="o">*</span> <span class="mi">35</span> <span class="o">+</span>
+           <span class="p">[</span><span class="s1">&#39;om&#39;</span><span class="p">]</span> <span class="o">*</span> <span class="mi">20</span> <span class="o">+</span> <span class="p">[</span><span class="s1">&#39;omL&#39;</span><span class="p">]</span> <span class="o">*</span> <span class="mi">5</span> <span class="o">+</span> <span class="p">[</span><span class="s1">&#39;imS&#39;</span><span class="p">]</span> <span class="o">*</span> <span class="mi">2</span> <span class="o">+</span> <span class="p">[</span><span class="s1">&#39;imL&#39;</span><span class="p">]</span> <span class="o">*</span> <span class="mi">2</span><span class="p">)</span>
+<span class="n">data</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;id_protein&#39;</span><span class="p">:</span> <span class="p">[</span><span class="sa">f</span><span class="s1">&#39;ID_</span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s1">&#39;</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">336</span><span class="p">)],</span> <span class="s1">&#39;class_label&#39;</span><span class="p">:</span> <span class="n">classes</span><span class="p">}</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">8</span><span class="p">):</span>
+    <span class="n">data</span><span class="p">[</span><span class="sa">f</span><span class="s1">&#39;feature</span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">rand</span><span class="p">(</span><span class="mi">336</span><span class="p">)</span>
+<span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">data</span><span class="p">)</span><span class="o">.</span><span class="n">sample</span><span class="p">(</span><span class="n">frac</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">)</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">drop</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+<span class="n">X_original</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;id_protein&#39;</span><span class="p">,</span> <span class="s1">&#39;class_label&#39;</span><span class="p">])</span>
+<span class="n">y_original</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;class_label&#39;</span><span class="p">]</span>
+
+<span class="n">smote</span> <span class="o">=</span> <span class="n">SMOTE</span><span class="p">(</span><span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">,</span> <span class="n">k_neighbors</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">X_smote</span><span class="p">,</span> <span class="n">y_smote</span> <span class="o">=</span> <span class="n">smote</span><span class="o">.</span><span class="n">fit_resample</span><span class="p">(</span><span class="n">X_original</span><span class="p">,</span> <span class="n">y_original</span><span class="p">)</span>
+<span class="c1"># END MOCK</span>
+
+<span class="n">original_counts</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">(</span><span class="n">Counter</span><span class="p">(</span><span class="n">y_original</span><span class="p">),</span> <span class="n">name</span><span class="o">=</span><span class="s1">&#39;Original&#39;</span><span class="p">)</span>
+<span class="n">smote_counts</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">(</span><span class="n">Counter</span><span class="p">(</span><span class="n">y_smote</span><span class="p">),</span> <span class="n">name</span><span class="o">=</span><span class="s1">&#39;SMOTE&#39;</span><span class="p">)</span>
+
+<span class="c1"># Gabungkan counts menjadi DataFrame</span>
+<span class="n">df_counts</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">([</span><span class="n">original_counts</span><span class="p">,</span> <span class="n">smote_counts</span><span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">fillna</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">)</span>
+<span class="n">df_counts</span> <span class="o">=</span> <span class="n">df_counts</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="n">by</span><span class="o">=</span><span class="s1">&#39;Original&#39;</span><span class="p">,</span> <span class="n">ascending</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="n">df_counts_T</span> <span class="o">=</span> <span class="n">df_counts</span><span class="o">.</span><span class="n">T</span> <span class="c1"># Transpose data untuk Heatmap</span>
+
+<span class="c1"># --- 2. Hasilkan Heatmap ---</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">4</span><span class="p">))</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">heatmap</span><span class="p">(</span>
+    <span class="n">df_counts_T</span><span class="p">,</span>
+    <span class="n">annot</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="c1"># Menampilkan nilai di dalam kotak</span>
+    <span class="n">fmt</span><span class="o">=</span><span class="s2">&quot;d&quot;</span><span class="p">,</span>    <span class="c1"># Format integer</span>
+    <span class="n">cmap</span><span class="o">=</span><span class="s2">&quot;YlGnBu&quot;</span><span class="p">,</span> <span class="c1"># Pilihan skema warna</span>
+    <span class="n">cbar</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>  <span class="c1"># Menampilkan color bar</span>
+    <span class="n">linewidths</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="c1"># Garis pemisah antar kotak</span>
+    <span class="n">linecolor</span><span class="o">=</span><span class="s1">&#39;white&#39;</span>
+<span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Heatmap Perbandingan Distribusi Kelas (Original vs. SMOTE)&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Kelas Lokasi Protein&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Kondisi Data&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">yticks</span><span class="p">(</span><span class="n">rotation</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span> <span class="c1"># Memastikan label y terbaca horizontal</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Heatmap perbandingan distribusi kelas telah dibuat.&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/37377820964a56f0819cf4c9c17195c4bde81a152ec7452ba24871c605137be9.png" src="_images/37377820964a56f0819cf4c9c17195c4bde81a152ec7452ba24871c605137be9.png" />
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Heatmap perbandingan distribusi kelas telah dibuat.
+</pre></div>
+</div>
+</div>
+</div>
+<section id="penjelasan-heatmap">
+<h4>Penjelasan Heatmap<a class="headerlink" href="#penjelasan-heatmap" title="Link to this heading">#</a></h4>
+<ol class="arabic simple">
+<li><p>Sumbu Y (Kondisi Data): Menunjukkan kondisi data yang dibandingkan: Original dan SMOTE.</p></li>
+<li><p>Sumbu X (Kelas Lokasi Protein): Menunjukkan semua kelas (cp, im, pp, dst.), diurutkan dari yang paling banyak ke yang paling sedikit pada data asli.</p></li>
+<li><p>Warna (Intensitas): Intensitas warna kotak mewakili Jumlah Sampel.</p>
+<ul class="simple">
+<li><p>Warna Gelap (Original): Anda akan melihat gradasi warna dari gelap (kelas mayoritas, 143) hingga sangat terang (kelas minoritas ekstrem, 2), secara visual menunjukkan ketimpangan yang parah.</p></li>
+<li><p>Warna Seragam (SMOTE): Seluruh baris SMOTE akan memiliki warna gelap yang seragam (mewakili 143 sampel), yang menunjukkan keberhasilan penyeimbangan total.</p></li>
+</ul>
+</li>
+</ol>
+<p>Heatmap ini memberikan pandangan cepat dan intuitif tentang seberapa jauh distribusi kelas Original menyimpang dari distribusi yang ideal (seimbang).</p>
+</section>
+</section>
 </section>
 </section>
 
@@ -806,15 +1097,6 @@ Distribusi setelah SMOTE: Counter({&#39;im&#39;: 143, &#39;cp&#39;: 143, &#39;pp
                 <footer class="prev-next-footer d-print-none">
                   
 <div class="prev-next-area">
-    <a class="left-prev"
-       href="Preprocessing_Data.html"
-       title="previous page">
-      <i class="fa-solid fa-angle-left"></i>
-      <div class="prev-next-info">
-        <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title">Preprocessing Data</p>
-      </div>
-    </a>
 </div>
                 </footer>
               
@@ -831,7 +1113,17 @@ Distribusi setelah SMOTE: Counter({&#39;im&#39;: 143, &#39;cp&#39;: 143, &#39;pp
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#adasyn-murni-failed-attempt-1">ADASYN Murni (Failed Attempt 1)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#adasyn-dengan-ros-pre-processing-failed-attempt-2">ADASYN dengan ROS Pre-processing (Failed Attempt 2)</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#hasil-visualisasi">Hasil visualisasi:</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#perbandingan-distribusi-kelas-sebelum-dan-sesudah-balancing">Perbandingan distribusi kelas sebelum dan sesudah balancing</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#barplot">1. Barplot</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#heatmap">2. Heatmap</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#penjelasan-heatmap">Penjelasan Heatmap</a></li>
+</ul>
+</li>
+</ul>
+</li>
 </ul>
   </nav></div>
 

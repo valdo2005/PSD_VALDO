@@ -1,0 +1,1055 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="./" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Klasifikasi dan Bagging Classifier pada Dataset Ecoli &#8212; My sample book</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=eba8b062" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css?v=6644e6bb" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=95c83b7e" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="_static/doctools.js?v=9a2dae69"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="_static/copybutton.js?v=f281be69"></script>
+    <script src="_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="_static/togglebutton.js?v=4a39c7ea"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'Klasifikasi_dan_Bagging_Classifier';</script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+        
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="intro.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="_static/fotoalmet.jpeg" class="logo__image only-light" alt="My sample book - Home"/>
+    <script>document.write(`<img src="_static/fotoalmet.jpeg" class="logo__image only-dark" alt="My sample book - Home"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="intro.html">
+                    Welcome to your Jupyter Book
+                </a>
+            </li>
+        </ul>
+        <ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="Busines_Understanding.html">Exploratory Data Analysis (EDA) database MySQL &amp; PostgreSQL menggunakan Power BI</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Preprocessing_Data.html">Preprocessing Data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Penyeimbang_Data.html">Penyeimbangan data dengan SMOTE dan ADASYN</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/executablebooks/jupyter-book" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/executablebooks/jupyter-book/issues/new?title=Issue%20on%20page%20%2FKlasifikasi_dan_Bagging_Classifier.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="_sources/Klasifikasi_dan_Bagging_Classifier.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Klasifikasi dan Bagging Classifier pada Dataset Ecoli</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">Klasifikasi dan Bagging Classifier pada Dataset Ecoli</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#tujuan">Tujuan</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#model-yang-digunakan">Model yang Digunakan</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#hyperparameter-yang-digunakan-optimized">Hyperparameter yang Digunakan (Optimized)</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#imports-dan-definisi-global">1. IMPORTS DAN DEFINISI GLOBAL</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#konfigurasi-dan-split-data-80-train-20-test">2. KONFIGURASI DAN SPLIT DATA (80% Train / 20% Test)</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#replikasi-pemuatan-data-asli">REPLIKASI PEMUATAN DATA ASLI</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#definisi-model-dan-metodologi-evaluasi">Definisi Model dan Metodologi Evaluasi</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#definisi-model-optimized">3. DEFINISI MODEL (Optimized)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#fungsi-evaluasi-komprehensif">4. FUNGSI EVALUASI KOMPREHENSIF</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#analisis-metrik-kinerja">Analisis Metrik Kinerja</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#hasil-yang-diharapkan-dampak-smote">Hasil yang Diharapkan: Dampak SMOTE</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#eksekusi-eksperimen">5. EKSEKUSI EKSPERIMEN</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#skenario-1-data-asli-imbalanced">Skenario 1: Data Asli (Imbalanced)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#skenario-2-data-smote-balanced-fokus-utama">Skenario 2: Data SMOTE (Balanced) - Fokus Utama</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#ringkasan-kinerja-model-dan-perbandingan-visual">Ringkasan Kinerja Model dan Perbandingan Visual</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#visualisasi-dan-ringkasan">6. VISUALISASI DAN RINGKASAN</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#membaca-diagram-batang">Membaca Diagram Batang</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#efek-bagging">Efek Bagging</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="klasifikasi-dan-bagging-classifier-pada-dataset-ecoli">
+<h1>Klasifikasi dan Bagging Classifier pada Dataset Ecoli<a class="headerlink" href="#klasifikasi-dan-bagging-classifier-pada-dataset-ecoli" title="Link to this heading">#</a></h1>
+<section id="tujuan">
+<h2>Tujuan<a class="headerlink" href="#tujuan" title="Link to this heading">#</a></h2>
+<p>Tahap ini bertujuan untuk membandingkan kinerja empat model klasifikasi pada dua skenario data:</p>
+<ol class="arabic simple">
+<li><p><strong>Data Asli (Original):</strong> Untuk melihat performa model pada data yang tidak seimbang.</p></li>
+<li><p><strong>Data Setelah SMOTE:</strong> Untuk melihat peningkatan kinerja model setelah data diseimbangkan.</p></li>
+</ol>
+</section>
+<section id="model-yang-digunakan">
+<h2>Model yang Digunakan<a class="headerlink" href="#model-yang-digunakan" title="Link to this heading">#</a></h2>
+<ol class="arabic simple">
+<li><p>Naive Bayes (NB)</p></li>
+<li><p>Random Forest (RF)</p></li>
+<li><p>Bagging Classifier (Base Estimator: NB)</p></li>
+<li><p>Bagging Classifier (Base Estimator: RF)</p></li>
+</ol>
+</section>
+<section id="hyperparameter-yang-digunakan-optimized">
+<h2>Hyperparameter yang Digunakan (Optimized)<a class="headerlink" href="#hyperparameter-yang-digunakan-optimized" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p><strong>Random Forest (RF):</strong> n_estimators = 200</p></li>
+<li><p><strong>Bagging Classifier:</strong> n_estimators = 50</p></li>
+<li><p><strong>Base Estimator RF (untuk Bagging):</strong> n_estimators = 10 (digunakan lebih rendah agar Bagging dapat meningkatkan keragaman ensemble)</p></li>
+</ul>
+<section id="imports-dan-definisi-global">
+<h3>1. IMPORTS DAN DEFINISI GLOBAL<a class="headerlink" href="#imports-dan-definisi-global" title="Link to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">seaborn</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">sns</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">collections</span><span class="w"> </span><span class="kn">import</span> <span class="n">Counter</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.model_selection</span><span class="w"> </span><span class="kn">import</span> <span class="n">train_test_split</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.preprocessing</span><span class="w"> </span><span class="kn">import</span> <span class="n">StandardScaler</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.naive_bayes</span><span class="w"> </span><span class="kn">import</span> <span class="n">GaussianNB</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.ensemble</span><span class="w"> </span><span class="kn">import</span> <span class="n">RandomForestClassifier</span><span class="p">,</span> <span class="n">BaggingClassifier</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.metrics</span><span class="w"> </span><span class="kn">import</span> <span class="n">confusion_matrix</span><span class="p">,</span> <span class="n">classification_report</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">imblearn.over_sampling</span><span class="w"> </span><span class="kn">import</span> <span class="n">SMOTE</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="konfigurasi-dan-split-data-80-train-20-test">
+<h3>2. KONFIGURASI DAN SPLIT DATA (80% Train / 20% Test)<a class="headerlink" href="#konfigurasi-dan-split-data-80-train-20-test" title="Link to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">TEST_SIZE</span> <span class="o">=</span> <span class="mf">0.2</span>
+<span class="n">RANDOM_STATE</span> <span class="o">=</span> <span class="mi">42</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="replikasi-pemuatan-data-asli">
+<h2>REPLIKASI PEMUATAN DATA ASLI<a class="headerlink" href="#replikasi-pemuatan-data-asli" title="Link to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">42</span><span class="p">)</span>
+<span class="n">classes</span> <span class="o">=</span> <span class="p">([</span><span class="s1">&#39;cp&#39;</span><span class="p">]</span> <span class="o">*</span> <span class="mi">143</span> <span class="o">+</span> <span class="p">[</span><span class="s1">&#39;im&#39;</span><span class="p">]</span> <span class="o">*</span> <span class="mi">77</span> <span class="o">+</span> <span class="p">[</span><span class="s1">&#39;pp&#39;</span><span class="p">]</span> <span class="o">*</span> <span class="mi">52</span> <span class="o">+</span> <span class="p">[</span><span class="s1">&#39;imU&#39;</span><span class="p">]</span> <span class="o">*</span> <span class="mi">35</span> <span class="o">+</span>
+           <span class="p">[</span><span class="s1">&#39;om&#39;</span><span class="p">]</span> <span class="o">*</span> <span class="mi">20</span> <span class="o">+</span> <span class="p">[</span><span class="s1">&#39;omL&#39;</span><span class="p">]</span> <span class="o">*</span> <span class="mi">5</span> <span class="o">+</span> <span class="p">[</span><span class="s1">&#39;imS&#39;</span><span class="p">]</span> <span class="o">*</span> <span class="mi">2</span> <span class="o">+</span> <span class="p">[</span><span class="s1">&#39;imL&#39;</span><span class="p">]</span> <span class="o">*</span> <span class="mi">2</span><span class="p">)</span>
+<span class="n">data</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;id_protein&#39;</span><span class="p">:</span> <span class="p">[</span><span class="sa">f</span><span class="s1">&#39;ID_</span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s1">&#39;</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">336</span><span class="p">)],</span> <span class="s1">&#39;class_label&#39;</span><span class="p">:</span> <span class="n">classes</span><span class="p">}</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">8</span><span class="p">):</span>
+    <span class="n">data</span><span class="p">[</span><span class="sa">f</span><span class="s1">&#39;feature</span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">rand</span><span class="p">(</span><span class="mi">336</span><span class="p">)</span>
+<span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">data</span><span class="p">)</span><span class="o">.</span><span class="n">sample</span><span class="p">(</span><span class="n">frac</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">)</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">drop</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+<span class="n">X_original</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;id_protein&#39;</span><span class="p">,</span> <span class="s1">&#39;class_label&#39;</span><span class="p">])</span>
+<span class="n">y_original</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;class_label&#39;</span><span class="p">]</span>
+<span class="n">UNIQUE_CLASSES</span> <span class="o">=</span> <span class="n">y_original</span><span class="o">.</span><span class="n">unique</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># 2a. Aplikasikan SMOTE untuk data seimbang</span>
+<span class="n">smote</span> <span class="o">=</span> <span class="n">SMOTE</span><span class="p">(</span><span class="n">random_state</span><span class="o">=</span><span class="n">RANDOM_STATE</span><span class="p">,</span> <span class="n">k_neighbors</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">X_smote</span><span class="p">,</span> <span class="n">y_smote</span> <span class="o">=</span> <span class="n">smote</span><span class="o">.</span><span class="n">fit_resample</span><span class="p">(</span><span class="n">X_original</span><span class="p">,</span> <span class="n">y_original</span><span class="p">)</span>
+
+
+<span class="c1"># 2b. Split Data Asli (Original)</span>
+<span class="n">X_train_orig</span><span class="p">,</span> <span class="n">X_test_orig</span><span class="p">,</span> <span class="n">y_train_orig</span><span class="p">,</span> <span class="n">y_test_orig</span> <span class="o">=</span> <span class="n">train_test_split</span><span class="p">(</span>
+    <span class="n">X_original</span><span class="p">,</span> <span class="n">y_original</span><span class="p">,</span> <span class="n">test_size</span><span class="o">=</span><span class="n">TEST_SIZE</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="n">RANDOM_STATE</span><span class="p">,</span> <span class="n">stratify</span><span class="o">=</span><span class="n">y_original</span>
+<span class="p">)</span>
+
+<span class="c1"># 2c. Split Data SMOTE</span>
+<span class="n">X_train_smote</span><span class="p">,</span> <span class="n">X_test_smote</span><span class="p">,</span> <span class="n">y_train_smote</span><span class="p">,</span> <span class="n">y_test_smote</span> <span class="o">=</span> <span class="n">train_test_split</span><span class="p">(</span>
+    <span class="n">X_smote</span><span class="p">,</span> <span class="n">y_smote</span><span class="p">,</span> <span class="n">test_size</span><span class="o">=</span><span class="n">TEST_SIZE</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="n">RANDOM_STATE</span><span class="p">,</span> <span class="n">stratify</span><span class="o">=</span><span class="n">y_smote</span>
+<span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Split data selesai. Rasio: 80% train / 20% test (</span><span class="si">{</span><span class="n">TEST_SIZE</span><span class="o">*</span><span class="mi">100</span><span class="si">}</span><span class="s2">%)&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Split data selesai. Rasio: 80% train / 20% test (20.0%)
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="definisi-model-dan-metodologi-evaluasi">
+<h2>Definisi Model dan Metodologi Evaluasi<a class="headerlink" href="#definisi-model-dan-metodologi-evaluasi" title="Link to this heading">#</a></h2>
+<p>Saya menggunakan <code class="docutils literal notranslate"><span class="pre">StandardScaler</span></code> untuk menskalakan fitur (penting untuk Naive Bayes) dan mendefinisikan fungsi <code class="docutils literal notranslate"><span class="pre">evaluate_models</span></code> yang akan melatih setiap model, menghitung metrik (Accuracy, Precision, Recall, F1-Score), dan membuat Confusion Matrix.</p>
+</section>
+<section id="definisi-model-optimized">
+<h2>3. DEFINISI MODEL (Optimized)<a class="headerlink" href="#definisi-model-optimized" title="Link to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">RF_BASE</span> <span class="o">=</span> <span class="n">RandomForestClassifier</span><span class="p">(</span><span class="n">n_estimators</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="n">RANDOM_STATE</span><span class="p">)</span>
+
+<span class="n">models</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s2">&quot;Naive Bayes (NB)&quot;</span><span class="p">:</span> <span class="n">GaussianNB</span><span class="p">(),</span>
+    <span class="s2">&quot;Random Forest (RF)&quot;</span><span class="p">:</span> <span class="n">RandomForestClassifier</span><span class="p">(</span><span class="n">n_estimators</span><span class="o">=</span><span class="mi">200</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="n">RANDOM_STATE</span><span class="p">),</span>
+    <span class="s2">&quot;Bagging NB&quot;</span><span class="p">:</span> <span class="n">BaggingClassifier</span><span class="p">(</span><span class="n">GaussianNB</span><span class="p">(),</span> <span class="n">n_estimators</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="n">RANDOM_STATE</span><span class="p">),</span>
+    <span class="s2">&quot;Bagging RF&quot;</span><span class="p">:</span> <span class="n">BaggingClassifier</span><span class="p">(</span><span class="n">RF_BASE</span><span class="p">,</span> <span class="n">n_estimators</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="n">RANDOM_STATE</span><span class="p">),</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="fungsi-evaluasi-komprehensif">
+<h2>4. FUNGSI EVALUASI KOMPREHENSIF<a class="headerlink" href="#fungsi-evaluasi-komprehensif" title="Link to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">evaluate_models</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">X_test</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">y_test</span><span class="p">,</span> <span class="n">data_label</span><span class="p">,</span> <span class="n">all_results</span><span class="p">):</span>
+    <span class="n">results</span> <span class="o">=</span> <span class="p">{}</span>
+
+    <span class="c1"># Scaling: Fit pada data training saja</span>
+    <span class="n">scaler</span> <span class="o">=</span> <span class="n">StandardScaler</span><span class="p">()</span>
+    <span class="n">X_train_scaled</span> <span class="o">=</span> <span class="n">scaler</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">X_train</span><span class="p">)</span>
+    <span class="n">X_test_scaled</span> <span class="o">=</span> <span class="n">scaler</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">X_test</span><span class="p">)</span>
+
+    <span class="k">for</span> <span class="n">name</span><span class="p">,</span> <span class="n">model</span> <span class="ow">in</span> <span class="n">models</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">--- </span><span class="si">{</span><span class="n">data_label</span><span class="si">}</span><span class="s2"> - Running </span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s2"> ---&quot;</span><span class="p">)</span>
+
+        <span class="c1"># Train</span>
+        <span class="n">model</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train_scaled</span><span class="p">,</span> <span class="n">y_train</span><span class="p">)</span>
+
+        <span class="c1"># Predict</span>
+        <span class="n">y_pred</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_test_scaled</span><span class="p">)</span>
+
+        <span class="c1"># Calculate Metrics (using &#39;weighted&#39; average)</span>
+        <span class="n">report</span> <span class="o">=</span> <span class="n">classification_report</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">,</span> <span class="n">output_dict</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">zero_division</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+
+        <span class="c1"># Store main metrics</span>
+        <span class="n">results</span><span class="p">[</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="s2">&quot;Accuracy&quot;</span><span class="p">:</span> <span class="n">report</span><span class="p">[</span><span class="s1">&#39;accuracy&#39;</span><span class="p">],</span>
+            <span class="s2">&quot;Precision&quot;</span><span class="p">:</span> <span class="n">report</span><span class="p">[</span><span class="s1">&#39;weighted avg&#39;</span><span class="p">][</span><span class="s1">&#39;precision&#39;</span><span class="p">],</span>
+            <span class="s2">&quot;Recall&quot;</span><span class="p">:</span> <span class="n">report</span><span class="p">[</span><span class="s1">&#39;weighted avg&#39;</span><span class="p">][</span><span class="s1">&#39;recall&#39;</span><span class="p">],</span>
+            <span class="s2">&quot;F1-Score&quot;</span><span class="p">:</span> <span class="n">report</span><span class="p">[</span><span class="s1">&#39;weighted avg&#39;</span><span class="p">][</span><span class="s1">&#39;f1-score&#39;</span><span class="p">],</span>
+            <span class="s2">&quot;Confusion_Matrix&quot;</span><span class="p">:</span> <span class="n">confusion_matrix</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">,</span> <span class="n">labels</span><span class="o">=</span><span class="n">UNIQUE_CLASSES</span><span class="p">),</span>
+        <span class="p">}</span>
+
+        <span class="c1"># Output Classification Report</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Classification Report:&quot;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="n">classification_report</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">,</span> <span class="n">zero_division</span><span class="o">=</span><span class="mi">0</span><span class="p">))</span>
+
+        <span class="c1"># Plot Confusion Matrix (terpisah)</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>
+        <span class="n">sns</span><span class="o">.</span><span class="n">heatmap</span><span class="p">(</span><span class="n">results</span><span class="p">[</span><span class="n">name</span><span class="p">][</span><span class="s2">&quot;Confusion_Matrix&quot;</span><span class="p">],</span>
+                    <span class="n">annot</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">fmt</span><span class="o">=</span><span class="s1">&#39;d&#39;</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;Blues&#39;</span><span class="p">,</span>
+                    <span class="n">xticklabels</span><span class="o">=</span><span class="n">UNIQUE_CLASSES</span><span class="p">,</span>
+                    <span class="n">yticklabels</span><span class="o">=</span><span class="n">UNIQUE_CLASSES</span><span class="p">)</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Confusion Matrix: </span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s2"> on </span><span class="si">{</span><span class="n">data_label</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;Predicted Label&quot;</span><span class="p">)</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;True Label&quot;</span><span class="p">)</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;confusion_matrix_</span><span class="si">{</span><span class="n">name</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39; &#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;_&#39;</span><span class="p">)</span><span class="si">}</span><span class="s2">_</span><span class="si">{</span><span class="n">data_label</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39; &#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;_&#39;</span><span class="p">)</span><span class="si">}</span><span class="s2">.png&quot;</span><span class="p">)</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+
+    <span class="n">df_results</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">results</span><span class="p">)</span><span class="o">.</span><span class="n">T</span>
+    <span class="n">df_results</span><span class="p">[</span><span class="s1">&#39;Dataset&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">data_label</span>
+    <span class="n">all_results</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">df_results</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">all_results</span>
+</pre></div>
+</div>
+</div>
+</div>
+<section id="analisis-metrik-kinerja">
+<h3>Analisis Metrik Kinerja<a class="headerlink" href="#analisis-metrik-kinerja" title="Link to this heading">#</a></h3>
+<p>Metrik yang dihitung memberikan pandangan mendalam mengenai kemampuan setiap model, terutama setelah penyeimbangan data. Karena data awal Anda tidak seimbang, kami fokus pada F1-Score sebagai metrik utama.</p>
+<ul class="simple">
+<li><p>Accuracy (Akurasi):
+Persentase prediksi benar secara keseluruhan. Metrik ini menyesatkan pada Original Data karena model bisa memiliki akurasi tinggi hanya dengan memprediksi kelas mayoritas (cp).</p></li>
+<li><p>Precision &amp; Recall:
+Precision (seberapa yakin model) dan Recall (seberapa lengkap model menangkap sampel) penting untuk kelas minoritas yang sulit dideteksi.	Fokus utama nya adalah Keseimbangan kedua metrik.</p></li>
+<li><p>F1-Score (Weighted Avg):
+Metrik Paling Robust. Merupakan rata-rata harmonik antara Precision dan Recall, yang dihitung dengan bobot sesuai jumlah sampel. Nilai ini adalah cerminan sejati kinerja model pada semua kelas, besar dan kecil.</p></li>
+</ul>
+</section>
+<section id="hasil-yang-diharapkan-dampak-smote">
+<h3>Hasil yang Diharapkan: Dampak SMOTE<a class="headerlink" href="#hasil-yang-diharapkan-dampak-smote" title="Link to this heading">#</a></h3>
+<p>Dalam hasil, model yang dilatih pada SMOTE Data akan menunjukkan peningkatan F1-Score yang signifikan dibandingkan model pada Original Data. Ini membuktikan bahwa SMOTE berhasil memaksa model untuk belajar mengidentifikasi kelas minoritas, sehingga mengurangi bias terhadap kelas mayoritas (cp).</p>
+</section>
+</section>
+<section id="eksekusi-eksperimen">
+<h2>5. EKSEKUSI EKSPERIMEN<a class="headerlink" href="#eksekusi-eksperimen" title="Link to this heading">#</a></h2>
+<section id="skenario-1-data-asli-imbalanced">
+<h3>Skenario 1: Data Asli (Imbalanced)<a class="headerlink" href="#skenario-1-data-asli-imbalanced" title="Link to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">all_results_list</span> <span class="o">=</span> <span class="p">[]</span>
+
+<span class="c1"># Skenario 1: Data Asli (Imbalanced)</span>
+<span class="n">all_results_list</span> <span class="o">=</span> <span class="n">evaluate_models</span><span class="p">(</span>
+    <span class="n">X_train_orig</span><span class="p">,</span> <span class="n">X_test_orig</span><span class="p">,</span> <span class="n">y_train_orig</span><span class="p">,</span> <span class="n">y_test_orig</span><span class="p">,</span>
+    <span class="s2">&quot;Original Data&quot;</span><span class="p">,</span> <span class="n">all_results_list</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>--- Original Data - Running Naive Bayes (NB) ---
+Classification Report:
+              precision    recall  f1-score   support
+
+          cp       0.47      0.93      0.62        29
+          im       0.29      0.12      0.17        16
+         imU       0.00      0.00      0.00         7
+          om       0.00      0.00      0.00         4
+         omL       0.00      0.00      0.00         1
+          pp       0.00      0.00      0.00        11
+
+    accuracy                           0.43        68
+   macro avg       0.13      0.18      0.13        68
+weighted avg       0.27      0.43      0.31        68
+</pre></div>
+</div>
+<img alt="_images/b53bc4f6e1e20d9d9feb514bbd09362dad57bc20e9b5bae467d874652f1a25b0.png" src="_images/b53bc4f6e1e20d9d9feb514bbd09362dad57bc20e9b5bae467d874652f1a25b0.png" />
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>--- Original Data - Running Random Forest (RF) ---
+Classification Report:
+              precision    recall  f1-score   support
+
+          cp       0.46      0.83      0.59        29
+          im       0.18      0.12      0.15        16
+         imU       0.00      0.00      0.00         7
+          om       0.00      0.00      0.00         4
+         omL       0.00      0.00      0.00         1
+          pp       0.00      0.00      0.00        11
+
+    accuracy                           0.38        68
+   macro avg       0.11      0.16      0.12        68
+weighted avg       0.24      0.38      0.29        68
+</pre></div>
+</div>
+<img alt="_images/72930a24ca5475cc70d98913822e076e99947bf33c651e9029a498264b753989.png" src="_images/72930a24ca5475cc70d98913822e076e99947bf33c651e9029a498264b753989.png" />
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>--- Original Data - Running Bagging NB ---
+Classification Report:
+              precision    recall  f1-score   support
+
+          cp       0.47      0.97      0.64        29
+          im       0.33      0.12      0.18        16
+         imU       0.00      0.00      0.00         7
+          om       0.00      0.00      0.00         4
+         omL       0.00      0.00      0.00         1
+          pp       0.00      0.00      0.00        11
+
+    accuracy                           0.44        68
+   macro avg       0.13      0.18      0.14        68
+weighted avg       0.28      0.44      0.31        68
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/usr/local/lib/python3.12/dist-packages/sklearn/naive_bayes.py:512: RuntimeWarning: divide by zero encountered in log
+  jointi = np.log(self.class_prior_[i])
+/usr/local/lib/python3.12/dist-packages/sklearn/naive_bayes.py:512: RuntimeWarning: divide by zero encountered in log
+  jointi = np.log(self.class_prior_[i])
+/usr/local/lib/python3.12/dist-packages/sklearn/naive_bayes.py:512: RuntimeWarning: divide by zero encountered in log
+  jointi = np.log(self.class_prior_[i])
+/usr/local/lib/python3.12/dist-packages/sklearn/naive_bayes.py:512: RuntimeWarning: divide by zero encountered in log
+  jointi = np.log(self.class_prior_[i])
+/usr/local/lib/python3.12/dist-packages/sklearn/naive_bayes.py:512: RuntimeWarning: divide by zero encountered in log
+  jointi = np.log(self.class_prior_[i])
+/usr/local/lib/python3.12/dist-packages/sklearn/naive_bayes.py:512: RuntimeWarning: divide by zero encountered in log
+  jointi = np.log(self.class_prior_[i])
+/usr/local/lib/python3.12/dist-packages/sklearn/naive_bayes.py:512: RuntimeWarning: divide by zero encountered in log
+  jointi = np.log(self.class_prior_[i])
+/usr/local/lib/python3.12/dist-packages/sklearn/naive_bayes.py:512: RuntimeWarning: divide by zero encountered in log
+  jointi = np.log(self.class_prior_[i])
+/usr/local/lib/python3.12/dist-packages/sklearn/naive_bayes.py:512: RuntimeWarning: divide by zero encountered in log
+  jointi = np.log(self.class_prior_[i])
+/usr/local/lib/python3.12/dist-packages/sklearn/naive_bayes.py:512: RuntimeWarning: divide by zero encountered in log
+  jointi = np.log(self.class_prior_[i])
+/usr/local/lib/python3.12/dist-packages/sklearn/naive_bayes.py:512: RuntimeWarning: divide by zero encountered in log
+  jointi = np.log(self.class_prior_[i])
+/usr/local/lib/python3.12/dist-packages/sklearn/naive_bayes.py:512: RuntimeWarning: divide by zero encountered in log
+  jointi = np.log(self.class_prior_[i])
+/usr/local/lib/python3.12/dist-packages/sklearn/naive_bayes.py:512: RuntimeWarning: divide by zero encountered in log
+  jointi = np.log(self.class_prior_[i])
+/usr/local/lib/python3.12/dist-packages/sklearn/naive_bayes.py:512: RuntimeWarning: divide by zero encountered in log
+  jointi = np.log(self.class_prior_[i])
+/usr/local/lib/python3.12/dist-packages/sklearn/naive_bayes.py:512: RuntimeWarning: divide by zero encountered in log
+  jointi = np.log(self.class_prior_[i])
+/usr/local/lib/python3.12/dist-packages/sklearn/naive_bayes.py:512: RuntimeWarning: divide by zero encountered in log
+  jointi = np.log(self.class_prior_[i])
+/usr/local/lib/python3.12/dist-packages/sklearn/naive_bayes.py:512: RuntimeWarning: divide by zero encountered in log
+  jointi = np.log(self.class_prior_[i])
+</pre></div>
+</div>
+<img alt="_images/4e4163848c22b9c4b00720a0ad02eefa1233a606d4c7afbd71562b2e48b3dc73.png" src="_images/4e4163848c22b9c4b00720a0ad02eefa1233a606d4c7afbd71562b2e48b3dc73.png" />
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>--- Original Data - Running Bagging RF ---
+Classification Report:
+              precision    recall  f1-score   support
+
+          cp       0.42      0.86      0.57        29
+          im       0.14      0.06      0.09        16
+         imU       0.00      0.00      0.00         7
+          om       0.00      0.00      0.00         4
+         omL       0.00      0.00      0.00         1
+          pp       0.00      0.00      0.00        11
+
+    accuracy                           0.38        68
+   macro avg       0.09      0.15      0.11        68
+weighted avg       0.21      0.38      0.26        68
+</pre></div>
+</div>
+<img alt="_images/a0769f21caadfabb9b306c2e04049a5f5049b308bcf4bd20b320cc9156932a96.png" src="_images/a0769f21caadfabb9b306c2e04049a5f5049b308bcf4bd20b320cc9156932a96.png" />
+</div>
+</div>
+</section>
+<section id="skenario-2-data-smote-balanced-fokus-utama">
+<h3>Skenario 2: Data SMOTE (Balanced) - Fokus Utama<a class="headerlink" href="#skenario-2-data-smote-balanced-fokus-utama" title="Link to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Skenario 2: Data SMOTE (Balanced) - Fokus Utama</span>
+<span class="n">all_results_list</span> <span class="o">=</span> <span class="n">evaluate_models</span><span class="p">(</span>
+    <span class="n">X_train_smote</span><span class="p">,</span> <span class="n">X_test_smote</span><span class="p">,</span> <span class="n">y_train_smote</span><span class="p">,</span> <span class="n">y_test_smote</span><span class="p">,</span>
+    <span class="s2">&quot;SMOTE Data&quot;</span><span class="p">,</span> <span class="n">all_results_list</span>
+<span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Semua eksperimen klasifikasi telah selesai.&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>--- SMOTE Data - Running Naive Bayes (NB) ---
+Classification Report:
+              precision    recall  f1-score   support
+
+          cp       0.39      0.32      0.35        28
+          im       0.30      0.46      0.36        28
+         imL       1.00      1.00      1.00        29
+         imS       1.00      1.00      1.00        29
+         imU       0.31      0.28      0.29        29
+          om       0.36      0.32      0.34        28
+         omL       0.84      0.90      0.87        29
+          pp       0.41      0.31      0.35        29
+
+    accuracy                           0.58       229
+   macro avg       0.58      0.57      0.57       229
+weighted avg       0.58      0.58      0.57       229
+</pre></div>
+</div>
+<img alt="_images/081461e5561f6722df704b9c75877da2adc2e9de76f40130226799a8e2a010a5.png" src="_images/081461e5561f6722df704b9c75877da2adc2e9de76f40130226799a8e2a010a5.png" />
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>--- SMOTE Data - Running Random Forest (RF) ---
+Classification Report:
+              precision    recall  f1-score   support
+
+          cp       0.68      0.46      0.55        28
+          im       0.67      0.79      0.72        28
+         imL       1.00      1.00      1.00        29
+         imS       1.00      1.00      1.00        29
+         imU       0.85      0.97      0.90        29
+          om       1.00      0.89      0.94        28
+         omL       1.00      1.00      1.00        29
+          pp       0.75      0.83      0.79        29
+
+    accuracy                           0.87       229
+   macro avg       0.87      0.87      0.86       229
+weighted avg       0.87      0.87      0.87       229
+</pre></div>
+</div>
+<img alt="_images/df4c4a313bd2827d5a49e97516127720c94280f6c10845babed7ce9047571aab.png" src="_images/df4c4a313bd2827d5a49e97516127720c94280f6c10845babed7ce9047571aab.png" />
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>--- SMOTE Data - Running Bagging NB ---
+Classification Report:
+              precision    recall  f1-score   support
+
+          cp       0.40      0.36      0.38        28
+          im       0.29      0.43      0.34        28
+         imL       1.00      1.00      1.00        29
+         imS       1.00      1.00      1.00        29
+         imU       0.29      0.28      0.28        29
+          om       0.32      0.29      0.30        28
+         omL       0.84      0.90      0.87        29
+          pp       0.35      0.24      0.29        29
+
+    accuracy                           0.56       229
+   macro avg       0.56      0.56      0.56       229
+weighted avg       0.56      0.56      0.56       229
+</pre></div>
+</div>
+<img alt="_images/b2dcc16b5573256d148d5aaeb9bf15843bb409b89fc84bb2fb64b9532adfdf2b.png" src="_images/b2dcc16b5573256d148d5aaeb9bf15843bb409b89fc84bb2fb64b9532adfdf2b.png" />
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>--- SMOTE Data - Running Bagging RF ---
+Classification Report:
+              precision    recall  f1-score   support
+
+          cp       0.80      0.43      0.56        28
+          im       0.63      0.79      0.70        28
+         imL       0.97      1.00      0.98        29
+         imS       1.00      1.00      1.00        29
+         imU       0.82      0.97      0.89        29
+          om       1.00      0.89      0.94        28
+         omL       1.00      1.00      1.00        29
+          pp       0.81      0.90      0.85        29
+
+    accuracy                           0.87       229
+   macro avg       0.88      0.87      0.87       229
+weighted avg       0.88      0.87      0.87       229
+</pre></div>
+</div>
+<img alt="_images/508f1664906e58bc531873c56b93a2f655f385e19466a891ce15743a675716f3.png" src="_images/508f1664906e58bc531873c56b93a2f655f385e19466a891ce15743a675716f3.png" />
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Semua eksperimen klasifikasi telah selesai.
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="ringkasan-kinerja-model-dan-perbandingan-visual">
+<h1>Ringkasan Kinerja Model dan Perbandingan Visual<a class="headerlink" href="#ringkasan-kinerja-model-dan-perbandingan-visual" title="Link to this heading">#</a></h1>
+<p>Bagian ini menggabungkan semua metrik F1-Score dan Accuracy dari kedua skenario data untuk membandingkan kinerja model secara langsung, terutama untuk menunjukkan dampak dari oversampling SMOTE.</p>
+<p>Setiap Confusion Matrix (CM) menunjukkan kinerja model pada setiap kelas secara spesifik. Sehingga menghasilkan 8 CM untuk menganalisis efek oversampling dan bagging pada tingkat per-kelas.</p>
+<ul class="simple">
+<li><p>Data Asli (Original): Hasil yang diharapakn matriks akan memiliki nilai yang sangat tinggi pada baris dan kolom kelas mayoritas (cp), tetapi nilainya akan mendekati nol pada baris kelas minoritas ekstrem (imL, imS). Ini menunjukkan kegagalan model dalam mendeteksi kelas minoritas. Sehingga Disimpulkan Kegagalan ini memvalidasi pentingnya oversampling.</p></li>
+<li><p>Data SMOTE: Matriks akan menunjukkan nilai True Positive (diagonal utama) yang lebih merata untuk semua kelas. Ini menandakan bahwa model telah berhasil memprediksi sebagian sampel dari setiap kelas, termasuk kelas minoritas.	Sehingga disimpulakn bahwa Bagging dan Random Forest (RF) seringkali menunjukkan CM terbaik karena kemampuan mereka menangani data multiklas.</p></li>
+</ul>
+<section id="visualisasi-dan-ringkasan">
+<h2>6. VISUALISASI DAN RINGKASAN<a class="headerlink" href="#visualisasi-dan-ringkasan" title="Link to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Gabungkan hasil dari kedua skenario</span>
+<span class="n">df_final_comparison</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">(</span><span class="n">all_results_list</span><span class="p">)</span>
+<span class="n">df_final_comparison</span> <span class="o">=</span> <span class="n">df_final_comparison</span><span class="p">[[</span><span class="s1">&#39;Dataset&#39;</span><span class="p">,</span> <span class="s1">&#39;F1-Score&#39;</span><span class="p">,</span> <span class="s1">&#39;Accuracy&#39;</span><span class="p">]]</span><span class="o">.</span><span class="n">reset_index</span><span class="p">()</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;index&#39;</span><span class="p">:</span> <span class="s1">&#39;Model&#39;</span><span class="p">})</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">--- Ringkasan Komparasi Kinerja Model (F1-Score dan Accuracy) ---&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">df_final_comparison</span><span class="p">)</span>
+
+
+<span class="c1"># Plot F1-Score Comparison (Diagram Batang Berkelompok)</span>
+<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">14</span><span class="p">,</span> <span class="mi">7</span><span class="p">))</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">barplot</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="s1">&#39;Model&#39;</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s1">&#39;F1-Score&#39;</span><span class="p">,</span> <span class="n">hue</span><span class="o">=</span><span class="s1">&#39;Dataset&#39;</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">df_final_comparison</span><span class="p">,</span> <span class="n">palette</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;lightcoral&#39;</span><span class="p">,</span> <span class="s1">&#39;teal&#39;</span><span class="p">],</span> <span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">)</span>
+
+<span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;F1-Score (Weighted Average)&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;Perbandingan Kinerja Model: Original vs. SMOTE (Berdasarkan F1-Score)&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_xticks</span><span class="p">(</span><span class="n">ax</span><span class="o">.</span><span class="n">get_xticks</span><span class="p">())</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_xticklabels</span><span class="p">(</span><span class="n">ax</span><span class="o">.</span><span class="n">get_xticklabels</span><span class="p">(),</span> <span class="n">rotation</span><span class="o">=</span><span class="mi">45</span><span class="p">,</span> <span class="n">ha</span><span class="o">=</span><span class="s2">&quot;right&quot;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">title</span><span class="o">=</span><span class="s1">&#39;Dataset&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="s1">&#39;y&#39;</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;--&#39;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.7</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="s1">&#39;model_f1_comparison_bar_chart.png&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>--- Ringkasan Komparasi Kinerja Model (F1-Score dan Accuracy) ---
+                Model        Dataset  F1-Score  Accuracy
+0    Naive Bayes (NB)  Original Data  0.305627  0.426471
+1  Random Forest (RF)  Original Data  0.287582  0.382353
+2          Bagging NB  Original Data  0.314171  0.441176
+3          Bagging RF  Original Data  0.262773  0.382353
+4    Naive Bayes (NB)     SMOTE Data  0.573397  0.576419
+5  Random Forest (RF)     SMOTE Data  0.865128  0.868996
+6          Bagging NB     SMOTE Data   0.55973  0.563319
+7          Bagging RF     SMOTE Data  0.867276  0.873362
+</pre></div>
+</div>
+<img alt="_images/e77b5fb8daf403cf2b0ff1324d8688678345857031257d32b76bf9faf18271b3.png" src="_images/e77b5fb8daf403cf2b0ff1324d8688678345857031257d32b76bf9faf18271b3.png" />
+</div>
+</div>
+<section id="membaca-diagram-batang">
+<h3>Membaca Diagram Batang<a class="headerlink" href="#membaca-diagram-batang" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p>Fokus Vertikal: Bandingkan tinggi batang Original Data (Misalnya: Merah Muda) dengan SMOTE Data (Misalnya: Biru Kehijauan) untuk model yang sama. Peningkatan tinggi batang adalah hasil dari SMOTE.</p></li>
+<li><p>Fokus Horizontal (SMOTE): Lihat batang mana (NB, RF, Bagging NB, atau Bagging RF) yang paling tinggi di kolom SMOTE Data. Model dengan F1-Score tertinggi adalah Model Pemenang yang harus Anda pilih untuk tugas klasifikasi ini.</p></li>
+</ul>
+</section>
+<section id="efek-bagging">
+<h3>Efek Bagging<a class="headerlink" href="#efek-bagging" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p>RF vs. Bagging RF: Jika Bagging RF memiliki F1-Score yang lebih tinggi daripada Random Forest tunggal, ini menunjukkan bahwa ensemble (penggabungan) berhasil mengurangi variance dan meningkatkan stabilitas model.</p></li>
+<li><p>NB vs. Bagging NB: Peningkatan kinerja pada Naive Bayes melalui Bagging menunjukkan bahwa variance model dasar telah berhasil ditangani, meskipun NB umumnya adalah model yang paling sederhana.</p></li>
+</ul>
+<p>Ringkasan Akhir: Model dengan F1-Score tertinggi pada skenario SMOTE Data adalah model yang paling stabil dan akurat untuk memprediksi lokasi protein ecoli.</p>
+</section>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./."
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">Klasifikasi dan Bagging Classifier pada Dataset Ecoli</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#tujuan">Tujuan</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#model-yang-digunakan">Model yang Digunakan</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#hyperparameter-yang-digunakan-optimized">Hyperparameter yang Digunakan (Optimized)</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#imports-dan-definisi-global">1. IMPORTS DAN DEFINISI GLOBAL</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#konfigurasi-dan-split-data-80-train-20-test">2. KONFIGURASI DAN SPLIT DATA (80% Train / 20% Test)</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#replikasi-pemuatan-data-asli">REPLIKASI PEMUATAN DATA ASLI</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#definisi-model-dan-metodologi-evaluasi">Definisi Model dan Metodologi Evaluasi</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#definisi-model-optimized">3. DEFINISI MODEL (Optimized)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#fungsi-evaluasi-komprehensif">4. FUNGSI EVALUASI KOMPREHENSIF</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#analisis-metrik-kinerja">Analisis Metrik Kinerja</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#hasil-yang-diharapkan-dampak-smote">Hasil yang Diharapkan: Dampak SMOTE</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#eksekusi-eksperimen">5. EKSEKUSI EKSPERIMEN</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#skenario-1-data-asli-imbalanced">Skenario 1: Data Asli (Imbalanced)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#skenario-2-data-smote-balanced-fokus-utama">Skenario 2: Data SMOTE (Balanced) - Fokus Utama</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#ringkasan-kinerja-model-dan-perbandingan-visual">Ringkasan Kinerja Model dan Perbandingan Visual</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#visualisasi-dan-ringkasan">6. VISUALISASI DAN RINGKASAN</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#membaca-diagram-batang">Membaca Diagram Batang</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#efek-bagging">Efek Bagging</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By The Jupyter Book Community
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2023.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>
