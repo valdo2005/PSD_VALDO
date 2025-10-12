@@ -7,4 +7,5 @@ chapters:
 - file: Busines_Understanding.ipynb
 - file: Preprocessing_Data.ipynb
 - file: Penyeimbang_Data (1).ipynb
-- file: Klasifikasi dan Bagging Classifier.ipynb
+- file: Klasifikasi_dan_Bagging_Classifier.ipynb
+- file: KNIME.ipynb
