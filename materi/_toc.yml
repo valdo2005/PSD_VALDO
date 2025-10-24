@@ -9,3 +9,9 @@ chapters:
 - file: Penyeimbang_Data (1).ipynb
 - file: Klasifikasi_dan_Bagging_Classifier.ipynb
 - file: KNIME.ipynb
+  sections:
+    - file: BusinessUnderstanding_NO2.ipynb
+- file: BusinessUnderstanding_NO2.ipynb
+- file: Data_Understanding_NO2.ipynb
+- file: Preprocessing_NO2.ipynb
+- file: Modeling_NO2.ipynb
