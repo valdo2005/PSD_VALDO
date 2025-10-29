@@ -3,14 +3,42 @@
 
 format: jb-book
 root: intro
-chapters:
-- file: Busines_Understanding.ipynb
-- file: Preprocessing_Data.ipynb
-- file: Penyeimbang_Data (1).ipynb
-- file: Klasifikasi_dan_Bagging_Classifier.ipynb
-- file: KNIME.ipynb
-- file: BusinessUnderstanding_NO2.ipynb
-- file: Data_Understanding_NO2.ipynb
-- file: Preprocessing_NO2.ipynb
-- file: Modeling_NO2.ipynb
+
+parts:
+- caption: Business Understanding
+  chapters:
+    - file: Busines_Understanding.ipynb
+      title: Business Understanding Iris
+    - file: BusinessUnderstanding_NO2.ipynb
+      title: Business Understanding NO2 Pematangsiantar
+
+- caption: Data Understanding 
+  chapters: 
+    - file: Data_Understanding_NO2.ipynb
+      title: Data Understanding NO2 Pematangsiantar
+
+- caption: Preprocessing Data
+  chapters:
+    - file: Preprocessing_Data.ipynb
+      title: Preprocessing Data Iris
+    - file: Preprocessing_NO2.ipynb
+      title: Preprocessing Data NO2 Pematangsiantar
+
+- caption: Modeling Data
+  chapters:
+    - file: Penyeimbang_Data (1).ipynb
+      title: Penyeimbang Data SMOTE
+    - file: Klasifikasi_dan_Bagging_Classifier.ipynb
+      title: Klasifikasi Ecoli
+    - file: Modeling_NO2.ipynb
+      title: Modeling Data NO2 Pematangsiantar
+
+- caption: Dokumentasi KNIME
+  chapters:
+    - file: KNIME.ipynb
+      title: KNIME
+
+
+
+
 
