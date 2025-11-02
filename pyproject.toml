@@ -16,7 +16,8 @@ dependencies = [
     "plotly (>=6.3.0,<7.0.0)",
     "ghp-import (>=2.1.0,<3.0.0)",
     "vega-datasets (>=0.9.0,<0.10.0)",
-    "streamlit"
+    "streamlit",
+    "joblib"
 ]
 
 
