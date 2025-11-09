@@ -38,7 +38,10 @@ parts:
     - file: KNIME.ipynb
       title: KNIME
 
-
+- caption: Identifikasi Suara Buka/Tutup
+  chapters:
+    - file: data-understanding.ipynb
+      title: Identifikasi Suara Buka/ Tutup
 
 
 
