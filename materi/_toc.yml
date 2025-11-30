@@ -43,5 +43,9 @@ parts:
     - file: data-understanding.ipynb
       title: Identifikasi Suara Buka/ Tutup
 
+- caption: DTW (Dynamic Time Warping)
+  chapters:
+    - file: jarak_DTW.ipynb
+      title: Menghitung Jarak Menggunakan DTW 
 
 
