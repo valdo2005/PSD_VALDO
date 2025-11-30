@@ -1,0 +1,864 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="./" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Menghitung jarak antara data lama(buka tutup) masing masing 100 data dengan data baru 1 data menggunakan Dynamic Time Warping &#8212; My sample book</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=eba8b062" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css?v=6644e6bb" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=95c83b7e" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="_static/doctools.js?v=9a2dae69"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="_static/copybutton.js?v=f281be69"></script>
+    <script src="_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="_static/togglebutton.js?v=4a39c7ea"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'jarak_DTW';</script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+        
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="intro.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="_static/fotoalmet.jpeg" class="logo__image only-light" alt="My sample book - Home"/>
+    <script>document.write(`<img src="_static/fotoalmet.jpeg" class="logo__image only-dark" alt="My sample book - Home"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="intro.html">
+                    Welcome to your Jupyter Book
+                </a>
+            </li>
+        </ul>
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Business Understanding</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="Busines_Understanding.html">Business Understanding Iris</a></li>
+<li class="toctree-l1"><a class="reference internal" href="BusinessUnderstanding_NO2.html">Business Understanding NO2 Pematangsiantar</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Data Understanding</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="Data_Understanding_NO2.html">Data Understanding NO2 Pematangsiantar</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Preprocessing Data</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="Preprocessing_Data.html">Preprocessing Data Iris</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Preprocessing_NO2.html">Preprocessing Data NO2 Pematangsiantar</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Modeling Data</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="Penyeimbang_Data%20%281%29.html">Penyeimbang Data SMOTE</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Klasifikasi_dan_Bagging_Classifier.html">Klasifikasi dan Bagging Classifier pada Dataset Ecoli</a></li>
+
+<li class="toctree-l1"><a class="reference internal" href="Modeling_NO2.html">Modeling Data NO2 Pematangsiantar</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Dokumentasi KNIME</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="KNIME.html">KNIME</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Identifikasi Suara Buka/Tutup</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="data-understanding.html">Identifikasi Suara Buka/ Tutup</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/executablebooks/jupyter-book" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/executablebooks/jupyter-book/issues/new?title=Issue%20on%20page%20%2Fjarak_DTW.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="_sources/jarak_DTW.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Menghitung jarak antara data lama(buka tutup) masing masing 100 data dengan data baru 1 data menggunakan Dynamic Time Warping</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#install-library">Install library</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#import-library">Import library</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#config">CONFIG</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#util-ekstraksi-mfcc-robust">UTIL: ekstraksi MFCC robust</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#load-dataset-buka-tutup">LOAD DATASET (buka + tutup)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#fungsi-hitung-jarak-dtw-multidim">Fungsi hitung jarak DTW (multidim)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#fungsi-evaluasi-untuk-1-rekaman-input">Fungsi evaluasi untuk 1 rekaman input</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#jalankan-percobaan-buka">Jalankan Percobaan Buka</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#jalankan-percobaan-tutup">Jalankan Percobaan Tutup</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#ringkasan-akhir">Ringkasan akhir</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="menghitung-jarak-antara-data-lama-buka-tutup-masing-masing-100-data-dengan-data-baru-1-data-menggunakan-dynamic-time-warping">
+<h1>Menghitung jarak antara data lama(buka tutup) masing masing 100 data dengan data baru 1 data menggunakan Dynamic Time Warping<a class="headerlink" href="#menghitung-jarak-antara-data-lama-buka-tutup-masing-masing-100-data-dengan-data-baru-1-data-menggunakan-dynamic-time-warping" title="Link to this heading">#</a></h1>
+<section id="install-library">
+<h2>Install library<a class="headerlink" href="#install-library" title="Link to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">!</span>pip<span class="w"> </span>install<span class="w"> </span>dtaidistance<span class="w"> </span>librosa<span class="w"> </span>numpy<span class="w"> </span>tqdm
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Collecting dtaidistance
+  Downloading dtaidistance-2.3.13-cp310-cp310-win_amd64.whl.metadata (13 kB)
+Requirement already satisfied: librosa in c:\users\rypaldho ridotua h\anaconda3\envs\proyek_sains_data\lib\site-packages (0.11.0)
+Requirement already satisfied: numpy in c:\users\rypaldho ridotua h\anaconda3\envs\proyek_sains_data\lib\site-packages (1.26.4)
+Requirement already satisfied: tqdm in c:\users\rypaldho ridotua h\anaconda3\envs\proyek_sains_data\lib\site-packages (4.67.1)
+Requirement already satisfied: audioread&gt;=2.1.9 in c:\users\rypaldho ridotua h\anaconda3\envs\proyek_sains_data\lib\site-packages (from librosa) (3.1.0)
+Requirement already satisfied: numba&gt;=0.51.0 in c:\users\rypaldho ridotua h\anaconda3\envs\proyek_sains_data\lib\site-packages (from librosa) (0.62.1)
+Requirement already satisfied: scipy&gt;=1.6.0 in c:\users\rypaldho ridotua h\anaconda3\envs\proyek_sains_data\lib\site-packages (from librosa) (1.11.4)
+Requirement already satisfied: scikit-learn&gt;=1.1.0 in c:\users\rypaldho ridotua h\anaconda3\envs\proyek_sains_data\lib\site-packages (from librosa) (1.4.2)
+Requirement already satisfied: joblib&gt;=1.0 in c:\users\rypaldho ridotua h\anaconda3\envs\proyek_sains_data\lib\site-packages (from librosa) (1.3.2)
+Requirement already satisfied: decorator&gt;=4.3.0 in c:\users\rypaldho ridotua h\anaconda3\envs\proyek_sains_data\lib\site-packages (from librosa) (5.2.1)
+Requirement already satisfied: soundfile&gt;=0.12.1 in c:\users\rypaldho ridotua h\anaconda3\envs\proyek_sains_data\lib\site-packages (from librosa) (0.13.1)
+Requirement already satisfied: pooch&gt;=1.1 in c:\users\rypaldho ridotua h\anaconda3\envs\proyek_sains_data\lib\site-packages (from librosa) (1.8.2)
+Requirement already satisfied: soxr&gt;=0.3.2 in c:\users\rypaldho ridotua h\anaconda3\envs\proyek_sains_data\lib\site-packages (from librosa) (1.0.0)
+Requirement already satisfied: typing_extensions&gt;=4.1.1 in c:\users\rypaldho ridotua h\anaconda3\envs\proyek_sains_data\lib\site-packages (from librosa) (4.15.0)
+Requirement already satisfied: lazy_loader&gt;=0.1 in c:\users\rypaldho ridotua h\anaconda3\envs\proyek_sains_data\lib\site-packages (from librosa) (0.4)
+Requirement already satisfied: msgpack&gt;=1.0 in c:\users\rypaldho ridotua h\anaconda3\envs\proyek_sains_data\lib\site-packages (from librosa) (1.1.2)
+Requirement already satisfied: colorama in c:\users\rypaldho ridotua h\anaconda3\envs\proyek_sains_data\lib\site-packages (from tqdm) (0.4.6)
+Requirement already satisfied: packaging in c:\users\rypaldho ridotua h\anaconda3\envs\proyek_sains_data\lib\site-packages (from lazy_loader&gt;=0.1-&gt;librosa) (25.0)
+Requirement already satisfied: llvmlite&lt;0.46,&gt;=0.45.0dev0 in c:\users\rypaldho ridotua h\anaconda3\envs\proyek_sains_data\lib\site-packages (from numba&gt;=0.51.0-&gt;librosa) (0.45.1)
+Requirement already satisfied: platformdirs&gt;=2.5.0 in c:\users\rypaldho ridotua h\anaconda3\envs\proyek_sains_data\lib\site-packages (from pooch&gt;=1.1-&gt;librosa) (4.4.0)
+Requirement already satisfied: requests&gt;=2.19.0 in c:\users\rypaldho ridotua h\anaconda3\envs\proyek_sains_data\lib\site-packages (from pooch&gt;=1.1-&gt;librosa) (2.32.5)
+Requirement already satisfied: charset_normalizer&lt;4,&gt;=2 in c:\users\rypaldho ridotua h\anaconda3\envs\proyek_sains_data\lib\site-packages (from requests&gt;=2.19.0-&gt;pooch&gt;=1.1-&gt;librosa) (3.4.3)
+Requirement already satisfied: idna&lt;4,&gt;=2.5 in c:\users\rypaldho ridotua h\anaconda3\envs\proyek_sains_data\lib\site-packages (from requests&gt;=2.19.0-&gt;pooch&gt;=1.1-&gt;librosa) (3.10)
+Requirement already satisfied: urllib3&lt;3,&gt;=1.21.1 in c:\users\rypaldho ridotua h\anaconda3\envs\proyek_sains_data\lib\site-packages (from requests&gt;=2.19.0-&gt;pooch&gt;=1.1-&gt;librosa) (2.5.0)
+Requirement already satisfied: certifi&gt;=2017.4.17 in c:\users\rypaldho ridotua h\anaconda3\envs\proyek_sains_data\lib\site-packages (from requests&gt;=2.19.0-&gt;pooch&gt;=1.1-&gt;librosa) (2025.8.3)
+Requirement already satisfied: threadpoolctl&gt;=2.0.0 in c:\users\rypaldho ridotua h\anaconda3\envs\proyek_sains_data\lib\site-packages (from scikit-learn&gt;=1.1.0-&gt;librosa) (3.6.0)
+Requirement already satisfied: cffi&gt;=1.0 in c:\users\rypaldho ridotua h\anaconda3\envs\proyek_sains_data\lib\site-packages (from soundfile&gt;=0.12.1-&gt;librosa) (2.0.0)
+Requirement already satisfied: pycparser in c:\users\rypaldho ridotua h\anaconda3\envs\proyek_sains_data\lib\site-packages (from cffi&gt;=1.0-&gt;soundfile&gt;=0.12.1-&gt;librosa) (2.23)
+Downloading dtaidistance-2.3.13-cp310-cp310-win_amd64.whl (1.0 MB)
+   ---------------------------------------- 0.0/1.0 MB ? eta -:--:--
+   ------------------------------ --------- 0.8/1.0 MB 8.5 MB/s eta 0:00:01
+   ---------------------------------------- 1.0/1.0 MB 7.1 MB/s  0:00:00
+Installing collected packages: dtaidistance
+Successfully installed dtaidistance-2.3.13
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="import-library">
+<h2>Import library<a class="headerlink" href="#import-library" title="Link to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">librosa</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">dtaidistance</span><span class="w"> </span><span class="kn">import</span> <span class="n">dtw_ndim</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">tqdm</span><span class="w"> </span><span class="kn">import</span> <span class="n">tqdm</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="config">
+<h2>CONFIG<a class="headerlink" href="#config" title="Link to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">DATASET_DIR</span> <span class="o">=</span> <span class="s2">&quot;Gabungan_Suara&quot;</span>   <span class="c1"># folder utama</span>
+<span class="n">REKAMAN_BUKA</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">DATASET_DIR</span><span class="p">,</span> <span class="s2">&quot;rekaman_baru(buka).wav&quot;</span><span class="p">)</span>
+<span class="n">REKAMAN_TUTUP</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">DATASET_DIR</span><span class="p">,</span> <span class="s2">&quot;rekaman_baru(tutup).wav&quot;</span><span class="p">)</span>
+<span class="n">N_MFCC</span> <span class="o">=</span> <span class="mi">20</span>
+<span class="n">ADD_DELTAS</span> <span class="o">=</span> <span class="kc">True</span>     <span class="c1"># tambahkan delta dan delta-delta</span>
+<span class="n">EPS</span> <span class="o">=</span> <span class="mf">1e-9</span>            <span class="c1"># untuk stabilitas pembagian</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="util-ekstraksi-mfcc-robust">
+<h2>UTIL: ekstraksi MFCC robust<a class="headerlink" href="#util-ekstraksi-mfcc-robust" title="Link to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">load_and_mfcc</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="n">n_mfcc</span><span class="o">=</span><span class="n">N_MFCC</span><span class="p">,</span> <span class="n">trim_silence</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">add_deltas</span><span class="o">=</span><span class="n">ADD_DELTAS</span><span class="p">):</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">y</span><span class="p">,</span> <span class="n">sr</span> <span class="o">=</span> <span class="n">librosa</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="n">sr</span><span class="o">=</span><span class="mi">22050</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">trim_silence</span><span class="p">:</span>
+            <span class="n">y</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">librosa</span><span class="o">.</span><span class="n">effects</span><span class="o">.</span><span class="n">trim</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="n">top_db</span><span class="o">=</span><span class="mi">25</span><span class="p">)</span>  <span class="c1"># pangkas silence depan/akhir</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">y</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mi">160</span><span class="p">:</span>  <span class="c1"># terlalu pendek, kemungkinan error</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Audio terlalu pendek setelah trim.&quot;</span><span class="p">)</span>
+        <span class="c1"># normalisasi amplitudo sebelum MFCC</span>
+        <span class="n">y</span> <span class="o">=</span> <span class="n">librosa</span><span class="o">.</span><span class="n">util</span><span class="o">.</span><span class="n">normalize</span><span class="p">(</span><span class="n">y</span><span class="p">)</span>
+        <span class="n">mfcc</span> <span class="o">=</span> <span class="n">librosa</span><span class="o">.</span><span class="n">feature</span><span class="o">.</span><span class="n">mfcc</span><span class="p">(</span><span class="n">y</span><span class="o">=</span><span class="n">y</span><span class="p">,</span> <span class="n">sr</span><span class="o">=</span><span class="n">sr</span><span class="p">,</span> <span class="n">n_mfcc</span><span class="o">=</span><span class="n">n_mfcc</span><span class="p">)</span>  <span class="c1"># shape: (n_mfcc, t)</span>
+        <span class="n">feats</span> <span class="o">=</span> <span class="n">mfcc</span>
+        <span class="k">if</span> <span class="n">add_deltas</span><span class="p">:</span>
+            <span class="n">delta</span> <span class="o">=</span> <span class="n">librosa</span><span class="o">.</span><span class="n">feature</span><span class="o">.</span><span class="n">delta</span><span class="p">(</span><span class="n">mfcc</span><span class="p">)</span>
+            <span class="n">delta2</span> <span class="o">=</span> <span class="n">librosa</span><span class="o">.</span><span class="n">feature</span><span class="o">.</span><span class="n">delta</span><span class="p">(</span><span class="n">mfcc</span><span class="p">,</span> <span class="n">order</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+            <span class="n">feats</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">vstack</span><span class="p">([</span><span class="n">mfcc</span><span class="p">,</span> <span class="n">delta</span><span class="p">,</span> <span class="n">delta2</span><span class="p">])</span>  <span class="c1"># shape: (n_feats, t)</span>
+        <span class="c1"># transpose ke shape (time, features)</span>
+        <span class="n">feats</span> <span class="o">=</span> <span class="n">feats</span><span class="o">.</span><span class="n">T</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">float64</span><span class="p">)</span>
+        <span class="c1"># CMVN per-file: zero mean, unit var per coefficient (along time axis)</span>
+        <span class="n">mean</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">feats</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+        <span class="n">std</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">std</span><span class="p">(</span><span class="n">feats</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+        <span class="n">std_adj</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">std</span> <span class="o">&lt;</span> <span class="n">EPS</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">,</span> <span class="n">std</span><span class="p">)</span>
+        <span class="n">feats</span> <span class="o">=</span> <span class="p">(</span><span class="n">feats</span> <span class="o">-</span> <span class="n">mean</span><span class="p">)</span> <span class="o">/</span> <span class="n">std_adj</span>
+        <span class="k">return</span> <span class="n">feats</span>
+    <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;[ERROR] load_and_mfcc(&#39;</span><span class="si">{</span><span class="n">path</span><span class="si">}</span><span class="s2">&#39;) -&gt; </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="kc">None</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="load-dataset-buka-tutup">
+<h2>LOAD DATASET (buka + tutup)<a class="headerlink" href="#load-dataset-buka-tutup" title="Link to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">data_mfcc</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="n">labels</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="n">file_paths</span> <span class="o">=</span> <span class="p">[]</span>
+
+<span class="k">for</span> <span class="n">lbl</span> <span class="ow">in</span> <span class="p">[</span><span class="s2">&quot;buka&quot;</span><span class="p">,</span> <span class="s2">&quot;tutup&quot;</span><span class="p">]:</span>
+    <span class="n">folder</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">DATASET_DIR</span><span class="p">,</span> <span class="n">lbl</span><span class="p">)</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">folder</span><span class="p">):</span>
+        <span class="k">raise</span> <span class="ne">FileNotFoundError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Folder tidak ditemukan: </span><span class="si">{</span><span class="n">folder</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">fname</span> <span class="ow">in</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">listdir</span><span class="p">(</span><span class="n">folder</span><span class="p">)):</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="p">(</span><span class="n">fname</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s2">&quot;.wav&quot;</span><span class="p">)</span> <span class="ow">or</span> <span class="n">fname</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s2">&quot;.mp3&quot;</span><span class="p">)):</span>
+            <span class="k">continue</span>
+        <span class="n">fpath</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">folder</span><span class="p">,</span> <span class="n">fname</span><span class="p">)</span>
+        <span class="n">feats</span> <span class="o">=</span> <span class="n">load_and_mfcc</span><span class="p">(</span><span class="n">fpath</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">feats</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">data_mfcc</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">feats</span><span class="p">)</span>
+            <span class="n">labels</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">lbl</span><span class="p">)</span>
+            <span class="n">file_paths</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">fpath</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Loaded </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">data_mfcc</span><span class="p">)</span><span class="si">}</span><span class="s2"> files: buka=</span><span class="si">{</span><span class="n">labels</span><span class="o">.</span><span class="n">count</span><span class="p">(</span><span class="s1">&#39;buka&#39;</span><span class="p">)</span><span class="si">}</span><span class="s2"> tutup=</span><span class="si">{</span><span class="n">labels</span><span class="o">.</span><span class="n">count</span><span class="p">(</span><span class="s1">&#39;tutup&#39;</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+<span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">data_mfcc</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+    <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span><span class="s2">&quot;Tidak ada file audio yang berhasil dimuat.&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Loaded 100 files: buka=50 tutup=50
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="fungsi-hitung-jarak-dtw-multidim">
+<h2>Fungsi hitung jarak DTW (multidim)<a class="headerlink" href="#fungsi-hitung-jarak-dtw-multidim" title="Link to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">dtw_distance</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">):</span>
+    <span class="c1"># dtaidistance.dtw_ndim.distance expects arrays shape (time, dim)</span>
+    <span class="k">return</span> <span class="nb">float</span><span class="p">(</span><span class="n">dtw_ndim</span><span class="o">.</span><span class="n">distance</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="fungsi-evaluasi-untuk-1-rekaman-input">
+<h2>Fungsi evaluasi untuk 1 rekaman input<a class="headerlink" href="#fungsi-evaluasi-untuk-1-rekaman-input" title="Link to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">evaluate_input</span><span class="p">(</span><span class="n">input_path</span><span class="p">,</span> <span class="n">show_top_k</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">save_csv</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">--- Evaluasi:&quot;</span><span class="p">,</span> <span class="n">input_path</span><span class="p">)</span>
+    <span class="n">inp</span> <span class="o">=</span> <span class="n">load_and_mfcc</span><span class="p">(</span><span class="n">input_path</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">inp</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Gagal ekstrak input.&quot;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="kc">None</span>
+
+    <span class="n">distances</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">feats</span><span class="p">,</span> <span class="n">lbl</span><span class="p">,</span> <span class="n">fpath</span> <span class="ow">in</span> <span class="n">tqdm</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="n">data_mfcc</span><span class="p">,</span> <span class="n">labels</span><span class="p">,</span> <span class="n">file_paths</span><span class="p">),</span> <span class="n">total</span><span class="o">=</span><span class="nb">len</span><span class="p">(</span><span class="n">labels</span><span class="p">),</span> <span class="n">desc</span><span class="o">=</span><span class="s2">&quot;Computing DTW&quot;</span><span class="p">):</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">d</span> <span class="o">=</span> <span class="n">dtw_distance</span><span class="p">(</span><span class="n">inp</span><span class="p">,</span> <span class="n">feats</span><span class="p">)</span>
+        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;[WARN] DTW failed for </span><span class="si">{</span><span class="n">fpath</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+            <span class="n">d</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">inf</span>
+        <span class="n">distances</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">fpath</span><span class="p">,</span> <span class="n">lbl</span><span class="p">,</span> <span class="n">d</span><span class="p">))</span>
+
+    <span class="c1"># DataFrame hasil</span>
+    <span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">distances</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;file&quot;</span><span class="p">,</span> <span class="s2">&quot;label&quot;</span><span class="p">,</span> <span class="s2">&quot;distance&quot;</span><span class="p">])</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="s2">&quot;distance&quot;</span><span class="p">)</span>
+    <span class="c1"># ringkasan per-kelas</span>
+    <span class="n">summary</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s2">&quot;label&quot;</span><span class="p">)[</span><span class="s2">&quot;distance&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">agg</span><span class="p">([</span><span class="s2">&quot;min&quot;</span><span class="p">,</span> <span class="s2">&quot;mean&quot;</span><span class="p">,</span> <span class="s2">&quot;median&quot;</span><span class="p">,</span> <span class="s2">&quot;count&quot;</span><span class="p">])</span><span class="o">.</span><span class="n">reset_index</span><span class="p">()</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Ringkasan per-kelas:&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">summary</span><span class="o">.</span><span class="n">to_string</span><span class="p">(</span><span class="n">index</span><span class="o">=</span><span class="kc">False</span><span class="p">))</span>
+
+    <span class="c1"># keputusan 1-NN (min overall) dan keputusan rata-rata (mean per class)</span>
+    <span class="n">best_overall</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="n">mean_per_class</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s2">&quot;label&quot;</span><span class="p">)[</span><span class="s2">&quot;distance&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
+    <span class="n">class_by_mean</span> <span class="o">=</span> <span class="n">mean_per_class</span><span class="o">.</span><span class="n">idxmin</span><span class="p">()</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Top&quot;</span><span class="p">,</span> <span class="n">show_top_k</span><span class="p">,</span> <span class="s2">&quot;terdekat:&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="n">show_top_k</span><span class="p">)</span><span class="o">.</span><span class="n">to_string</span><span class="p">(</span><span class="n">index</span><span class="o">=</span><span class="kc">False</span><span class="p">))</span>
+
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Keputusan berdasarkan MIN (1-NN):&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot; -&gt; file paling dekat: </span><span class="si">{</span><span class="n">best_overall</span><span class="p">[</span><span class="s1">&#39;file&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2"> (label=</span><span class="si">{</span><span class="n">best_overall</span><span class="p">[</span><span class="s1">&#39;label&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2">, dist=</span><span class="si">{</span><span class="n">best_overall</span><span class="p">[</span><span class="s1">&#39;distance&#39;</span><span class="p">]</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2">)&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Keputusan berdasarkan MEAN (rata-rata jarak ke tiap kelas):&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot; -&gt; kelas terdekat (mean): </span><span class="si">{</span><span class="n">class_by_mean</span><span class="si">}</span><span class="s2"> (mean_dist=</span><span class="si">{</span><span class="n">mean_per_class</span><span class="p">[</span><span class="n">class_by_mean</span><span class="p">]</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2">)&quot;</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">save_csv</span><span class="p">:</span>
+        <span class="n">df</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="n">save_csv</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Hasil tersimpan ke </span><span class="si">{</span><span class="n">save_csv</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="p">{</span><span class="s2">&quot;df&quot;</span><span class="p">:</span> <span class="n">df</span><span class="p">,</span> <span class="s2">&quot;summary&quot;</span><span class="p">:</span> <span class="n">summary</span><span class="p">,</span> <span class="s2">&quot;min_decision&quot;</span><span class="p">:</span> <span class="n">best_overall</span><span class="p">[</span><span class="s2">&quot;label&quot;</span><span class="p">],</span> <span class="s2">&quot;mean_decision&quot;</span><span class="p">:</span> <span class="n">class_by_mean</span><span class="p">}</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="jalankan-percobaan-buka">
+<h2>Jalankan Percobaan Buka<a class="headerlink" href="#jalankan-percobaan-buka" title="Link to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">res_buka</span> <span class="o">=</span> <span class="n">evaluate_input</span><span class="p">(</span><span class="n">REKAMAN_BUKA</span><span class="p">,</span> <span class="n">show_top_k</span><span class="o">=</span><span class="mi">8</span><span class="p">,</span> <span class="n">save_csv</span><span class="o">=</span><span class="s2">&quot;hasil_rekaman_buka.csv&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>--- Evaluasi: Gabungan_Suara\rekaman_baru(buka).wav
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Computing DTW:   0%|          | 0/100 [00:00&lt;?, ?it/s]
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Computing DTW: 100%|██████████| 100/100 [00:05&lt;00:00, 19.35it/s]
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Ringkasan per-kelas:
+label       min      mean    median  count
+ buka 79.777685 87.424583 86.820579     50
+tutup 89.545736 92.713914 91.530195     50
+
+Top 8 terdekat:
+                                file label  distance
+Gabungan_Suara\buka\buka3 copy 2.wav  buka 79.777685
+Gabungan_Suara\buka\buka3 copy 4.wav  buka 79.777685
+Gabungan_Suara\buka\buka3 copy 5.wav  buka 79.777685
+Gabungan_Suara\buka\buka3 copy 6.wav  buka 79.777685
+Gabungan_Suara\buka\buka3 copy 7.wav  buka 79.777685
+Gabungan_Suara\buka\buka3 copy 8.wav  buka 79.777685
+Gabungan_Suara\buka\buka3 copy 9.wav  buka 79.777685
+  Gabungan_Suara\buka\buka3 copy.wav  buka 79.777685
+
+Keputusan berdasarkan MIN (1-NN):
+ -&gt; file paling dekat: Gabungan_Suara\buka\buka3 copy 2.wav (label=buka, dist=79.778)
+Keputusan berdasarkan MEAN (rata-rata jarak ke tiap kelas):
+ -&gt; kelas terdekat (mean): buka (mean_dist=87.425)
+Hasil tersimpan ke hasil_rekaman_buka.csv
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="jalankan-percobaan-tutup">
+<h2>Jalankan Percobaan Tutup<a class="headerlink" href="#jalankan-percobaan-tutup" title="Link to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">res_tutup</span> <span class="o">=</span> <span class="n">evaluate_input</span><span class="p">(</span><span class="n">REKAMAN_TUTUP</span><span class="p">,</span> <span class="n">show_top_k</span><span class="o">=</span><span class="mi">8</span><span class="p">,</span> <span class="n">save_csv</span><span class="o">=</span><span class="s2">&quot;hasil_rekaman_tutup.csv&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>--- Evaluasi: Gabungan_Suara\rekaman_baru(tutup).wav
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Computing DTW: 100%|██████████| 100/100 [00:04&lt;00:00, 21.58it/s]
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Ringkasan per-kelas:
+label       min      mean    median  count
+ buka 85.718540 90.101152 87.057281     50
+tutup 84.721909 88.202942 87.336748     50
+
+Top 8 terdekat:
+                                  file label  distance
+Gabungan_Suara\tutup\tutup3 copy 2.wav tutup 84.721909
+Gabungan_Suara\tutup\tutup3 copy 3.wav tutup 84.721909
+Gabungan_Suara\tutup\tutup3 copy 4.wav tutup 84.721909
+Gabungan_Suara\tutup\tutup3 copy 5.wav tutup 84.721909
+Gabungan_Suara\tutup\tutup3 copy 6.wav tutup 84.721909
+Gabungan_Suara\tutup\tutup3 copy 7.wav tutup 84.721909
+Gabungan_Suara\tutup\tutup3 copy 8.wav tutup 84.721909
+Gabungan_Suara\tutup\tutup3 copy 9.wav tutup 84.721909
+
+Keputusan berdasarkan MIN (1-NN):
+ -&gt; file paling dekat: Gabungan_Suara\tutup\tutup3 copy 2.wav (label=tutup, dist=84.722)
+Keputusan berdasarkan MEAN (rata-rata jarak ke tiap kelas):
+ -&gt; kelas terdekat (mean): tutup (mean_dist=88.203)
+Hasil tersimpan ke hasil_rekaman_tutup.csv
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="ringkasan-akhir">
+<h2>Ringkasan akhir<a class="headerlink" href="#ringkasan-akhir" title="Link to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Ringkasan akhir</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">=== RINGKASAN AKHIR ===&quot;</span><span class="p">)</span>
+<span class="k">if</span> <span class="n">res_buka</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;rekaman_baru(buka).wav -&gt; MIN:&quot;</span><span class="p">,</span> <span class="n">res_buka</span><span class="p">[</span><span class="s2">&quot;min_decision&quot;</span><span class="p">],</span> <span class="s2">&quot;| MEAN:&quot;</span><span class="p">,</span> <span class="n">res_buka</span><span class="p">[</span><span class="s2">&quot;mean_decision&quot;</span><span class="p">])</span>
+<span class="k">if</span> <span class="n">res_tutup</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;rekaman_baru(tutup).wav -&gt; MIN:&quot;</span><span class="p">,</span> <span class="n">res_tutup</span><span class="p">[</span><span class="s2">&quot;min_decision&quot;</span><span class="p">],</span> <span class="s2">&quot;| MEAN:&quot;</span><span class="p">,</span> <span class="n">res_tutup</span><span class="p">[</span><span class="s2">&quot;mean_decision&quot;</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>=== RINGKASAN AKHIR ===
+rekaman_baru(buka).wav -&gt; MIN: buka | MEAN: buka
+rekaman_baru(tutup).wav -&gt; MIN: tutup | MEAN: tutup
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./."
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#install-library">Install library</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#import-library">Import library</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#config">CONFIG</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#util-ekstraksi-mfcc-robust">UTIL: ekstraksi MFCC robust</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#load-dataset-buka-tutup">LOAD DATASET (buka + tutup)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#fungsi-hitung-jarak-dtw-multidim">Fungsi hitung jarak DTW (multidim)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#fungsi-evaluasi-untuk-1-rekaman-input">Fungsi evaluasi untuk 1 rekaman input</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#jalankan-percobaan-buka">Jalankan Percobaan Buka</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#jalankan-percobaan-tutup">Jalankan Percobaan Tutup</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#ringkasan-akhir">Ringkasan akhir</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By The Jupyter Book Community
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2023.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>
