@@ -100,18 +100,28 @@ def load_models():
 def load_test_data():
     """Load test dataset for demo"""
     try:
-        # --- PERBAIKAN PATH ---
-        current_dir = Path(__file__).parent
-        data_dir = current_dir / 'ECGFiveDays'
-        # ----------------------
+        # 1. Cari tahu alamat lengkap script ini ada di mana
+        current_dir = Path(__file__).parent.absolute()
+        
+        # 2. Tentukan alamat lengkap file data
+        # Karena folder ECGFiveDays ada di sebelah script, kita gabungkan path-nya
+        file_path = current_dir / 'ECGFiveDays' / 'ECGFiveDays_TEST.txt'
+        
+        # 3. DEBUG: Cek apakah file benar-benar ada
+        if not file_path.exists():
+            st.error(f"❌ File TIDAK DITEMUKAN!")
+            st.error(f"Python mencari di sini: {file_path}")
+            st.info("Pastikan folder 'ECGFiveDays' ada tepat di sebelah file .py ini.")
+            return None, None
 
-        data = np.loadtxt(data_dir / 'ECGFiveDays_TEST.txt')
+        # 4. Load data jika file ketemu
+        data = np.loadtxt(file_path)
         y = (data[:, 0] - 1).astype(int)  # Convert to [0, 1]
         X = data[:, 1:]
         return X, y
 
-    except Exception as e: # <--- PASTIKAN ADA EXCEPT JUGA DI SINI
-        st.warning(f"Could not load test data: {e}")
+    except Exception as e:
+        st.error(f"❌ Error detail: {e}")
         return None, None
 
 @st.cache_data
