@@ -48,4 +48,17 @@ parts:
     - file: jarak_DTW.ipynb
       title: Menghitung Jarak Menggunakan DTW 
 
+- caption: Proyek UAS ECGFiveDays
+  chaapters:
+    - file: BU.ipynb
+      title: Business Understanding ECGFiveDays
+    - file: EDA.ipynb
+      title: Data Understanding ECGFiveDays
+    - file: preprocesing.ipynb
+      title: Preprocessing Data ECGFiveDays
+    - file: modeling.ipynb
+      title: Modeling ECGFiveDays
+    - file: ECGdeploy.ipynb
+      title: Code Deploy
+   
 
