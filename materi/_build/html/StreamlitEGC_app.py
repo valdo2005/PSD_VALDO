@@ -71,32 +71,31 @@ st.markdown("""
 @st.cache_resource
 def load_models():
     """Load all trained models"""
-    models_dir = Path('models')
+    # --- KODE BARU (Ubah bagian ini) ---
+    # Mengambil lokasi absolut di mana file .py ini berada
+    current_dir = Path(__file__).parent
+    
+    # Menunjuk ke folder models yang ada di sebelah file .py
+    models_dir = current_dir / 'models' 
+    # -----------------------------------
     
     models = {}
     try:
-        # Load KNN Euclidean
+        # Load KNN Euclidean (gunakan models_dir yang baru)
         with open(models_dir / 'knn_euclidean.pkl', 'rb') as f:
             models['1-NN Euclidean'] = pickle.load(f)
-        
-        # Load XGBoost
-        with open(models_dir / 'xgboost.pkl', 'rb') as f:
-            models['XGBoost'] = pickle.load(f)
-        
-        # Load metadata
-        with open(models_dir / 'classical_models_metadata.json', 'r') as f:
-            metadata = json.load(f)
-        
-        return models, metadata
-    except Exception as e:
-        st.error(f"Error loading models: {e}")
-        return None, None
+            
+        # ... (kode selanjutnya sama, pastikan tetap pakai variable models_dir) ...
 
 @st.cache_resource
 def load_test_data():
     """Load test dataset for demo"""
     try:
-        data_dir = Path('ECGFiveDays')
+        # --- KODE BARU (Ubah bagian ini) ---
+        current_dir = Path(__file__).parent
+        data_dir = current_dir / 'ECGFiveDays'
+        # -----------------------------------
+        
         data = np.loadtxt(data_dir / 'ECGFiveDays_TEST.txt')
         y = (data[:, 0] - 1).astype(int)  # Convert to [0, 1]
         X = data[:, 1:]
