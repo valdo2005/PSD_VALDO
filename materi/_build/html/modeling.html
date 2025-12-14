@@ -1,0 +1,2015 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="./" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Classical Models - ECGFiveDays &#8212; My sample book</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=eba8b062" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css?v=6644e6bb" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=95c83b7e" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="_static/doctools.js?v=9a2dae69"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="_static/copybutton.js?v=f281be69"></script>
+    <script src="_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="_static/togglebutton.js?v=4a39c7ea"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'modeling';</script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+        
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="intro.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="_static/fotoalmet.jpeg" class="logo__image only-light" alt="My sample book - Home"/>
+    <script>document.write(`<img src="_static/fotoalmet.jpeg" class="logo__image only-dark" alt="My sample book - Home"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="intro.html">
+                    Welcome to your Jupyter Book
+                </a>
+            </li>
+        </ul>
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Business Understanding</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="Busines_Understanding.html">Business Understanding Iris</a></li>
+<li class="toctree-l1"><a class="reference internal" href="BusinessUnderstanding_NO2.html">Business Understanding NO2 Pematangsiantar</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Data Understanding</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="Data_Understanding_NO2.html">Data Understanding NO2 Pematangsiantar</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Preprocessing Data</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="Preprocessing_Data.html">Preprocessing Data Iris</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Preprocessing_NO2.html">Preprocessing Data NO2 Pematangsiantar</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Modeling Data</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="Penyeimbang_Data%20%281%29.html">Penyeimbang Data SMOTE</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Klasifikasi_dan_Bagging_Classifier.html">Klasifikasi dan Bagging Classifier pada Dataset Ecoli</a></li>
+
+<li class="toctree-l1"><a class="reference internal" href="Modeling_NO2.html">Modeling Data NO2 Pematangsiantar</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Dokumentasi KNIME</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="KNIME.html">KNIME</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Identifikasi Suara Buka/Tutup</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="data-understanding.html">Identifikasi Suara Buka/ Tutup</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">DTW (Dynamic Time Warping)</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="jarak_DTW.html">Menghitung Jarak Menggunakan DTW</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/executablebooks/jupyter-book" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/executablebooks/jupyter-book/issues/new?title=Issue%20on%20page%20%2Fmodeling.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="_sources/modeling.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Classical Models - ECGFiveDays</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#installation-commands">Installation Commands</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#setup-imports">1. Setup &amp; Imports</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#load-preprocessed-data">2. Load Preprocessed Data</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#helper-functions-for-evaluation">3. Helper Functions for Evaluation</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#feature-engineering-for-feature-based-models">4. Feature Engineering (for Feature-based Models)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#model-training-evaluation">5. Model Training &amp; Evaluation</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#model-1-baseline-1-nn-euclidean-distance">Model 1: Baseline - 1-NN Euclidean Distance</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#model-2-baseline-1-nn-dtw">Model 2: Baseline - 1-NN DTW</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#model-3-random-forest-with-grid-search">Model 3: Random Forest with Grid Search</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#model-4-xgboost-with-grid-search">Model 4: XGBoost with Grid Search</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#model-5-svm-with-grid-search">Model 5: SVM with Grid Search</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#model-comparison">6. Model Comparison</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#save-models">9. Save Models</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#summary-insights">10. Summary &amp; Insights</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="classical-models-ecgfivedays">
+<h1>Classical Models - ECGFiveDays<a class="headerlink" href="#classical-models-ecgfivedays" title="Link to this heading">#</a></h1>
+<section id="installation-commands">
+<h2>Installation Commands<a class="headerlink" href="#installation-commands" title="Link to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">pip</span> <span class="n">install</span> <span class="n">numpy</span> <span class="n">pandas</span> <span class="n">matplotlib</span> <span class="n">seaborn</span> <span class="n">scikit</span><span class="o">-</span><span class="n">learn</span> <span class="n">xgboost</span> <span class="n">tslearn</span> <span class="n">sktime</span> <span class="n">numba</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Requirement already satisfied: numpy in c:\users\rypaldho ridotua h\anaconda3\envs\proyek_sains_data\lib\site-packages (1.26.4)Note: you may need to restart the kernel to use updated packages.
+
+Requirement already satisfied: pandas in c:\users\rypaldho ridotua h\anaconda3\envs\proyek_sains_data\lib\site-packages (2.1.4)
+Requirement already satisfied: matplotlib in c:\users\rypaldho ridotua h\anaconda3\envs\proyek_sains_data\lib\site-packages (3.7.5)
+Requirement already satisfied: seaborn in c:\users\rypaldho ridotua h\anaconda3\envs\proyek_sains_data\lib\site-packages (0.13.2)
+Requirement already satisfied: scikit-learn in c:\users\rypaldho ridotua h\anaconda3\envs\proyek_sains_data\lib\site-packages (1.4.2)
+Collecting xgboost
+  Downloading xgboost-3.1.2-py3-none-win_amd64.whl.metadata (2.1 kB)
+Requirement already satisfied: tslearn in c:\users\rypaldho ridotua h\anaconda3\envs\proyek_sains_data\lib\site-packages (0.7.0)
+Requirement already satisfied: sktime in c:\users\rypaldho ridotua h\anaconda3\envs\proyek_sains_data\lib\site-packages (0.26.0)
+Requirement already satisfied: numba in c:\users\rypaldho ridotua h\anaconda3\envs\proyek_sains_data\lib\site-packages (0.61.2)
+Requirement already satisfied: python-dateutil&gt;=2.8.2 in c:\users\rypaldho ridotua h\anaconda3\envs\proyek_sains_data\lib\site-packages (from pandas) (2.9.0.post0)
+Requirement already satisfied: pytz&gt;=2020.1 in c:\users\rypaldho ridotua h\anaconda3\envs\proyek_sains_data\lib\site-packages (from pandas) (2025.2)
+Requirement already satisfied: tzdata&gt;=2022.1 in c:\users\rypaldho ridotua h\anaconda3\envs\proyek_sains_data\lib\site-packages (from pandas) (2025.2)
+Requirement already satisfied: contourpy&gt;=1.0.1 in c:\users\rypaldho ridotua h\anaconda3\envs\proyek_sains_data\lib\site-packages (from matplotlib) (1.3.2)
+Requirement already satisfied: cycler&gt;=0.10 in c:\users\rypaldho ridotua h\anaconda3\envs\proyek_sains_data\lib\site-packages (from matplotlib) (0.12.1)
+Requirement already satisfied: fonttools&gt;=4.22.0 in c:\users\rypaldho ridotua h\anaconda3\envs\proyek_sains_data\lib\site-packages (from matplotlib) (4.59.2)
+Requirement already satisfied: kiwisolver&gt;=1.0.1 in c:\users\rypaldho ridotua h\anaconda3\envs\proyek_sains_data\lib\site-packages (from matplotlib) (1.4.9)
+Requirement already satisfied: packaging&gt;=20.0 in c:\users\rypaldho ridotua h\anaconda3\envs\proyek_sains_data\lib\site-packages (from matplotlib) (25.0)
+Requirement already satisfied: pillow&gt;=6.2.0 in c:\users\rypaldho ridotua h\anaconda3\envs\proyek_sains_data\lib\site-packages (from matplotlib) (11.3.0)
+Requirement already satisfied: pyparsing&gt;=2.3.1 in c:\users\rypaldho ridotua h\anaconda3\envs\proyek_sains_data\lib\site-packages (from matplotlib) (3.2.4)
+Requirement already satisfied: scipy&gt;=1.6.0 in c:\users\rypaldho ridotua h\anaconda3\envs\proyek_sains_data\lib\site-packages (from scikit-learn) (1.11.4)
+Requirement already satisfied: joblib&gt;=1.2.0 in c:\users\rypaldho ridotua h\anaconda3\envs\proyek_sains_data\lib\site-packages (from scikit-learn) (1.3.2)
+Requirement already satisfied: threadpoolctl&gt;=2.0.0 in c:\users\rypaldho ridotua h\anaconda3\envs\proyek_sains_data\lib\site-packages (from scikit-learn) (3.6.0)
+Requirement already satisfied: scikit-base&lt;0.8.0 in c:\users\rypaldho ridotua h\anaconda3\envs\proyek_sains_data\lib\site-packages (from sktime) (0.7.8)
+Requirement already satisfied: llvmlite&lt;0.45,&gt;=0.44.0dev0 in c:\users\rypaldho ridotua h\anaconda3\envs\proyek_sains_data\lib\site-packages (from numba) (0.44.0)
+Requirement already satisfied: six&gt;=1.5 in c:\users\rypaldho ridotua h\anaconda3\envs\proyek_sains_data\lib\site-packages (from python-dateutil&gt;=2.8.2-&gt;pandas) (1.17.0)
+Downloading xgboost-3.1.2-py3-none-win_amd64.whl (72.0 MB)
+   ---------------------------------------- 0.0/72.0 MB ? eta -:--:--
+   ---------------------------------------- 0.0/72.0 MB ? eta -:--:--
+   ---------------------------------------- 0.0/72.0 MB ? eta -:--:--
+   ---------------------------------------- 0.3/72.0 MB ? eta -:--:--
+   ---------------------------------------- 0.3/72.0 MB ? eta -:--:--
+   ---------------------------------------- 0.3/72.0 MB ? eta -:--:--
+   ---------------------------------------- 0.3/72.0 MB ? eta -:--:--
+   ---------------------------------------- 0.3/72.0 MB ? eta -:--:--
+   ---------------------------------------- 0.3/72.0 MB ? eta -:--:--
+   ---------------------------------------- 0.5/72.0 MB 186.4 kB/s eta 0:06:24
+   ---------------------------------------- 0.5/72.0 MB 186.4 kB/s eta 0:06:24
+   ---------------------------------------- 0.8/72.0 MB 302.4 kB/s eta 0:03:56
+    --------------------------------------- 1.0/72.0 MB 396.4 kB/s eta 0:02:59
+    --------------------------------------- 1.0/72.0 MB 396.4 kB/s eta 0:02:59
+    --------------------------------------- 1.0/72.0 MB 396.4 kB/s eta 0:02:59
+    --------------------------------------- 1.0/72.0 MB 396.4 kB/s eta 0:02:59
+    --------------------------------------- 1.0/72.0 MB 396.4 kB/s eta 0:02:59
+    --------------------------------------- 1.0/72.0 MB 396.4 kB/s eta 0:02:59
+    --------------------------------------- 1.0/72.0 MB 396.4 kB/s eta 0:02:59
+    --------------------------------------- 1.0/72.0 MB 396.4 kB/s eta 0:02:59
+    --------------------------------------- 1.0/72.0 MB 396.4 kB/s eta 0:02:59
+    --------------------------------------- 1.0/72.0 MB 396.4 kB/s eta 0:02:59
+    --------------------------------------- 1.3/72.0 MB 248.6 kB/s eta 0:04:45
+    --------------------------------------- 1.3/72.0 MB 248.6 kB/s eta 0:04:45
+    --------------------------------------- 1.3/72.0 MB 248.6 kB/s eta 0:04:45
+    --------------------------------------- 1.3/72.0 MB 248.6 kB/s eta 0:04:45
+    --------------------------------------- 1.3/72.0 MB 248.6 kB/s eta 0:04:45
+    --------------------------------------- 1.3/72.0 MB 248.6 kB/s eta 0:04:45
+    --------------------------------------- 1.3/72.0 MB 248.6 kB/s eta 0:04:45
+    --------------------------------------- 1.3/72.0 MB 248.6 kB/s eta 0:04:45
+    --------------------------------------- 1.3/72.0 MB 248.6 kB/s eta 0:04:45
+    --------------------------------------- 1.6/72.0 MB 210.3 kB/s eta 0:05:35
+    --------------------------------------- 1.6/72.0 MB 210.3 kB/s eta 0:05:35
+   - -------------------------------------- 1.8/72.0 MB 238.0 kB/s eta 0:04:55
+   - -------------------------------------- 1.8/72.0 MB 238.0 kB/s eta 0:04:55
+   - -------------------------------------- 1.8/72.0 MB 238.0 kB/s eta 0:04:55
+   - -------------------------------------- 1.8/72.0 MB 238.0 kB/s eta 0:04:55
+   - -------------------------------------- 1.8/72.0 MB 238.0 kB/s eta 0:04:55
+   - -------------------------------------- 2.1/72.0 MB 241.2 kB/s eta 0:04:50
+   - -------------------------------------- 2.1/72.0 MB 241.2 kB/s eta 0:04:50
+   - -------------------------------------- 2.1/72.0 MB 241.2 kB/s eta 0:04:50
+   - -------------------------------------- 2.1/72.0 MB 241.2 kB/s eta 0:04:50
+   - -------------------------------------- 2.1/72.0 MB 241.2 kB/s eta 0:04:50
+   - -------------------------------------- 2.1/72.0 MB 241.2 kB/s eta 0:04:50
+   - -------------------------------------- 2.1/72.0 MB 241.2 kB/s eta 0:04:50
+   - -------------------------------------- 2.1/72.0 MB 241.2 kB/s eta 0:04:50
+   - -------------------------------------- 2.1/72.0 MB 241.2 kB/s eta 0:04:50
+   - -------------------------------------- 2.1/72.0 MB 241.2 kB/s eta 0:04:50
+   - -------------------------------------- 2.4/72.0 MB 215.1 kB/s eta 0:05:24
+   - -------------------------------------- 2.4/72.0 MB 215.1 kB/s eta 0:05:24
+   - -------------------------------------- 2.6/72.0 MB 234.5 kB/s eta 0:04:56
+   - -------------------------------------- 3.1/72.0 MB 277.1 kB/s eta 0:04:09
+   -- ------------------------------------- 3.7/72.0 MB 319.8 kB/s eta 0:03:34
+   -- ------------------------------------- 4.2/72.0 MB 362.1 kB/s eta 0:03:08
+   -- ------------------------------------- 4.7/72.0 MB 403.4 kB/s eta 0:02:47
+   -- ------------------------------------- 5.2/72.0 MB 444.0 kB/s eta 0:02:31
+   --- ------------------------------------ 6.0/72.0 MB 500.8 kB/s eta 0:02:12
+   --- ------------------------------------ 6.6/72.0 MB 536.9 kB/s eta 0:02:02
+   --- ------------------------------------ 6.8/72.0 MB 552.6 kB/s eta 0:01:58
+   --- ------------------------------------ 7.1/72.0 MB 562.9 kB/s eta 0:01:56
+   ---- ----------------------------------- 7.3/72.0 MB 576.3 kB/s eta 0:01:53
+   ---- ----------------------------------- 7.6/72.0 MB 590.2 kB/s eta 0:01:50
+   ---- ----------------------------------- 8.1/72.0 MB 616.8 kB/s eta 0:01:44
+   ---- ----------------------------------- 8.4/72.0 MB 625.1 kB/s eta 0:01:42
+   ---- ----------------------------------- 8.7/72.0 MB 635.4 kB/s eta 0:01:40
+   ---- ----------------------------------- 8.7/72.0 MB 635.4 kB/s eta 0:01:40
+   ---- ----------------------------------- 8.9/72.0 MB 642.3 kB/s eta 0:01:39
+   ---- ----------------------------------- 8.9/72.0 MB 642.3 kB/s eta 0:01:39
+   ----- ---------------------------------- 9.2/72.0 MB 634.5 kB/s eta 0:01:39
+   ----- ---------------------------------- 9.2/72.0 MB 634.5 kB/s eta 0:01:39
+   ----- ---------------------------------- 9.2/72.0 MB 634.5 kB/s eta 0:01:39
+   ----- ---------------------------------- 9.2/72.0 MB 634.5 kB/s eta 0:01:39
+   ----- ---------------------------------- 9.2/72.0 MB 634.5 kB/s eta 0:01:39
+   ----- ---------------------------------- 9.2/72.0 MB 634.5 kB/s eta 0:01:39
+   ----- ---------------------------------- 9.2/72.0 MB 634.5 kB/s eta 0:01:39
+   ----- ---------------------------------- 9.2/72.0 MB 634.5 kB/s eta 0:01:39
+   ----- ---------------------------------- 9.2/72.0 MB 634.5 kB/s eta 0:01:39
+   ----- ---------------------------------- 9.2/72.0 MB 634.5 kB/s eta 0:01:39
+   ----- ---------------------------------- 9.2/72.0 MB 634.5 kB/s eta 0:01:39
+   ----- ---------------------------------- 9.2/72.0 MB 634.5 kB/s eta 0:01:39
+   ----- ---------------------------------- 9.2/72.0 MB 634.5 kB/s eta 0:01:39
+   ----- ---------------------------------- 9.2/72.0 MB 634.5 kB/s eta 0:01:39
+   ----- ---------------------------------- 9.2/72.0 MB 634.5 kB/s eta 0:01:39
+   ----- ---------------------------------- 9.2/72.0 MB 634.5 kB/s eta 0:01:39
+   ----- ---------------------------------- 9.2/72.0 MB 634.5 kB/s eta 0:01:39
+   ----- ---------------------------------- 9.4/72.0 MB 520.6 kB/s eta 0:02:01
+   ----- ---------------------------------- 9.4/72.0 MB 520.6 kB/s eta 0:02:01
+   ----- ---------------------------------- 9.4/72.0 MB 520.6 kB/s eta 0:02:01
+   ----- ---------------------------------- 9.4/72.0 MB 520.6 kB/s eta 0:02:01
+   ----- ---------------------------------- 9.4/72.0 MB 520.6 kB/s eta 0:02:01
+   ----- ---------------------------------- 9.4/72.0 MB 520.6 kB/s eta 0:02:01
+   ----- ---------------------------------- 9.4/72.0 MB 520.6 kB/s eta 0:02:01
+   ----- ---------------------------------- 9.4/72.0 MB 520.6 kB/s eta 0:02:01
+   ----- ---------------------------------- 9.4/72.0 MB 520.6 kB/s eta 0:02:01
+   ----- ---------------------------------- 9.4/72.0 MB 520.6 kB/s eta 0:02:01
+   ----- ---------------------------------- 9.4/72.0 MB 520.6 kB/s eta 0:02:01
+   ----- ---------------------------------- 9.4/72.0 MB 520.6 kB/s eta 0:02:01
+   ----- ---------------------------------- 9.7/72.0 MB 470.8 kB/s eta 0:02:13
+   ----- ---------------------------------- 9.7/72.0 MB 470.8 kB/s eta 0:02:13
+   ----- ---------------------------------- 9.7/72.0 MB 470.8 kB/s eta 0:02:13
+   ----- ---------------------------------- 9.7/72.0 MB 470.8 kB/s eta 0:02:13
+   ----- ---------------------------------- 9.7/72.0 MB 470.8 kB/s eta 0:02:13
+   ----- ---------------------------------- 9.7/72.0 MB 470.8 kB/s eta 0:02:13
+   ----- ---------------------------------- 9.7/72.0 MB 470.8 kB/s eta 0:02:13
+   ----- ---------------------------------- 9.7/72.0 MB 470.8 kB/s eta 0:02:13
+   ----- ---------------------------------- 10.0/72.0 MB 445.9 kB/s eta 0:02:20
+   ----- ---------------------------------- 10.2/72.0 MB 449.6 kB/s eta 0:02:18
+   ----- ---------------------------------- 10.2/72.0 MB 449.6 kB/s eta 0:02:18
+   ----- ---------------------------------- 10.5/72.0 MB 456.3 kB/s eta 0:02:15
+   ----- ---------------------------------- 10.7/72.0 MB 462.8 kB/s eta 0:02:13
+   ------ --------------------------------- 11.0/72.0 MB 470.8 kB/s eta 0:02:10
+   ------ --------------------------------- 11.5/72.0 MB 485.2 kB/s eta 0:02:05
+   ------ --------------------------------- 12.1/72.0 MB 503.7 kB/s eta 0:01:59
+   ------ --------------------------------- 12.6/72.0 MB 520.8 kB/s eta 0:01:55
+   ------- -------------------------------- 12.8/72.0 MB 529.1 kB/s eta 0:01:52
+   ------- -------------------------------- 13.4/72.0 MB 544.7 kB/s eta 0:01:48
+   ------- -------------------------------- 13.6/72.0 MB 551.3 kB/s eta 0:01:46
+   ------- -------------------------------- 13.9/72.0 MB 560.3 kB/s eta 0:01:44
+   -------- ------------------------------- 14.4/72.0 MB 573.8 kB/s eta 0:01:41
+   -------- ------------------------------- 15.2/72.0 MB 600.3 kB/s eta 0:01:35
+   -------- ------------------------------- 15.7/72.0 MB 615.2 kB/s eta 0:01:32
+   --------- ------------------------------ 16.3/72.0 MB 631.7 kB/s eta 0:01:29
+   --------- ------------------------------ 16.8/72.0 MB 647.3 kB/s eta 0:01:26
+   --------- ------------------------------ 17.0/72.0 MB 653.9 kB/s eta 0:01:25
+   --------- ------------------------------ 17.6/72.0 MB 667.9 kB/s eta 0:01:22
+   ---------- ----------------------------- 18.1/72.0 MB 680.3 kB/s eta 0:01:20
+   ---------- ----------------------------- 18.6/72.0 MB 694.5 kB/s eta 0:01:17
+   ---------- ----------------------------- 19.1/72.0 MB 708.9 kB/s eta 0:01:15
+   ---------- ----------------------------- 19.4/72.0 MB 714.6 kB/s eta 0:01:14
+   ---------- ----------------------------- 19.7/72.0 MB 719.7 kB/s eta 0:01:13
+   ----------- ---------------------------- 19.9/72.0 MB 723.6 kB/s eta 0:01:12
+   ----------- ---------------------------- 20.2/72.0 MB 726.1 kB/s eta 0:01:12
+   ----------- ---------------------------- 20.2/72.0 MB 726.1 kB/s eta 0:01:12
+   ----------- ---------------------------- 20.2/72.0 MB 726.1 kB/s eta 0:01:12
+   ----------- ---------------------------- 20.4/72.0 MB 720.1 kB/s eta 0:01:12
+   ----------- ---------------------------- 20.4/72.0 MB 720.1 kB/s eta 0:01:12
+   ----------- ---------------------------- 20.7/72.0 MB 718.3 kB/s eta 0:01:12
+   ----------- ---------------------------- 20.7/72.0 MB 718.3 kB/s eta 0:01:12
+   ----------- ---------------------------- 21.0/72.0 MB 717.6 kB/s eta 0:01:12
+   ----------- ---------------------------- 21.0/72.0 MB 717.6 kB/s eta 0:01:12
+   ----------- ---------------------------- 21.0/72.0 MB 717.6 kB/s eta 0:01:12
+   ----------- ---------------------------- 21.0/72.0 MB 717.6 kB/s eta 0:01:12
+   ----------- ---------------------------- 21.2/72.0 MB 706.0 kB/s eta 0:01:12
+   ----------- ---------------------------- 21.2/72.0 MB 706.0 kB/s eta 0:01:12
+   ----------- ---------------------------- 21.5/72.0 MB 730.6 kB/s eta 0:01:10
+   ------------ --------------------------- 21.8/72.0 MB 735.0 kB/s eta 0:01:09
+   ------------ --------------------------- 22.0/72.0 MB 737.3 kB/s eta 0:01:08
+   ------------ --------------------------- 22.3/72.0 MB 741.5 kB/s eta 0:01:08
+   ------------ --------------------------- 22.8/72.0 MB 752.9 kB/s eta 0:01:06
+   ------------ --------------------------- 22.8/72.0 MB 752.9 kB/s eta 0:01:06
+   ------------ --------------------------- 23.3/72.0 MB 758.6 kB/s eta 0:01:05
+   ------------- -------------------------- 23.9/72.0 MB 769.4 kB/s eta 0:01:03
+   ------------- -------------------------- 24.1/72.0 MB 773.0 kB/s eta 0:01:02
+   ------------- -------------------------- 24.9/72.0 MB 845.0 kB/s eta 0:00:56
+   -------------- ------------------------- 25.4/72.0 MB 858.9 kB/s eta 0:00:55
+   -------------- ------------------------- 26.0/72.0 MB 871.3 kB/s eta 0:00:53
+   -------------- ------------------------- 26.7/72.0 MB 890.2 kB/s eta 0:00:51
+   --------------- ------------------------ 27.3/72.0 MB 902.2 kB/s eta 0:00:50
+   --------------- ------------------------ 27.8/72.0 MB 914.0 kB/s eta 0:00:49
+   --------------- ------------------------ 28.3/72.0 MB 925.6 kB/s eta 0:00:48
+   ---------------- ----------------------- 28.8/72.0 MB 937.5 kB/s eta 0:00:47
+   ---------------- ----------------------- 29.4/72.0 MB 946.8 kB/s eta 0:00:46
+   ---------------- ----------------------- 29.6/72.0 MB 949.6 kB/s eta 0:00:45
+   ---------------- ----------------------- 29.9/72.0 MB 952.9 kB/s eta 0:00:45
+   ---------------- ----------------------- 29.9/72.0 MB 952.9 kB/s eta 0:00:45
+   ---------------- ----------------------- 30.1/72.0 MB 1.0 MB/s eta 0:00:42
+   ----------------- ---------------------- 30.7/72.0 MB 1.0 MB/s eta 0:00:41
+   ----------------- ---------------------- 30.9/72.0 MB 1.0 MB/s eta 0:00:41
+   ----------------- ---------------------- 31.2/72.0 MB 1.0 MB/s eta 0:00:40
+   ----------------- ---------------------- 31.2/72.0 MB 1.0 MB/s eta 0:00:40
+   ----------------- ---------------------- 31.7/72.0 MB 1.0 MB/s eta 0:00:40
+   ----------------- ---------------------- 32.0/72.0 MB 1.0 MB/s eta 0:00:39
+   ------------------ --------------------- 32.5/72.0 MB 1.0 MB/s eta 0:00:39
+   ------------------ --------------------- 33.3/72.0 MB 1.1 MB/s eta 0:00:37
+   ------------------ --------------------- 33.8/72.0 MB 1.1 MB/s eta 0:00:35
+   ------------------- -------------------- 34.3/72.0 MB 1.1 MB/s eta 0:00:35
+   ------------------- -------------------- 34.9/72.0 MB 1.1 MB/s eta 0:00:34
+   ------------------- -------------------- 35.4/72.0 MB 1.1 MB/s eta 0:00:33
+   ------------------- -------------------- 35.9/72.0 MB 1.1 MB/s eta 0:00:32
+   -------------------- ------------------- 36.4/72.0 MB 1.2 MB/s eta 0:00:30
+   -------------------- ------------------- 37.0/72.0 MB 1.2 MB/s eta 0:00:29
+   -------------------- ------------------- 37.5/72.0 MB 1.2 MB/s eta 0:00:28
+   --------------------- ------------------ 38.3/72.0 MB 1.3 MB/s eta 0:00:27
+   --------------------- ------------------ 38.5/72.0 MB 1.3 MB/s eta 0:00:27
+   --------------------- ------------------ 38.8/72.0 MB 1.3 MB/s eta 0:00:27
+   --------------------- ------------------ 39.1/72.0 MB 1.3 MB/s eta 0:00:27
+   --------------------- ------------------ 39.6/72.0 MB 1.3 MB/s eta 0:00:26
+   ---------------------- ----------------- 40.1/72.0 MB 1.3 MB/s eta 0:00:26
+   ---------------------- ----------------- 40.6/72.0 MB 1.3 MB/s eta 0:00:25
+   ---------------------- ----------------- 41.2/72.0 MB 1.3 MB/s eta 0:00:24
+   ----------------------- ---------------- 41.7/72.0 MB 1.3 MB/s eta 0:00:24
+   ----------------------- ---------------- 42.2/72.0 MB 1.3 MB/s eta 0:00:23
+   ----------------------- ---------------- 42.7/72.0 MB 1.3 MB/s eta 0:00:23
+   ------------------------ --------------- 43.3/72.0 MB 1.3 MB/s eta 0:00:22
+   ------------------------ --------------- 43.8/72.0 MB 1.3 MB/s eta 0:00:22
+   ------------------------ --------------- 44.3/72.0 MB 1.3 MB/s eta 0:00:22
+   ------------------------ --------------- 44.8/72.0 MB 1.3 MB/s eta 0:00:21
+   ------------------------- -------------- 45.4/72.0 MB 1.3 MB/s eta 0:00:21
+   ------------------------- -------------- 46.1/72.0 MB 1.3 MB/s eta 0:00:20
+   ------------------------- -------------- 46.7/72.0 MB 1.3 MB/s eta 0:00:20
+   -------------------------- ------------- 47.2/72.0 MB 1.3 MB/s eta 0:00:19
+   -------------------------- ------------- 47.7/72.0 MB 1.3 MB/s eta 0:00:19
+   -------------------------- ------------- 48.2/72.0 MB 1.3 MB/s eta 0:00:18
+   --------------------------- ------------ 48.8/72.0 MB 1.4 MB/s eta 0:00:18
+   --------------------------- ------------ 49.3/72.0 MB 1.4 MB/s eta 0:00:17
+   --------------------------- ------------ 49.5/72.0 MB 1.4 MB/s eta 0:00:17
+   --------------------------- ------------ 50.1/72.0 MB 1.4 MB/s eta 0:00:16
+   --------------------------- ------------ 50.3/72.0 MB 1.4 MB/s eta 0:00:16
+   ---------------------------- ----------- 50.9/72.0 MB 1.4 MB/s eta 0:00:16
+   ---------------------------- ----------- 51.4/72.0 MB 1.6 MB/s eta 0:00:14
+   ---------------------------- ----------- 51.9/72.0 MB 1.6 MB/s eta 0:00:13
+   ----------------------------- ---------- 52.4/72.0 MB 1.6 MB/s eta 0:00:13
+   ----------------------------- ---------- 53.0/72.0 MB 1.6 MB/s eta 0:00:12
+   ----------------------------- ---------- 53.2/72.0 MB 1.6 MB/s eta 0:00:12
+   ----------------------------- ---------- 53.2/72.0 MB 1.6 MB/s eta 0:00:12
+   ----------------------------- ---------- 53.5/72.0 MB 1.6 MB/s eta 0:00:12
+   ----------------------------- ---------- 53.7/72.0 MB 1.6 MB/s eta 0:00:12
+   ----------------------------- ---------- 53.7/72.0 MB 1.6 MB/s eta 0:00:12
+   ------------------------------ --------- 54.3/72.0 MB 1.6 MB/s eta 0:00:12
+   ------------------------------ --------- 55.1/72.0 MB 1.6 MB/s eta 0:00:11
+   ------------------------------ --------- 55.3/72.0 MB 1.6 MB/s eta 0:00:11
+   ------------------------------- -------- 55.8/72.0 MB 1.6 MB/s eta 0:00:11
+   ------------------------------- -------- 56.1/72.0 MB 1.6 MB/s eta 0:00:10
+   ------------------------------- -------- 56.4/72.0 MB 1.6 MB/s eta 0:00:10
+   ------------------------------- -------- 56.9/72.0 MB 1.6 MB/s eta 0:00:10
+   ------------------------------- -------- 57.1/72.0 MB 1.6 MB/s eta 0:00:10
+   -------------------------------- ------- 57.7/72.0 MB 1.7 MB/s eta 0:00:09
+   -------------------------------- ------- 58.2/72.0 MB 1.7 MB/s eta 0:00:08
+   -------------------------------- ------- 58.2/72.0 MB 1.7 MB/s eta 0:00:08
+   -------------------------------- ------- 58.7/72.0 MB 1.7 MB/s eta 0:00:08
+   -------------------------------- ------- 58.7/72.0 MB 1.7 MB/s eta 0:00:08
+   -------------------------------- ------- 59.0/72.0 MB 1.7 MB/s eta 0:00:08
+   --------------------------------- ------ 59.5/72.0 MB 1.7 MB/s eta 0:00:08
+   --------------------------------- ------ 59.5/72.0 MB 1.7 MB/s eta 0:00:08
+   --------------------------------- ------ 59.5/72.0 MB 1.7 MB/s eta 0:00:08
+   --------------------------------- ------ 59.8/72.0 MB 1.7 MB/s eta 0:00:08
+   --------------------------------- ------ 59.8/72.0 MB 1.7 MB/s eta 0:00:08
+   --------------------------------- ------ 60.0/72.0 MB 1.8 MB/s eta 0:00:07
+   --------------------------------- ------ 60.0/72.0 MB 1.8 MB/s eta 0:00:07
+   --------------------------------- ------ 60.3/72.0 MB 1.8 MB/s eta 0:00:07
+   --------------------------------- ------ 60.6/72.0 MB 1.8 MB/s eta 0:00:07
+   --------------------------------- ------ 60.6/72.0 MB 1.8 MB/s eta 0:00:07
+   --------------------------------- ------ 60.8/72.0 MB 1.7 MB/s eta 0:00:07
+   --------------------------------- ------ 60.8/72.0 MB 1.7 MB/s eta 0:00:07
+   --------------------------------- ------ 61.1/72.0 MB 1.7 MB/s eta 0:00:07
+   --------------------------------- ------ 61.1/72.0 MB 1.7 MB/s eta 0:00:07
+   ---------------------------------- ----- 61.3/72.0 MB 1.7 MB/s eta 0:00:07
+   ---------------------------------- ----- 61.3/72.0 MB 1.7 MB/s eta 0:00:07
+   ---------------------------------- ----- 61.6/72.0 MB 1.7 MB/s eta 0:00:07
+   ---------------------------------- ----- 61.9/72.0 MB 1.7 MB/s eta 0:00:06
+   ---------------------------------- ----- 62.1/72.0 MB 1.7 MB/s eta 0:00:06
+   ---------------------------------- ----- 62.4/72.0 MB 1.7 MB/s eta 0:00:06
+   ---------------------------------- ----- 62.7/72.0 MB 1.7 MB/s eta 0:00:06
+   ---------------------------------- ----- 62.9/72.0 MB 1.7 MB/s eta 0:00:06
+   ----------------------------------- ---- 63.2/72.0 MB 1.7 MB/s eta 0:00:06
+   ----------------------------------- ---- 63.4/72.0 MB 1.7 MB/s eta 0:00:06
+   ----------------------------------- ---- 63.4/72.0 MB 1.7 MB/s eta 0:00:06
+   ----------------------------------- ---- 63.7/72.0 MB 1.7 MB/s eta 0:00:05
+   ----------------------------------- ---- 64.2/72.0 MB 1.7 MB/s eta 0:00:05
+   ----------------------------------- ---- 64.5/72.0 MB 1.6 MB/s eta 0:00:05
+   ------------------------------------ --- 65.0/72.0 MB 1.6 MB/s eta 0:00:05
+   ------------------------------------ --- 65.5/72.0 MB 1.6 MB/s eta 0:00:04
+   ------------------------------------ --- 65.8/72.0 MB 1.6 MB/s eta 0:00:04
+   ------------------------------------ --- 65.8/72.0 MB 1.6 MB/s eta 0:00:04
+   ------------------------------------ --- 66.3/72.0 MB 1.6 MB/s eta 0:00:04
+   ------------------------------------- -- 66.6/72.0 MB 1.6 MB/s eta 0:00:04
+   ------------------------------------- -- 67.1/72.0 MB 1.6 MB/s eta 0:00:03
+   ------------------------------------- -- 67.6/72.0 MB 1.6 MB/s eta 0:00:03
+   -------------------------------------- - 68.4/72.0 MB 1.6 MB/s eta 0:00:03
+   -------------------------------------- - 68.9/72.0 MB 1.6 MB/s eta 0:00:02
+   -------------------------------------- - 69.5/72.0 MB 1.7 MB/s eta 0:00:02
+   -------------------------------------- - 70.0/72.0 MB 1.7 MB/s eta 0:00:02
+   ---------------------------------------  70.3/72.0 MB 1.7 MB/s eta 0:00:02
+   ---------------------------------------  70.5/72.0 MB 1.7 MB/s eta 0:00:01
+   ---------------------------------------  71.0/72.0 MB 1.7 MB/s eta 0:00:01
+   ---------------------------------------  71.3/72.0 MB 1.7 MB/s eta 0:00:01
+   ---------------------------------------  71.6/72.0 MB 1.7 MB/s eta 0:00:01
+   ---------------------------------------  71.8/72.0 MB 1.7 MB/s eta 0:00:01
+   ---------------------------------------  71.8/72.0 MB 1.7 MB/s eta 0:00:01
+   ---------------------------------------- 72.0/72.0 MB 1.7 MB/s  0:00:59
+Installing collected packages: xgboost
+Successfully installed xgboost-3.1.2
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="setup-imports">
+<h2>1. Setup &amp; Imports<a class="headerlink" href="#setup-imports" title="Link to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Standard libraries</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">seaborn</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">sns</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pathlib</span><span class="w"> </span><span class="kn">import</span> <span class="n">Path</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">warnings</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">time</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">pickle</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">datetime</span><span class="w"> </span><span class="kn">import</span> <span class="n">datetime</span>
+
+<span class="c1"># Scikit-learn</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.neighbors</span><span class="w"> </span><span class="kn">import</span> <span class="n">KNeighborsClassifier</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.ensemble</span><span class="w"> </span><span class="kn">import</span> <span class="n">RandomForestClassifier</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.svm</span><span class="w"> </span><span class="kn">import</span> <span class="n">SVC</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.model_selection</span><span class="w"> </span><span class="kn">import</span> <span class="n">StratifiedKFold</span><span class="p">,</span> <span class="n">cross_validate</span><span class="p">,</span> <span class="n">GridSearchCV</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.metrics</span><span class="w"> </span><span class="kn">import</span> <span class="p">(</span><span class="n">accuracy_score</span><span class="p">,</span> <span class="n">f1_score</span><span class="p">,</span> <span class="n">precision_score</span><span class="p">,</span> 
+                             <span class="n">recall_score</span><span class="p">,</span> <span class="n">roc_auc_score</span><span class="p">,</span> <span class="n">confusion_matrix</span><span class="p">,</span>
+                             <span class="n">classification_report</span><span class="p">,</span> <span class="n">roc_curve</span><span class="p">)</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.preprocessing</span><span class="w"> </span><span class="kn">import</span> <span class="n">StandardScaler</span>
+
+<span class="c1"># XGBoost</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">xgboost</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">xgb</span>
+
+<span class="c1"># Time series specific</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">tslearn.neighbors</span><span class="w"> </span><span class="kn">import</span> <span class="n">KNeighborsTimeSeriesClassifier</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">tslearn.metrics</span><span class="w"> </span><span class="kn">import</span> <span class="n">cdist_dtw</span>
+
+
+<span class="c1"># Configuration</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">style</span><span class="o">.</span><span class="n">use</span><span class="p">(</span><span class="s1">&#39;seaborn-v0_8-darkgrid&#39;</span><span class="p">)</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">set_palette</span><span class="p">(</span><span class="s2">&quot;husl&quot;</span><span class="p">)</span>
+<span class="n">warnings</span><span class="o">.</span><span class="n">filterwarnings</span><span class="p">(</span><span class="s1">&#39;ignore&#39;</span><span class="p">)</span>
+<span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">42</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;✓ Libraries imported successfully&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>✓ Libraries imported successfully
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="load-preprocessed-data">
+<h2>2. Load Preprocessed Data<a class="headerlink" href="#load-preprocessed-data" title="Link to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">load_preprocessed_data</span><span class="p">():</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Load preprocessed data or create it if not exists&quot;&quot;&quot;</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="c1"># Try to load saved preprocessed data</span>
+        <span class="n">data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="s1">&#39;preprocessed_data.npz&#39;</span><span class="p">)</span>
+        <span class="n">X_train</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s1">&#39;X_train&#39;</span><span class="p">]</span>
+        <span class="n">y_train</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s1">&#39;y_train&#39;</span><span class="p">]</span>
+        <span class="n">X_test</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s1">&#39;X_test&#39;</span><span class="p">]</span>
+        <span class="n">y_test</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s1">&#39;y_test&#39;</span><span class="p">]</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;✓ Loaded preprocessed data from file&quot;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">X_test</span><span class="p">,</span> <span class="n">y_test</span>
+    <span class="k">except</span> <span class="ne">FileNotFoundError</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;⚠️ Preprocessed data not found. Loading and preprocessing raw data...&quot;</span><span class="p">)</span>
+        
+        <span class="c1"># Load raw data</span>
+        <span class="k">def</span><span class="w"> </span><span class="nf">load_ucr_dataset</span><span class="p">(</span><span class="n">filepath</span><span class="p">):</span>
+            <span class="n">data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">loadtxt</span><span class="p">(</span><span class="n">filepath</span><span class="p">)</span>
+            <span class="n">y</span> <span class="o">=</span> <span class="n">data</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">)</span>
+            <span class="n">X</span> <span class="o">=</span> <span class="n">data</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">:]</span>
+            <span class="k">return</span> <span class="n">X</span><span class="p">,</span> <span class="n">y</span>
+        
+        <span class="n">DATA_DIR</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="s1">&#39;ECGFiveDays&#39;</span><span class="p">)</span>
+        <span class="n">X_train_raw</span><span class="p">,</span> <span class="n">y_train</span> <span class="o">=</span> <span class="n">load_ucr_dataset</span><span class="p">(</span><span class="n">DATA_DIR</span> <span class="o">/</span> <span class="s1">&#39;ECGFiveDays_TRAIN.txt&#39;</span><span class="p">)</span>
+        <span class="n">X_test_raw</span><span class="p">,</span> <span class="n">y_test</span> <span class="o">=</span> <span class="n">load_ucr_dataset</span><span class="p">(</span><span class="n">DATA_DIR</span> <span class="o">/</span> <span class="s1">&#39;ECGFiveDays_TEST.txt&#39;</span><span class="p">)</span>
+        
+        <span class="c1"># Quick preprocessing (if full preprocessing not run)</span>
+        <span class="kn">from</span><span class="w"> </span><span class="nn">scipy.signal</span><span class="w"> </span><span class="kn">import</span> <span class="n">savgol_filter</span>
+        
+        <span class="c1"># Winsorization</span>
+        <span class="k">def</span><span class="w"> </span><span class="nf">winsorize</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">lower</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">upper</span><span class="o">=</span><span class="mi">99</span><span class="p">):</span>
+            <span class="n">lb</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">percentile</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">lower</span><span class="p">)</span>
+            <span class="n">ub</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">percentile</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">upper</span><span class="p">)</span>
+            <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">clip</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">lb</span><span class="p">,</span> <span class="n">ub</span><span class="p">)</span>
+        
+        <span class="c1"># Z-score normalization</span>
+        <span class="k">def</span><span class="w"> </span><span class="nf">normalize_zscore</span><span class="p">(</span><span class="n">X</span><span class="p">):</span>
+            <span class="n">X_norm</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros_like</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
+            <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">X</span><span class="p">)):</span>
+                <span class="n">mean</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">X</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+                <span class="n">std</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">std</span><span class="p">(</span><span class="n">X</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+                <span class="n">X_norm</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">X</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">-</span> <span class="n">mean</span><span class="p">)</span> <span class="o">/</span> <span class="n">std</span> <span class="k">if</span> <span class="n">std</span> <span class="o">&gt;</span> <span class="mf">1e-8</span> <span class="k">else</span> <span class="n">X</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">-</span> <span class="n">mean</span>
+            <span class="k">return</span> <span class="n">X_norm</span>
+        
+        <span class="c1"># Denoising</span>
+        <span class="k">def</span><span class="w"> </span><span class="nf">denoise</span><span class="p">(</span><span class="n">X</span><span class="p">):</span>
+            <span class="n">X_denoised</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros_like</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
+            <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">X</span><span class="p">)):</span>
+                <span class="n">X_denoised</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">savgol_filter</span><span class="p">(</span><span class="n">X</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">window_length</span><span class="o">=</span><span class="mi">11</span><span class="p">,</span> <span class="n">polyorder</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
+            <span class="k">return</span> <span class="n">X_denoised</span>
+        
+        <span class="c1"># Apply preprocessing</span>
+        <span class="n">X_train</span> <span class="o">=</span> <span class="n">winsorize</span><span class="p">(</span><span class="n">X_train_raw</span><span class="p">)</span>
+        <span class="n">X_train</span> <span class="o">=</span> <span class="n">normalize_zscore</span><span class="p">(</span><span class="n">X_train</span><span class="p">)</span>
+        <span class="n">X_train</span> <span class="o">=</span> <span class="n">denoise</span><span class="p">(</span><span class="n">X_train</span><span class="p">)</span>
+        
+        <span class="n">X_test</span> <span class="o">=</span> <span class="n">winsorize</span><span class="p">(</span><span class="n">X_test_raw</span><span class="p">)</span>
+        <span class="n">X_test</span> <span class="o">=</span> <span class="n">normalize_zscore</span><span class="p">(</span><span class="n">X_test</span><span class="p">)</span>
+        <span class="n">X_test</span> <span class="o">=</span> <span class="n">denoise</span><span class="p">(</span><span class="n">X_test</span><span class="p">)</span>
+        
+        <span class="c1"># Simple augmentation</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Applying augmentation...&quot;</span><span class="p">)</span>
+        <span class="n">X_aug_list</span> <span class="o">=</span> <span class="p">[</span><span class="n">X_train</span><span class="p">]</span>
+        <span class="n">y_aug_list</span> <span class="o">=</span> <span class="p">[</span><span class="n">y_train</span><span class="p">]</span>
+        
+        <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">15</span><span class="p">):</span>
+            <span class="c1"># Jitter</span>
+            <span class="n">X_jittered</span> <span class="o">=</span> <span class="n">X_train</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">normal</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mf">0.05</span><span class="p">,</span> <span class="n">X_train</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+            <span class="n">X_aug_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">X_jittered</span><span class="p">)</span>
+            <span class="n">y_aug_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">y_train</span><span class="p">)</span>
+        
+        <span class="n">X_train</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">vstack</span><span class="p">(</span><span class="n">X_aug_list</span><span class="p">)</span>
+        <span class="n">y_train</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">hstack</span><span class="p">(</span><span class="n">y_aug_list</span><span class="p">)</span>
+        
+        <span class="c1"># Save for future use</span>
+        <span class="n">np</span><span class="o">.</span><span class="n">savez</span><span class="p">(</span><span class="s1">&#39;preprocessed_data.npz&#39;</span><span class="p">,</span> 
+                 <span class="n">X_train</span><span class="o">=</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="o">=</span><span class="n">y_train</span><span class="p">,</span>
+                 <span class="n">X_test</span><span class="o">=</span><span class="n">X_test</span><span class="p">,</span> <span class="n">y_test</span><span class="o">=</span><span class="n">y_test</span><span class="p">)</span>
+        
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;✓ Preprocessing completed and saved&quot;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">X_test</span><span class="p">,</span> <span class="n">y_test</span>
+
+<span class="c1"># Load data</span>
+<span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">X_test</span><span class="p">,</span> <span class="n">y_test</span> <span class="o">=</span> <span class="n">load_preprocessed_data</span><span class="p">()</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span> <span class="o">+</span> <span class="s2">&quot;=&quot;</span> <span class="o">*</span> <span class="mi">60</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;DATA LOADED&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;=&quot;</span> <span class="o">*</span> <span class="mi">60</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Train shape: </span><span class="si">{</span><span class="n">X_train</span><span class="o">.</span><span class="n">shape</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Test shape:  </span><span class="si">{</span><span class="n">X_test</span><span class="o">.</span><span class="n">shape</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Train class distribution: </span><span class="si">{</span><span class="n">np</span><span class="o">.</span><span class="n">bincount</span><span class="p">(</span><span class="n">y_train</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Test class distribution:  </span><span class="si">{</span><span class="n">np</span><span class="o">.</span><span class="n">bincount</span><span class="p">(</span><span class="n">y_test</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>✓ Loaded preprocessed data from file
+
+============================================================
+DATA LOADED
+============================================================
+Train shape: (368, 136)
+Test shape:  (861, 136)
+Train class distribution: [  0 224 144]
+Test class distribution:  [  0 428 433]
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="helper-functions-for-evaluation">
+<h2>3. Helper Functions for Evaluation<a class="headerlink" href="#helper-functions-for-evaluation" title="Link to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">evaluate_model</span><span class="p">(</span><span class="n">y_true</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">,</span> <span class="n">y_pred_proba</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Calculate comprehensive metrics for binary classification.</span>
+<span class="sd">    </span>
+<span class="sd">    Returns:</span>
+<span class="sd">    --------</span>
+<span class="sd">    metrics : dict</span>
+<span class="sd">        Dictionary containing all metrics</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">metrics</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="s1">&#39;accuracy&#39;</span><span class="p">:</span> <span class="n">accuracy_score</span><span class="p">(</span><span class="n">y_true</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">),</span>
+        <span class="s1">&#39;f1_score&#39;</span><span class="p">:</span> <span class="n">f1_score</span><span class="p">(</span><span class="n">y_true</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">,</span> <span class="n">average</span><span class="o">=</span><span class="s1">&#39;weighted&#39;</span><span class="p">),</span>
+        <span class="s1">&#39;precision&#39;</span><span class="p">:</span> <span class="n">precision_score</span><span class="p">(</span><span class="n">y_true</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">,</span> <span class="n">average</span><span class="o">=</span><span class="s1">&#39;weighted&#39;</span><span class="p">),</span>
+        <span class="s1">&#39;recall&#39;</span><span class="p">:</span> <span class="n">recall_score</span><span class="p">(</span><span class="n">y_true</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">,</span> <span class="n">average</span><span class="o">=</span><span class="s1">&#39;weighted&#39;</span><span class="p">)</span>
+    <span class="p">}</span>
+    
+    <span class="c1"># ROC-AUC requires probability predictions</span>
+    <span class="k">if</span> <span class="n">y_pred_proba</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">unique</span><span class="p">(</span><span class="n">y_true</span><span class="p">))</span> <span class="o">==</span> <span class="mi">2</span><span class="p">:</span>
+            <span class="c1"># Binary classification</span>
+            <span class="k">if</span> <span class="n">y_pred_proba</span><span class="o">.</span><span class="n">ndim</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+                <span class="n">metrics</span><span class="p">[</span><span class="s1">&#39;roc_auc&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">roc_auc_score</span><span class="p">(</span><span class="n">y_true</span><span class="p">,</span> <span class="n">y_pred_proba</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">metrics</span><span class="p">[</span><span class="s1">&#39;roc_auc&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">roc_auc_score</span><span class="p">(</span><span class="n">y_true</span><span class="p">,</span> <span class="n">y_pred_proba</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">])</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="c1"># Multi-class</span>
+            <span class="n">metrics</span><span class="p">[</span><span class="s1">&#39;roc_auc&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">roc_auc_score</span><span class="p">(</span><span class="n">y_true</span><span class="p">,</span> <span class="n">y_pred_proba</span><span class="p">,</span> 
+                                               <span class="n">multi_class</span><span class="o">=</span><span class="s1">&#39;ovr&#39;</span><span class="p">,</span> <span class="n">average</span><span class="o">=</span><span class="s1">&#39;weighted&#39;</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">metrics</span><span class="p">[</span><span class="s1">&#39;roc_auc&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
+    
+    <span class="k">return</span> <span class="n">metrics</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">plot_confusion_matrix</span><span class="p">(</span><span class="n">y_true</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">,</span> <span class="n">title</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Plot confusion matrix&quot;&quot;&quot;</span>
+    <span class="n">cm</span> <span class="o">=</span> <span class="n">confusion_matrix</span><span class="p">(</span><span class="n">y_true</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">)</span>
+    
+    <span class="k">if</span> <span class="n">ax</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">6</span><span class="p">,</span> <span class="mi">5</span><span class="p">))</span>
+    
+    <span class="n">sns</span><span class="o">.</span><span class="n">heatmap</span><span class="p">(</span><span class="n">cm</span><span class="p">,</span> <span class="n">annot</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">fmt</span><span class="o">=</span><span class="s1">&#39;d&#39;</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;Blues&#39;</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">,</span>
+                <span class="n">xticklabels</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">unique</span><span class="p">(</span><span class="n">y_true</span><span class="p">),</span> <span class="n">yticklabels</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">unique</span><span class="p">(</span><span class="n">y_true</span><span class="p">))</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;Predicted Label&#39;</span><span class="p">,</span> <span class="n">fontweight</span><span class="o">=</span><span class="s1">&#39;bold&#39;</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;True Label&#39;</span><span class="p">,</span> <span class="n">fontweight</span><span class="o">=</span><span class="s1">&#39;bold&#39;</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="n">title</span><span class="p">,</span> <span class="n">fontweight</span><span class="o">=</span><span class="s1">&#39;bold&#39;</span><span class="p">)</span>
+    
+    <span class="k">return</span> <span class="n">cm</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">cross_validate_model</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">cv</span><span class="o">=</span><span class="mi">5</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Perform cross-validation and return metrics.</span>
+<span class="sd">    </span>
+<span class="sd">    Parameters:</span>
+<span class="sd">    -----------</span>
+<span class="sd">    model : sklearn estimator</span>
+<span class="sd">    X : numpy array</span>
+<span class="sd">    y : numpy array</span>
+<span class="sd">    cv : int (default: 5)</span>
+<span class="sd">    </span>
+<span class="sd">    Returns:</span>
+<span class="sd">    --------</span>
+<span class="sd">    cv_results : dict</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">scoring</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;accuracy&#39;</span><span class="p">,</span> <span class="s1">&#39;f1_weighted&#39;</span><span class="p">,</span> <span class="s1">&#39;precision_weighted&#39;</span><span class="p">,</span> 
+               <span class="s1">&#39;recall_weighted&#39;</span><span class="p">,</span> <span class="s1">&#39;roc_auc&#39;</span><span class="p">]</span>
+    
+    <span class="n">cv_results</span> <span class="o">=</span> <span class="n">cross_validate</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">cv</span><span class="o">=</span><span class="n">cv</span><span class="p">,</span> <span class="n">scoring</span><span class="o">=</span><span class="n">scoring</span><span class="p">,</span>
+                                <span class="n">return_train_score</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">n_jobs</span><span class="o">=-</span><span class="mi">1</span><span class="p">)</span>
+    
+    <span class="c1"># Calculate mean and std</span>
+    <span class="n">results</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="s1">&#39;cv_accuracy_mean&#39;</span><span class="p">:</span> <span class="n">cv_results</span><span class="p">[</span><span class="s1">&#39;test_accuracy&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">(),</span>
+        <span class="s1">&#39;cv_accuracy_std&#39;</span><span class="p">:</span> <span class="n">cv_results</span><span class="p">[</span><span class="s1">&#39;test_accuracy&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">std</span><span class="p">(),</span>
+        <span class="s1">&#39;cv_f1_mean&#39;</span><span class="p">:</span> <span class="n">cv_results</span><span class="p">[</span><span class="s1">&#39;test_f1_weighted&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">(),</span>
+        <span class="s1">&#39;cv_f1_std&#39;</span><span class="p">:</span> <span class="n">cv_results</span><span class="p">[</span><span class="s1">&#39;test_f1_weighted&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">std</span><span class="p">(),</span>
+        <span class="s1">&#39;cv_roc_auc_mean&#39;</span><span class="p">:</span> <span class="n">cv_results</span><span class="p">[</span><span class="s1">&#39;test_roc_auc&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">(),</span>
+        <span class="s1">&#39;cv_roc_auc_std&#39;</span><span class="p">:</span> <span class="n">cv_results</span><span class="p">[</span><span class="s1">&#39;test_roc_auc&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">std</span><span class="p">(),</span>
+    <span class="p">}</span>
+    
+    <span class="k">return</span> <span class="n">results</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;✓ Helper functions defined&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>✓ Helper functions defined
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="feature-engineering-for-feature-based-models">
+<h2>4. Feature Engineering (for Feature-based Models)<a class="headerlink" href="#feature-engineering-for-feature-based-models" title="Link to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">extract_features</span><span class="p">(</span><span class="n">X</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Extract statistical and basic features from time series.</span>
+<span class="sd">    </span>
+<span class="sd">    Features extracted:</span>
+<span class="sd">    - Statistical: mean, std, min, max, median, skewness, kurtosis</span>
+<span class="sd">    - Temporal: range, variance</span>
+<span class="sd">    - Simple: 1st and 2nd derivatives statistics</span>
+<span class="sd">    </span>
+<span class="sd">    Parameters:</span>
+<span class="sd">    -----------</span>
+<span class="sd">    X : numpy array (n_samples, n_timepoints)</span>
+<span class="sd">    </span>
+<span class="sd">    Returns:</span>
+<span class="sd">    --------</span>
+<span class="sd">    features : numpy array (n_samples, n_features)</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="kn">from</span><span class="w"> </span><span class="nn">scipy.stats</span><span class="w"> </span><span class="kn">import</span> <span class="n">skew</span><span class="p">,</span> <span class="n">kurtosis</span>
+    
+    <span class="n">features_list</span> <span class="o">=</span> <span class="p">[]</span>
+    
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">X</span><span class="p">)):</span>
+        <span class="n">signal</span> <span class="o">=</span> <span class="n">X</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+        
+        <span class="c1"># Statistical features</span>
+        <span class="n">feat</span> <span class="o">=</span> <span class="p">[</span>
+            <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">signal</span><span class="p">),</span>
+            <span class="n">np</span><span class="o">.</span><span class="n">std</span><span class="p">(</span><span class="n">signal</span><span class="p">),</span>
+            <span class="n">np</span><span class="o">.</span><span class="n">min</span><span class="p">(</span><span class="n">signal</span><span class="p">),</span>
+            <span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">signal</span><span class="p">),</span>
+            <span class="n">np</span><span class="o">.</span><span class="n">median</span><span class="p">(</span><span class="n">signal</span><span class="p">),</span>
+            <span class="n">skew</span><span class="p">(</span><span class="n">signal</span><span class="p">),</span>
+            <span class="n">kurtosis</span><span class="p">(</span><span class="n">signal</span><span class="p">),</span>
+            <span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">signal</span><span class="p">)</span> <span class="o">-</span> <span class="n">np</span><span class="o">.</span><span class="n">min</span><span class="p">(</span><span class="n">signal</span><span class="p">),</span>  <span class="c1"># range</span>
+            <span class="n">np</span><span class="o">.</span><span class="n">var</span><span class="p">(</span><span class="n">signal</span><span class="p">),</span>
+        <span class="p">]</span>
+        
+        <span class="c1"># 1st derivative features</span>
+        <span class="n">diff1</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">diff</span><span class="p">(</span><span class="n">signal</span><span class="p">)</span>
+        <span class="n">feat</span><span class="o">.</span><span class="n">extend</span><span class="p">([</span>
+            <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">diff1</span><span class="p">),</span>
+            <span class="n">np</span><span class="o">.</span><span class="n">std</span><span class="p">(</span><span class="n">diff1</span><span class="p">),</span>
+            <span class="n">np</span><span class="o">.</span><span class="n">min</span><span class="p">(</span><span class="n">diff1</span><span class="p">),</span>
+            <span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">diff1</span><span class="p">),</span>
+        <span class="p">])</span>
+        
+        <span class="c1"># 2nd derivative features</span>
+        <span class="n">diff2</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">diff</span><span class="p">(</span><span class="n">diff1</span><span class="p">)</span>
+        <span class="n">feat</span><span class="o">.</span><span class="n">extend</span><span class="p">([</span>
+            <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">diff2</span><span class="p">),</span>
+            <span class="n">np</span><span class="o">.</span><span class="n">std</span><span class="p">(</span><span class="n">diff2</span><span class="p">),</span>
+        <span class="p">])</span>
+        
+        <span class="n">features_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">feat</span><span class="p">)</span>
+    
+    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">features_list</span><span class="p">)</span>
+
+<span class="c1"># Extract features for feature-based models</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Extracting features for feature-based models...&quot;</span><span class="p">)</span>
+<span class="n">X_train_features</span> <span class="o">=</span> <span class="n">extract_features</span><span class="p">(</span><span class="n">X_train</span><span class="p">)</span>
+<span class="n">X_test_features</span> <span class="o">=</span> <span class="n">extract_features</span><span class="p">(</span><span class="n">X_test</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;✓ Features extracted&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  Feature shape (train): </span><span class="si">{</span><span class="n">X_train_features</span><span class="o">.</span><span class="n">shape</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  Feature shape (test):  </span><span class="si">{</span><span class="n">X_test_features</span><span class="o">.</span><span class="n">shape</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  Number of features: </span><span class="si">{</span><span class="n">X_train_features</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Extracting features for feature-based models...
+✓ Features extracted
+  Feature shape (train): (368, 15)
+  Feature shape (test):  (861, 15)
+  Number of features: 15
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="model-training-evaluation">
+<h2>5. Model Training &amp; Evaluation<a class="headerlink" href="#model-training-evaluation" title="Link to this heading">#</a></h2>
+<section id="model-1-baseline-1-nn-euclidean-distance">
+<h3>Model 1: Baseline - 1-NN Euclidean Distance<a class="headerlink" href="#model-1-baseline-1-nn-euclidean-distance" title="Link to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span> <span class="o">+</span> <span class="s2">&quot;=&quot;</span> <span class="o">*</span> <span class="mi">70</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot; &quot;</span> <span class="o">*</span> <span class="mi">20</span> <span class="o">+</span> <span class="s2">&quot;MODEL 1: 1-NN EUCLIDEAN&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;=&quot;</span> <span class="o">*</span> <span class="mi">70</span><span class="p">)</span>
+
+<span class="c1"># Initialize model</span>
+<span class="n">knn_euclidean</span> <span class="o">=</span> <span class="n">KNeighborsClassifier</span><span class="p">(</span><span class="n">n_neighbors</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">metric</span><span class="o">=</span><span class="s1">&#39;euclidean&#39;</span><span class="p">)</span>
+
+<span class="c1"># Cross-validation</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Performing 5-fold cross-validation...&quot;</span><span class="p">)</span>
+<span class="n">start_time</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
+<span class="n">cv_results_euclidean</span> <span class="o">=</span> <span class="n">cross_validate_model</span><span class="p">(</span><span class="n">knn_euclidean</span><span class="p">,</span> <span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">cv</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
+<span class="n">cv_time</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span> <span class="o">-</span> <span class="n">start_time</span>
+
+<span class="c1"># Train on full training set</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Training on full training set...&quot;</span><span class="p">)</span>
+<span class="n">start_time</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
+<span class="n">knn_euclidean</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">)</span>
+<span class="n">train_time</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span> <span class="o">-</span> <span class="n">start_time</span>
+
+<span class="c1"># Predict on test set</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Evaluating on test set...&quot;</span><span class="p">)</span>
+<span class="n">start_time</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
+<span class="n">y_pred_euclidean</span> <span class="o">=</span> <span class="n">knn_euclidean</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_test</span><span class="p">)</span>
+<span class="n">y_pred_proba_euclidean</span> <span class="o">=</span> <span class="n">knn_euclidean</span><span class="o">.</span><span class="n">predict_proba</span><span class="p">(</span><span class="n">X_test</span><span class="p">)</span>
+<span class="n">inference_time</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span> <span class="o">-</span> <span class="n">start_time</span>
+
+<span class="c1"># Evaluate</span>
+<span class="n">test_metrics_euclidean</span> <span class="o">=</span> <span class="n">evaluate_model</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">y_pred_euclidean</span><span class="p">,</span> <span class="n">y_pred_proba_euclidean</span><span class="p">)</span>
+
+<span class="c1"># Display results</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span> <span class="o">+</span> <span class="s2">&quot;-&quot;</span> <span class="o">*</span> <span class="mi">70</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;CROSS-VALIDATION RESULTS:&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  Accuracy: </span><span class="si">{</span><span class="n">cv_results_euclidean</span><span class="p">[</span><span class="s1">&#39;cv_accuracy_mean&#39;</span><span class="p">]</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2"> (±</span><span class="si">{</span><span class="n">cv_results_euclidean</span><span class="p">[</span><span class="s1">&#39;cv_accuracy_std&#39;</span><span class="p">]</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2">)&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  F1-Score: </span><span class="si">{</span><span class="n">cv_results_euclidean</span><span class="p">[</span><span class="s1">&#39;cv_f1_mean&#39;</span><span class="p">]</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2"> (±</span><span class="si">{</span><span class="n">cv_results_euclidean</span><span class="p">[</span><span class="s1">&#39;cv_f1_std&#39;</span><span class="p">]</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2">)&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  ROC-AUC:  </span><span class="si">{</span><span class="n">cv_results_euclidean</span><span class="p">[</span><span class="s1">&#39;cv_roc_auc_mean&#39;</span><span class="p">]</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2"> (±</span><span class="si">{</span><span class="n">cv_results_euclidean</span><span class="p">[</span><span class="s1">&#39;cv_roc_auc_std&#39;</span><span class="p">]</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2">)&quot;</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">TEST SET RESULTS:&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  Accuracy:  </span><span class="si">{</span><span class="n">test_metrics_euclidean</span><span class="p">[</span><span class="s1">&#39;accuracy&#39;</span><span class="p">]</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  F1-Score:  </span><span class="si">{</span><span class="n">test_metrics_euclidean</span><span class="p">[</span><span class="s1">&#39;f1_score&#39;</span><span class="p">]</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  Precision: </span><span class="si">{</span><span class="n">test_metrics_euclidean</span><span class="p">[</span><span class="s1">&#39;precision&#39;</span><span class="p">]</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  Recall:    </span><span class="si">{</span><span class="n">test_metrics_euclidean</span><span class="p">[</span><span class="s1">&#39;recall&#39;</span><span class="p">]</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  ROC-AUC:   </span><span class="si">{</span><span class="n">test_metrics_euclidean</span><span class="p">[</span><span class="s1">&#39;roc_auc&#39;</span><span class="p">]</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">TIMING:&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  CV Time:        </span><span class="si">{</span><span class="n">cv_time</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">s&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  Training Time:  </span><span class="si">{</span><span class="n">train_time</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2">s&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  Inference Time: </span><span class="si">{</span><span class="n">inference_time</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2">s&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>======================================================================
+                    MODEL 1: 1-NN EUCLIDEAN
+======================================================================
+Performing 5-fold cross-validation...
+Training on full training set...
+Evaluating on test set...
+
+----------------------------------------------------------------------
+CROSS-VALIDATION RESULTS:
+  Accuracy: 1.0000 (±0.0000)
+  F1-Score: 1.0000 (±0.0000)
+  ROC-AUC:  1.0000 (±0.0000)
+
+TEST SET RESULTS:
+  Accuracy:  0.8699
+  F1-Score:  0.8692
+  Precision: 0.8795
+  Recall:    0.8699
+  ROC-AUC:   0.8704
+
+TIMING:
+  CV Time:        0.23s
+  Training Time:  0.0020s
+  Inference Time: 0.0570s
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Plot confusion matrix</span>
+<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">6</span><span class="p">,</span> <span class="mi">5</span><span class="p">))</span>
+<span class="n">cm_euclidean</span> <span class="o">=</span> <span class="n">plot_confusion_matrix</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">y_pred_euclidean</span><span class="p">,</span> 
+                                      <span class="s1">&#39;1-NN Euclidean - Confusion Matrix&#39;</span><span class="p">,</span> <span class="n">ax</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/4c4dda559d465eba101124d00e2b67a1736b5ff875f66976e947a0b4545b89ef.png" src="_images/4c4dda559d465eba101124d00e2b67a1736b5ff875f66976e947a0b4545b89ef.png" />
+</div>
+</div>
+</section>
+<section id="model-2-baseline-1-nn-dtw">
+<h3>Model 2: Baseline - 1-NN DTW<a class="headerlink" href="#model-2-baseline-1-nn-dtw" title="Link to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span> <span class="o">+</span> <span class="s2">&quot;=&quot;</span> <span class="o">*</span> <span class="mi">70</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot; &quot;</span> <span class="o">*</span> <span class="mi">20</span> <span class="o">+</span> <span class="s2">&quot;MODEL 2: 1-NN DTW&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;=&quot;</span> <span class="o">*</span> <span class="mi">70</span><span class="p">)</span>
+
+<span class="c1"># Initialize model</span>
+<span class="c1"># Note: DTW is computationally expensive, especially for CV</span>
+<span class="c1"># We&#39;ll use a subset for CV to save time</span>
+<span class="n">knn_dtw</span> <span class="o">=</span> <span class="n">KNeighborsTimeSeriesClassifier</span><span class="p">(</span><span class="n">n_neighbors</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">metric</span><span class="o">=</span><span class="s1">&#39;dtw&#39;</span><span class="p">)</span>
+
+<span class="c1"># For DTW, we&#39;ll skip full CV due to computational cost</span>
+<span class="c1"># Instead, do single train-test split validation</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Training 1-NN DTW (skipping full CV due to computational cost)...&quot;</span><span class="p">)</span>
+<span class="n">start_time</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
+<span class="n">knn_dtw</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">)</span>
+<span class="n">train_time</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span> <span class="o">-</span> <span class="n">start_time</span>
+
+<span class="c1"># Predict on test set</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Evaluating on test set...&quot;</span><span class="p">)</span>
+<span class="n">start_time</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
+<span class="n">y_pred_dtw</span> <span class="o">=</span> <span class="n">knn_dtw</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_test</span><span class="p">)</span>
+<span class="n">y_pred_proba_dtw</span> <span class="o">=</span> <span class="n">knn_dtw</span><span class="o">.</span><span class="n">predict_proba</span><span class="p">(</span><span class="n">X_test</span><span class="p">)</span>
+<span class="n">inference_time</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span> <span class="o">-</span> <span class="n">start_time</span>
+
+<span class="c1"># Evaluate</span>
+<span class="n">test_metrics_dtw</span> <span class="o">=</span> <span class="n">evaluate_model</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">y_pred_dtw</span><span class="p">,</span> <span class="n">y_pred_proba_dtw</span><span class="p">)</span>
+
+<span class="c1"># Display results</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">TEST SET RESULTS:&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  Accuracy:  </span><span class="si">{</span><span class="n">test_metrics_dtw</span><span class="p">[</span><span class="s1">&#39;accuracy&#39;</span><span class="p">]</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  F1-Score:  </span><span class="si">{</span><span class="n">test_metrics_dtw</span><span class="p">[</span><span class="s1">&#39;f1_score&#39;</span><span class="p">]</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  Precision: </span><span class="si">{</span><span class="n">test_metrics_dtw</span><span class="p">[</span><span class="s1">&#39;precision&#39;</span><span class="p">]</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  Recall:    </span><span class="si">{</span><span class="n">test_metrics_dtw</span><span class="p">[</span><span class="s1">&#39;recall&#39;</span><span class="p">]</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  ROC-AUC:   </span><span class="si">{</span><span class="n">test_metrics_dtw</span><span class="p">[</span><span class="s1">&#39;roc_auc&#39;</span><span class="p">]</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">TIMING:&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  Training Time:  </span><span class="si">{</span><span class="n">train_time</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">s&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  Inference Time: </span><span class="si">{</span><span class="n">inference_time</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">s&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">⚠️ Note: DTW CV skipped due to computational cost&quot;</span><span class="p">)</span>
+
+<span class="c1"># Plot confusion matrix</span>
+<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">6</span><span class="p">,</span> <span class="mi">5</span><span class="p">))</span>
+<span class="n">cm_dtw</span> <span class="o">=</span> <span class="n">plot_confusion_matrix</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">y_pred_dtw</span><span class="p">,</span> 
+                                <span class="s1">&#39;1-NN DTW - Confusion Matrix&#39;</span><span class="p">,</span> <span class="n">ax</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>======================================================================
+                    MODEL 2: 1-NN DTW
+======================================================================
+Training 1-NN DTW (skipping full CV due to computational cost)...
+Evaluating on test set...
+
+TEST SET RESULTS:
+  Accuracy:  0.7596
+  F1-Score:  0.7548
+  Precision: 0.7830
+  Recall:    0.7596
+  ROC-AUC:   0.7604
+
+TIMING:
+  Training Time:  0.43s
+  Inference Time: 778.25s
+
+⚠️ Note: DTW CV skipped due to computational cost
+</pre></div>
+</div>
+<img alt="_images/4ec773e30cecbd061a944dc68cfa578fc52a48008dbf8fb17902f48654dcb4aa.png" src="_images/4ec773e30cecbd061a944dc68cfa578fc52a48008dbf8fb17902f48654dcb4aa.png" />
+</div>
+</div>
+</section>
+<section id="model-3-random-forest-with-grid-search">
+<h3>Model 3: Random Forest with Grid Search<a class="headerlink" href="#model-3-random-forest-with-grid-search" title="Link to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span> <span class="o">+</span> <span class="s2">&quot;=&quot;</span> <span class="o">*</span> <span class="mi">70</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot; &quot;</span> <span class="o">*</span> <span class="mi">20</span> <span class="o">+</span> <span class="s2">&quot;MODEL 3: RANDOM FOREST&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;=&quot;</span> <span class="o">*</span> <span class="mi">70</span><span class="p">)</span>
+
+<span class="c1"># Grid search parameters</span>
+<span class="n">param_grid_rf</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s1">&#39;n_estimators&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">100</span><span class="p">,</span> <span class="mi">200</span><span class="p">,</span> <span class="mi">300</span><span class="p">],</span>
+    <span class="s1">&#39;max_depth&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">10</span><span class="p">,</span> <span class="mi">20</span><span class="p">,</span> <span class="kc">None</span><span class="p">],</span>
+    <span class="s1">&#39;min_samples_split&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">5</span><span class="p">],</span>
+<span class="p">}</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Performing Grid Search with 5-fold CV...&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Parameter grid: </span><span class="si">{</span><span class="n">param_grid_rf</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Total combinations: </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">param_grid_rf</span><span class="p">[</span><span class="s1">&#39;n_estimators&#39;</span><span class="p">])</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="nb">len</span><span class="p">(</span><span class="n">param_grid_rf</span><span class="p">[</span><span class="s1">&#39;max_depth&#39;</span><span class="p">])</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="nb">len</span><span class="p">(</span><span class="n">param_grid_rf</span><span class="p">[</span><span class="s1">&#39;min_samples_split&#39;</span><span class="p">])</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+<span class="c1"># Grid search</span>
+<span class="n">rf_model</span> <span class="o">=</span> <span class="n">RandomForestClassifier</span><span class="p">(</span><span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">,</span> <span class="n">n_jobs</span><span class="o">=-</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">grid_search_rf</span> <span class="o">=</span> <span class="n">GridSearchCV</span><span class="p">(</span><span class="n">rf_model</span><span class="p">,</span> <span class="n">param_grid_rf</span><span class="p">,</span> <span class="n">cv</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> 
+                               <span class="n">scoring</span><span class="o">=</span><span class="s1">&#39;accuracy&#39;</span><span class="p">,</span> <span class="n">n_jobs</span><span class="o">=-</span><span class="mi">1</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+
+<span class="n">start_time</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
+<span class="n">grid_search_rf</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train_features</span><span class="p">,</span> <span class="n">y_train</span><span class="p">)</span>
+<span class="n">train_time</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span> <span class="o">-</span> <span class="n">start_time</span>
+
+<span class="c1"># Best model</span>
+<span class="n">best_rf</span> <span class="o">=</span> <span class="n">grid_search_rf</span><span class="o">.</span><span class="n">best_estimator_</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">✓ Best parameters: </span><span class="si">{</span><span class="n">grid_search_rf</span><span class="o">.</span><span class="n">best_params_</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;✓ Best CV accuracy: </span><span class="si">{</span><span class="n">grid_search_rf</span><span class="o">.</span><span class="n">best_score_</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+<span class="c1"># Predict on test set</span>
+<span class="n">start_time</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
+<span class="n">y_pred_rf</span> <span class="o">=</span> <span class="n">best_rf</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_test_features</span><span class="p">)</span>
+<span class="n">y_pred_proba_rf</span> <span class="o">=</span> <span class="n">best_rf</span><span class="o">.</span><span class="n">predict_proba</span><span class="p">(</span><span class="n">X_test_features</span><span class="p">)</span>
+<span class="n">inference_time</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span> <span class="o">-</span> <span class="n">start_time</span>
+
+<span class="c1"># Evaluate</span>
+<span class="n">test_metrics_rf</span> <span class="o">=</span> <span class="n">evaluate_model</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">y_pred_rf</span><span class="p">,</span> <span class="n">y_pred_proba_rf</span><span class="p">)</span>
+
+<span class="c1"># Display results</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">TEST SET RESULTS:&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  Accuracy:  </span><span class="si">{</span><span class="n">test_metrics_rf</span><span class="p">[</span><span class="s1">&#39;accuracy&#39;</span><span class="p">]</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  F1-Score:  </span><span class="si">{</span><span class="n">test_metrics_rf</span><span class="p">[</span><span class="s1">&#39;f1_score&#39;</span><span class="p">]</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  Precision: </span><span class="si">{</span><span class="n">test_metrics_rf</span><span class="p">[</span><span class="s1">&#39;precision&#39;</span><span class="p">]</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  Recall:    </span><span class="si">{</span><span class="n">test_metrics_rf</span><span class="p">[</span><span class="s1">&#39;recall&#39;</span><span class="p">]</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  ROC-AUC:   </span><span class="si">{</span><span class="n">test_metrics_rf</span><span class="p">[</span><span class="s1">&#39;roc_auc&#39;</span><span class="p">]</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">TIMING:&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  Training Time (Grid Search): </span><span class="si">{</span><span class="n">train_time</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">s&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  Inference Time: </span><span class="si">{</span><span class="n">inference_time</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2">s&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>======================================================================
+                    MODEL 3: RANDOM FOREST
+======================================================================
+Performing Grid Search with 5-fold CV...
+Parameter grid: {&#39;n_estimators&#39;: [100, 200, 300], &#39;max_depth&#39;: [10, 20, None], &#39;min_samples_split&#39;: [2, 5]}
+Total combinations: 18
+Fitting 5 folds for each of 18 candidates, totalling 90 fits
+
+✓ Best parameters: {&#39;max_depth&#39;: 10, &#39;min_samples_split&#39;: 2, &#39;n_estimators&#39;: 100}
+✓ Best CV accuracy: 0.9973
+
+TEST SET RESULTS:
+  Accuracy:  0.8281
+  F1-Score:  0.8281
+  Precision: 0.8287
+  Recall:    0.8281
+  ROC-AUC:   0.9326
+
+TIMING:
+  Training Time (Grid Search): 11.55s
+  Inference Time: 0.0993s
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Plot confusion matrix</span>
+<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">6</span><span class="p">,</span> <span class="mi">5</span><span class="p">))</span>
+<span class="n">cm_rf</span> <span class="o">=</span> <span class="n">plot_confusion_matrix</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">y_pred_rf</span><span class="p">,</span> 
+                               <span class="s1">&#39;Random Forest - Confusion Matrix&#39;</span><span class="p">,</span> <span class="n">ax</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/bd77ed477ab21e54dc2edc609192a6c921cff40398f9b7f1ea04b2f693ff5d8c.png" src="_images/bd77ed477ab21e54dc2edc609192a6c921cff40398f9b7f1ea04b2f693ff5d8c.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Feature importance</span>
+<span class="n">feature_names</span> <span class="o">=</span> <span class="p">[</span><span class="sa">f</span><span class="s1">&#39;Feature_</span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s1">&#39;</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">X_train_features</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">])]</span>
+<span class="n">feature_importance</span> <span class="o">=</span> <span class="n">best_rf</span><span class="o">.</span><span class="n">feature_importances_</span>
+<span class="n">sorted_idx</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">argsort</span><span class="p">(</span><span class="n">feature_importance</span><span class="p">)[::</span><span class="o">-</span><span class="mi">1</span><span class="p">][:</span><span class="mi">10</span><span class="p">]</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">barh</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">10</span><span class="p">),</span> <span class="n">feature_importance</span><span class="p">[</span><span class="n">sorted_idx</span><span class="p">],</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;steelblue&#39;</span><span class="p">,</span> <span class="n">edgecolor</span><span class="o">=</span><span class="s1">&#39;black&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">yticks</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">10</span><span class="p">),</span> <span class="p">[</span><span class="n">feature_names</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">sorted_idx</span><span class="p">])</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Importance&#39;</span><span class="p">,</span> <span class="n">fontweight</span><span class="o">=</span><span class="s1">&#39;bold&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Top 10 Feature Importances - Random Forest&#39;</span><span class="p">,</span> <span class="n">fontweight</span><span class="o">=</span><span class="s1">&#39;bold&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">gca</span><span class="p">()</span><span class="o">.</span><span class="n">invert_yaxis</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="s1">&#39;x&#39;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.3</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/46205ba1a08849b17c3aa39f9ed70ad1d1bed4c3b1b26dd070c474e5643b6d52.png" src="_images/46205ba1a08849b17c3aa39f9ed70ad1d1bed4c3b1b26dd070c474e5643b6d52.png" />
+</div>
+</div>
+</section>
+<section id="model-4-xgboost-with-grid-search">
+<h3>Model 4: XGBoost with Grid Search<a class="headerlink" href="#model-4-xgboost-with-grid-search" title="Link to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># FIX: Convert labels from [1, 2] to [0, 1]</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Converting labels for XGBoost compatibility...&quot;</span><span class="p">)</span>
+<span class="n">y_train</span> <span class="o">=</span> <span class="n">y_train</span> <span class="o">-</span> <span class="mi">1</span>
+<span class="n">y_test</span> <span class="o">=</span> <span class="n">y_test</span> <span class="o">-</span> <span class="mi">1</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;✓ Labels converted: </span><span class="si">{</span><span class="n">np</span><span class="o">.</span><span class="n">unique</span><span class="p">(</span><span class="n">y_train</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Converting labels for XGBoost compatibility...
+✓ Labels converted: [0 1]
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span> <span class="o">+</span> <span class="s2">&quot;=&quot;</span> <span class="o">*</span> <span class="mi">70</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot; &quot;</span> <span class="o">*</span> <span class="mi">20</span> <span class="o">+</span> <span class="s2">&quot;MODEL 4: XGBOOST&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;=&quot;</span> <span class="o">*</span> <span class="mi">70</span><span class="p">)</span>
+
+<span class="c1"># Grid search parameters</span>
+<span class="n">param_grid_xgb</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s1">&#39;n_estimators&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">100</span><span class="p">,</span> <span class="mi">200</span><span class="p">],</span>
+    <span class="s1">&#39;max_depth&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">3</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">7</span><span class="p">],</span>
+    <span class="s1">&#39;learning_rate&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mf">0.01</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">],</span>
+<span class="p">}</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Performing Grid Search with 5-fold CV...&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Parameter grid: </span><span class="si">{</span><span class="n">param_grid_xgb</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Total combinations: </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">param_grid_xgb</span><span class="p">[</span><span class="s1">&#39;n_estimators&#39;</span><span class="p">])</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="nb">len</span><span class="p">(</span><span class="n">param_grid_xgb</span><span class="p">[</span><span class="s1">&#39;max_depth&#39;</span><span class="p">])</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="nb">len</span><span class="p">(</span><span class="n">param_grid_xgb</span><span class="p">[</span><span class="s1">&#39;learning_rate&#39;</span><span class="p">])</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+<span class="c1"># Grid search</span>
+<span class="n">xgb_model</span> <span class="o">=</span> <span class="n">xgb</span><span class="o">.</span><span class="n">XGBClassifier</span><span class="p">(</span><span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">,</span> <span class="n">use_label_encoder</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> 
+                               <span class="n">eval_metric</span><span class="o">=</span><span class="s1">&#39;logloss&#39;</span><span class="p">,</span> <span class="n">n_jobs</span><span class="o">=-</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">grid_search_xgb</span> <span class="o">=</span> <span class="n">GridSearchCV</span><span class="p">(</span><span class="n">xgb_model</span><span class="p">,</span> <span class="n">param_grid_xgb</span><span class="p">,</span> <span class="n">cv</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span>
+                                <span class="n">scoring</span><span class="o">=</span><span class="s1">&#39;accuracy&#39;</span><span class="p">,</span> <span class="n">n_jobs</span><span class="o">=-</span><span class="mi">1</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+
+<span class="n">start_time</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
+<span class="n">grid_search_xgb</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train_features</span><span class="p">,</span> <span class="n">y_train</span><span class="p">)</span>
+<span class="n">train_time</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span> <span class="o">-</span> <span class="n">start_time</span>
+
+<span class="c1"># Best model</span>
+<span class="n">best_xgb</span> <span class="o">=</span> <span class="n">grid_search_xgb</span><span class="o">.</span><span class="n">best_estimator_</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">✓ Best parameters: </span><span class="si">{</span><span class="n">grid_search_xgb</span><span class="o">.</span><span class="n">best_params_</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;✓ Best CV accuracy: </span><span class="si">{</span><span class="n">grid_search_xgb</span><span class="o">.</span><span class="n">best_score_</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+<span class="c1"># Predict on test set</span>
+<span class="n">start_time</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
+<span class="n">y_pred_xgb</span> <span class="o">=</span> <span class="n">best_xgb</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_test_features</span><span class="p">)</span>
+<span class="n">y_pred_proba_xgb</span> <span class="o">=</span> <span class="n">best_xgb</span><span class="o">.</span><span class="n">predict_proba</span><span class="p">(</span><span class="n">X_test_features</span><span class="p">)</span>
+<span class="n">inference_time</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span> <span class="o">-</span> <span class="n">start_time</span>
+
+<span class="c1"># Evaluate</span>
+<span class="n">test_metrics_xgb</span> <span class="o">=</span> <span class="n">evaluate_model</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">y_pred_xgb</span><span class="p">,</span> <span class="n">y_pred_proba_xgb</span><span class="p">)</span>
+
+<span class="c1"># Display results</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">TEST SET RESULTS:&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  Accuracy:  </span><span class="si">{</span><span class="n">test_metrics_xgb</span><span class="p">[</span><span class="s1">&#39;accuracy&#39;</span><span class="p">]</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  F1-Score:  </span><span class="si">{</span><span class="n">test_metrics_xgb</span><span class="p">[</span><span class="s1">&#39;f1_score&#39;</span><span class="p">]</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  Precision: </span><span class="si">{</span><span class="n">test_metrics_xgb</span><span class="p">[</span><span class="s1">&#39;precision&#39;</span><span class="p">]</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  Recall:    </span><span class="si">{</span><span class="n">test_metrics_xgb</span><span class="p">[</span><span class="s1">&#39;recall&#39;</span><span class="p">]</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  ROC-AUC:   </span><span class="si">{</span><span class="n">test_metrics_xgb</span><span class="p">[</span><span class="s1">&#39;roc_auc&#39;</span><span class="p">]</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">TIMING:&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  Training Time (Grid Search): </span><span class="si">{</span><span class="n">train_time</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">s&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  Inference Time: </span><span class="si">{</span><span class="n">inference_time</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2">s&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>======================================================================
+                    MODEL 4: XGBOOST
+======================================================================
+Performing Grid Search with 5-fold CV...
+Parameter grid: {&#39;n_estimators&#39;: [100, 200], &#39;max_depth&#39;: [3, 5, 7], &#39;learning_rate&#39;: [0.01, 0.1]}
+Total combinations: 12
+Fitting 5 folds for each of 12 candidates, totalling 60 fits
+
+✓ Best parameters: {&#39;learning_rate&#39;: 0.01, &#39;max_depth&#39;: 7, &#39;n_estimators&#39;: 200}
+✓ Best CV accuracy: 0.5750
+
+TEST SET RESULTS:
+  Accuracy:  0.4400
+  F1-Score:  0.3636
+  Precision: 0.3810
+  Recall:    0.3478
+  ROC-AUC:   0.4219
+
+TIMING:
+  Training Time (Grid Search): 1.13s
+  Inference Time: 0.0037s
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Plot confusion matrix</span>
+<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">6</span><span class="p">,</span> <span class="mi">5</span><span class="p">))</span>
+<span class="n">cm_xgb</span> <span class="o">=</span> <span class="n">plot_confusion_matrix</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">y_pred_xgb</span><span class="p">,</span>
+                                <span class="s1">&#39;XGBoost - Confusion Matrix&#39;</span><span class="p">,</span> <span class="n">ax</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="model-5-svm-with-grid-search">
+<h3>Model 5: SVM with Grid Search<a class="headerlink" href="#model-5-svm-with-grid-search" title="Link to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span> <span class="o">+</span> <span class="s2">&quot;=&quot;</span> <span class="o">*</span> <span class="mi">70</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot; &quot;</span> <span class="o">*</span> <span class="mi">20</span> <span class="o">+</span> <span class="s2">&quot;MODEL 5: SVM&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;=&quot;</span> <span class="o">*</span> <span class="mi">70</span><span class="p">)</span>
+
+<span class="c1"># Grid search parameters</span>
+<span class="n">param_grid_svm</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s1">&#39;C&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mf">0.1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">10</span><span class="p">],</span>
+    <span class="s1">&#39;kernel&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;rbf&#39;</span><span class="p">,</span> <span class="s1">&#39;linear&#39;</span><span class="p">],</span>
+    <span class="s1">&#39;gamma&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;scale&#39;</span><span class="p">,</span> <span class="s1">&#39;auto&#39;</span><span class="p">],</span>
+<span class="p">}</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Performing Grid Search with 5-fold CV...&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Parameter grid: </span><span class="si">{</span><span class="n">param_grid_svm</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Total combinations: </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">param_grid_svm</span><span class="p">[</span><span class="s1">&#39;C&#39;</span><span class="p">])</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="nb">len</span><span class="p">(</span><span class="n">param_grid_svm</span><span class="p">[</span><span class="s1">&#39;kernel&#39;</span><span class="p">])</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="nb">len</span><span class="p">(</span><span class="n">param_grid_svm</span><span class="p">[</span><span class="s1">&#39;gamma&#39;</span><span class="p">])</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+<span class="c1"># Standardize features for SVM</span>
+<span class="n">scaler_svm</span> <span class="o">=</span> <span class="n">StandardScaler</span><span class="p">()</span>
+<span class="n">X_train_features_scaled</span> <span class="o">=</span> <span class="n">scaler_svm</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">X_train_features</span><span class="p">)</span>
+<span class="n">X_test_features_scaled</span> <span class="o">=</span> <span class="n">scaler_svm</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">X_test_features</span><span class="p">)</span>
+
+<span class="c1"># Grid search</span>
+<span class="n">svm_model</span> <span class="o">=</span> <span class="n">SVC</span><span class="p">(</span><span class="n">probability</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">)</span>
+<span class="n">grid_search_svm</span> <span class="o">=</span> <span class="n">GridSearchCV</span><span class="p">(</span><span class="n">svm_model</span><span class="p">,</span> <span class="n">param_grid_svm</span><span class="p">,</span> <span class="n">cv</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span>
+                                <span class="n">scoring</span><span class="o">=</span><span class="s1">&#39;accuracy&#39;</span><span class="p">,</span> <span class="n">n_jobs</span><span class="o">=-</span><span class="mi">1</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+
+<span class="n">start_time</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
+<span class="n">grid_search_svm</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train_features_scaled</span><span class="p">,</span> <span class="n">y_train</span><span class="p">)</span>
+<span class="n">train_time</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span> <span class="o">-</span> <span class="n">start_time</span>
+
+<span class="c1"># Best model</span>
+<span class="n">best_svm</span> <span class="o">=</span> <span class="n">grid_search_svm</span><span class="o">.</span><span class="n">best_estimator_</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">✓ Best parameters: </span><span class="si">{</span><span class="n">grid_search_svm</span><span class="o">.</span><span class="n">best_params_</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;✓ Best CV accuracy: </span><span class="si">{</span><span class="n">grid_search_svm</span><span class="o">.</span><span class="n">best_score_</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+<span class="c1"># Predict on test set</span>
+<span class="n">start_time</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
+<span class="n">y_pred_svm</span> <span class="o">=</span> <span class="n">best_svm</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_test_features_scaled</span><span class="p">)</span>
+<span class="n">y_pred_proba_svm</span> <span class="o">=</span> <span class="n">best_svm</span><span class="o">.</span><span class="n">predict_proba</span><span class="p">(</span><span class="n">X_test_features_scaled</span><span class="p">)</span>
+<span class="n">inference_time</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span> <span class="o">-</span> <span class="n">start_time</span>
+
+<span class="c1"># Evaluate</span>
+<span class="n">test_metrics_svm</span> <span class="o">=</span> <span class="n">evaluate_model</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">y_pred_svm</span><span class="p">,</span> <span class="n">y_pred_proba_svm</span><span class="p">)</span>
+
+<span class="c1"># Display results</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">TEST SET RESULTS:&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  Accuracy:  </span><span class="si">{</span><span class="n">test_metrics_svm</span><span class="p">[</span><span class="s1">&#39;accuracy&#39;</span><span class="p">]</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  F1-Score:  </span><span class="si">{</span><span class="n">test_metrics_svm</span><span class="p">[</span><span class="s1">&#39;f1_score&#39;</span><span class="p">]</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  Precision: </span><span class="si">{</span><span class="n">test_metrics_svm</span><span class="p">[</span><span class="s1">&#39;precision&#39;</span><span class="p">]</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  Recall:    </span><span class="si">{</span><span class="n">test_metrics_svm</span><span class="p">[</span><span class="s1">&#39;recall&#39;</span><span class="p">]</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  ROC-AUC:   </span><span class="si">{</span><span class="n">test_metrics_svm</span><span class="p">[</span><span class="s1">&#39;roc_auc&#39;</span><span class="p">]</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">TIMING:&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  Training Time (Grid Search): </span><span class="si">{</span><span class="n">train_time</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">s&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  Inference Time: </span><span class="si">{</span><span class="n">inference_time</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2">s&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>======================================================================
+                    MODEL 5: SVM
+======================================================================
+Performing Grid Search with 5-fold CV...
+Parameter grid: {&#39;C&#39;: [0.1, 1, 10], &#39;kernel&#39;: [&#39;rbf&#39;, &#39;linear&#39;], &#39;gamma&#39;: [&#39;scale&#39;, &#39;auto&#39;]}
+Total combinations: 12
+Fitting 5 folds for each of 12 candidates, totalling 60 fits
+
+✓ Best parameters: {&#39;C&#39;: 10, &#39;gamma&#39;: &#39;scale&#39;, &#39;kernel&#39;: &#39;rbf&#39;}
+✓ Best CV accuracy: 0.4950
+
+TEST SET RESULTS:
+  Accuracy:  0.4000
+  F1-Score:  0.5000
+  Precision: 0.4545
+  Recall:    0.5556
+  ROC-AUC:   0.6103
+
+TIMING:
+  Training Time (Grid Search): 0.24s
+  Inference Time: 0.0025s
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Plot confusion matrix</span>
+<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">6</span><span class="p">,</span> <span class="mi">5</span><span class="p">))</span>
+<span class="n">cm_svm</span> <span class="o">=</span> <span class="n">plot_confusion_matrix</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">y_pred_svm</span><span class="p">,</span>
+                                <span class="s1">&#39;SVM - Confusion Matrix&#39;</span><span class="p">,</span> <span class="n">ax</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/754a151e77fc66828280933e2636e4831bdc40c5b47334c5113b6093da5880ed.png" src="_images/754a151e77fc66828280933e2636e4831bdc40c5b47334c5113b6093da5880ed.png" />
+</div>
+</div>
+</section>
+</section>
+<section id="model-comparison">
+<h2>6. Model Comparison<a class="headerlink" href="#model-comparison" title="Link to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Compile all results</span>
+<span class="n">results_data</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s1">&#39;Model&#39;</span><span class="p">:</span> <span class="p">[</span>
+        <span class="s1">&#39;1-NN Euclidean&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;1-NN DTW&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;Random Forest&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;XGBoost&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;SVM&#39;</span><span class="p">,</span>
+    <span class="p">],</span>
+    <span class="s1">&#39;Accuracy&#39;</span><span class="p">:</span> <span class="p">[</span>
+        <span class="n">test_metrics_euclidean</span><span class="p">[</span><span class="s1">&#39;accuracy&#39;</span><span class="p">],</span>
+        <span class="n">test_metrics_dtw</span><span class="p">[</span><span class="s1">&#39;accuracy&#39;</span><span class="p">],</span>
+        <span class="n">test_metrics_rf</span><span class="p">[</span><span class="s1">&#39;accuracy&#39;</span><span class="p">],</span>
+        <span class="n">test_metrics_xgb</span><span class="p">[</span><span class="s1">&#39;accuracy&#39;</span><span class="p">],</span>
+        <span class="n">test_metrics_svm</span><span class="p">[</span><span class="s1">&#39;accuracy&#39;</span><span class="p">],</span>
+    <span class="p">],</span>
+    <span class="s1">&#39;F1-Score&#39;</span><span class="p">:</span> <span class="p">[</span>
+        <span class="n">test_metrics_euclidean</span><span class="p">[</span><span class="s1">&#39;f1_score&#39;</span><span class="p">],</span>
+        <span class="n">test_metrics_dtw</span><span class="p">[</span><span class="s1">&#39;f1_score&#39;</span><span class="p">],</span>
+        <span class="n">test_metrics_rf</span><span class="p">[</span><span class="s1">&#39;f1_score&#39;</span><span class="p">],</span>
+        <span class="n">test_metrics_xgb</span><span class="p">[</span><span class="s1">&#39;f1_score&#39;</span><span class="p">],</span>
+        <span class="n">test_metrics_svm</span><span class="p">[</span><span class="s1">&#39;f1_score&#39;</span><span class="p">],</span>
+    <span class="p">],</span>
+    <span class="s1">&#39;Precision&#39;</span><span class="p">:</span> <span class="p">[</span>
+        <span class="n">test_metrics_euclidean</span><span class="p">[</span><span class="s1">&#39;precision&#39;</span><span class="p">],</span>
+        <span class="n">test_metrics_dtw</span><span class="p">[</span><span class="s1">&#39;precision&#39;</span><span class="p">],</span>
+        <span class="n">test_metrics_rf</span><span class="p">[</span><span class="s1">&#39;precision&#39;</span><span class="p">],</span>
+        <span class="n">test_metrics_xgb</span><span class="p">[</span><span class="s1">&#39;precision&#39;</span><span class="p">],</span>
+        <span class="n">test_metrics_svm</span><span class="p">[</span><span class="s1">&#39;precision&#39;</span><span class="p">],</span>
+    <span class="p">],</span>
+    <span class="s1">&#39;Recall&#39;</span><span class="p">:</span> <span class="p">[</span>
+        <span class="n">test_metrics_euclidean</span><span class="p">[</span><span class="s1">&#39;recall&#39;</span><span class="p">],</span>
+        <span class="n">test_metrics_dtw</span><span class="p">[</span><span class="s1">&#39;recall&#39;</span><span class="p">],</span>
+        <span class="n">test_metrics_rf</span><span class="p">[</span><span class="s1">&#39;recall&#39;</span><span class="p">],</span>
+        <span class="n">test_metrics_xgb</span><span class="p">[</span><span class="s1">&#39;recall&#39;</span><span class="p">],</span>
+        <span class="n">test_metrics_svm</span><span class="p">[</span><span class="s1">&#39;recall&#39;</span><span class="p">],</span>
+    <span class="p">],</span>
+    <span class="s1">&#39;ROC-AUC&#39;</span><span class="p">:</span> <span class="p">[</span>
+        <span class="n">test_metrics_euclidean</span><span class="p">[</span><span class="s1">&#39;roc_auc&#39;</span><span class="p">],</span>
+        <span class="n">test_metrics_dtw</span><span class="p">[</span><span class="s1">&#39;roc_auc&#39;</span><span class="p">],</span>
+        <span class="n">test_metrics_rf</span><span class="p">[</span><span class="s1">&#39;roc_auc&#39;</span><span class="p">],</span>
+        <span class="n">test_metrics_xgb</span><span class="p">[</span><span class="s1">&#39;roc_auc&#39;</span><span class="p">],</span>
+        <span class="n">test_metrics_svm</span><span class="p">[</span><span class="s1">&#39;roc_auc&#39;</span><span class="p">],</span>
+    <span class="p">]</span>
+<span class="p">}</span>
+
+
+<span class="c1"># Sort by accuracy</span>
+<span class="n">results_df</span> <span class="o">=</span> <span class="n">results_df</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="s1">&#39;Accuracy&#39;</span><span class="p">,</span> <span class="n">ascending</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">drop</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span> <span class="o">+</span> <span class="s2">&quot;=&quot;</span> <span class="o">*</span> <span class="mi">80</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot; &quot;</span> <span class="o">*</span> <span class="mi">25</span> <span class="o">+</span> <span class="s2">&quot;MODEL COMPARISON - TEST SET&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;=&quot;</span> <span class="o">*</span> <span class="mi">80</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">results_df</span><span class="o">.</span><span class="n">to_string</span><span class="p">(</span><span class="n">index</span><span class="o">=</span><span class="kc">False</span><span class="p">))</span>
+
+<span class="c1"># Find best model</span>
+<span class="n">best_model_idx</span> <span class="o">=</span> <span class="n">results_df</span><span class="p">[</span><span class="s1">&#39;Accuracy&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">idxmax</span><span class="p">()</span>
+<span class="n">best_model_name</span> <span class="o">=</span> <span class="n">results_df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">best_model_idx</span><span class="p">,</span> <span class="s1">&#39;Model&#39;</span><span class="p">]</span>
+<span class="n">best_accuracy</span> <span class="o">=</span> <span class="n">results_df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">best_model_idx</span><span class="p">,</span> <span class="s1">&#39;Accuracy&#39;</span><span class="p">]</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">🏆 Best Model: </span><span class="si">{</span><span class="n">best_model_name</span><span class="si">}</span><span class="s2"> with Accuracy = </span><span class="si">{</span><span class="n">best_accuracy</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>================================================================================
+                         MODEL COMPARISON - TEST SET
+================================================================================
+         Model  Accuracy  F1-Score  Precision   Recall  ROC-AUC
+1-NN Euclidean  0.869919  0.869163   0.879489 0.869919 0.870373
+ Random Forest  0.828107  0.828053   0.828723 0.828107 0.932602
+      1-NN DTW  0.759582  0.754785   0.783006 0.759582 0.760403
+       XGBoost  0.440000  0.363636   0.380952 0.347826 0.421900
+           SVM  0.400000  0.500000   0.454545 0.555556 0.610306
+
+🏆 Best Model: 1-NN Euclidean with Accuracy = 0.8699
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Visualize comparison</span>
+<span class="n">fig</span><span class="p">,</span> <span class="n">axes</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">15</span><span class="p">,</span> <span class="mi">10</span><span class="p">))</span>
+
+<span class="n">metrics</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;Accuracy&#39;</span><span class="p">,</span> <span class="s1">&#39;F1-Score&#39;</span><span class="p">,</span> <span class="s1">&#39;ROC-AUC&#39;</span><span class="p">,</span> <span class="s1">&#39;Precision&#39;</span><span class="p">]</span>
+<span class="n">colors</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">cm</span><span class="o">.</span><span class="n">viridis</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">results_df</span><span class="p">)))</span>
+
+<span class="k">for</span> <span class="n">idx</span><span class="p">,</span> <span class="n">metric</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">metrics</span><span class="p">):</span>
+    <span class="n">ax</span> <span class="o">=</span> <span class="n">axes</span><span class="p">[</span><span class="n">idx</span> <span class="o">//</span> <span class="mi">2</span><span class="p">,</span> <span class="n">idx</span> <span class="o">%</span> <span class="mi">2</span><span class="p">]</span>
+    
+    <span class="c1"># Sort by metric</span>
+    <span class="n">sorted_df</span> <span class="o">=</span> <span class="n">results_df</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="n">metric</span><span class="p">,</span> <span class="n">ascending</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    
+    <span class="n">bars</span> <span class="o">=</span> <span class="n">ax</span><span class="o">.</span><span class="n">barh</span><span class="p">(</span><span class="n">sorted_df</span><span class="p">[</span><span class="s1">&#39;Model&#39;</span><span class="p">],</span> <span class="n">sorted_df</span><span class="p">[</span><span class="n">metric</span><span class="p">],</span> <span class="n">color</span><span class="o">=</span><span class="n">colors</span><span class="p">,</span> <span class="n">edgecolor</span><span class="o">=</span><span class="s1">&#39;black&#39;</span><span class="p">)</span>
+    
+    <span class="c1"># Annotate bars</span>
+    <span class="k">for</span> <span class="n">bar</span> <span class="ow">in</span> <span class="n">bars</span><span class="p">:</span>
+        <span class="n">width</span> <span class="o">=</span> <span class="n">bar</span><span class="o">.</span><span class="n">get_width</span><span class="p">()</span>
+        <span class="n">ax</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="n">width</span><span class="p">,</span> <span class="n">bar</span><span class="o">.</span><span class="n">get_y</span><span class="p">()</span> <span class="o">+</span> <span class="n">bar</span><span class="o">.</span><span class="n">get_height</span><span class="p">()</span><span class="o">/</span><span class="mi">2</span><span class="p">,</span> 
+                <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">width</span><span class="si">:</span><span class="s1">.4f</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">,</span> <span class="n">ha</span><span class="o">=</span><span class="s1">&#39;left&#39;</span><span class="p">,</span> <span class="n">va</span><span class="o">=</span><span class="s1">&#39;center&#39;</span><span class="p">,</span> <span class="n">fontweight</span><span class="o">=</span><span class="s1">&#39;bold&#39;</span><span class="p">)</span>
+    
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="n">metric</span><span class="p">,</span> <span class="n">fontweight</span><span class="o">=</span><span class="s1">&#39;bold&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">12</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">metric</span><span class="si">}</span><span class="s1"> Comparison&#39;</span><span class="p">,</span> <span class="n">fontweight</span><span class="o">=</span><span class="s1">&#39;bold&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">14</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="s1">&#39;x&#39;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.3</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_xlim</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mf">1.1</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">suptitle</span><span class="p">(</span><span class="s1">&#39;Classical Models Performance Comparison&#39;</span><span class="p">,</span> 
+             <span class="n">fontsize</span><span class="o">=</span><span class="mi">16</span><span class="p">,</span> <span class="n">fontweight</span><span class="o">=</span><span class="s1">&#39;bold&#39;</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="mf">0.995</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/0e632444283329771db8ee9234f5fc7becf3eb86d0f944324915edcd8a5652ce.png" src="_images/0e632444283329771db8ee9234f5fc7becf3eb86d0f944324915edcd8a5652ce.png" />
+</div>
+</div>
+</section>
+<section id="save-models">
+<h2>9. Save Models<a class="headerlink" href="#save-models" title="Link to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Create models directory</span>
+<span class="n">models_dir</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="s1">&#39;models&#39;</span><span class="p">)</span>
+<span class="n">models_dir</span><span class="o">.</span><span class="n">mkdir</span><span class="p">(</span><span class="n">exist_ok</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+<span class="c1"># Save models</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span> <span class="o">+</span> <span class="s2">&quot;=&quot;</span> <span class="o">*</span> <span class="mi">70</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot; &quot;</span> <span class="o">*</span> <span class="mi">25</span> <span class="o">+</span> <span class="s2">&quot;SAVING MODELS&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;=&quot;</span> <span class="o">*</span> <span class="mi">70</span><span class="p">)</span>
+
+<span class="n">models_to_save</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s1">&#39;knn_euclidean&#39;</span><span class="p">:</span> <span class="n">knn_euclidean</span><span class="p">,</span>
+    <span class="s1">&#39;knn_dtw&#39;</span><span class="p">:</span> <span class="n">knn_dtw</span><span class="p">,</span>
+    <span class="s1">&#39;random_forest&#39;</span><span class="p">:</span> <span class="n">best_rf</span><span class="p">,</span>
+    <span class="s1">&#39;xgboost&#39;</span><span class="p">:</span> <span class="n">best_xgb</span><span class="p">,</span>
+    <span class="s1">&#39;svm&#39;</span><span class="p">:</span> <span class="n">best_svm</span><span class="p">,</span>
+    <span class="s1">&#39;svm_scaler&#39;</span><span class="p">:</span> <span class="n">scaler_svm</span><span class="p">,</span>
+<span class="p">}</span>
+
+
+<span class="k">for</span> <span class="n">name</span><span class="p">,</span> <span class="n">model</span> <span class="ow">in</span> <span class="n">models_to_save</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+    <span class="n">filepath</span> <span class="o">=</span> <span class="n">models_dir</span> <span class="o">/</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s1">.pkl&#39;</span>
+    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">filepath</span><span class="p">,</span> <span class="s1">&#39;wb&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+        <span class="n">pickle</span><span class="o">.</span><span class="n">dump</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">f</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;✓ Saved: </span><span class="si">{</span><span class="n">filepath</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+<span class="c1"># Save results dataframe</span>
+<span class="n">results_df</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="n">models_dir</span> <span class="o">/</span> <span class="s1">&#39;classical_models_results.csv&#39;</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;✓ Saved: </span><span class="si">{</span><span class="n">models_dir</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="s1">&#39;classical_models_results.csv&#39;</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+<span class="c1"># Save metadata</span>
+<span class="n">metadata</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s1">&#39;timestamp&#39;</span><span class="p">:</span> <span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s1">&#39;%Y-%m-</span><span class="si">%d</span><span class="s1"> %H:%M:%S&#39;</span><span class="p">),</span>
+    <span class="s1">&#39;best_model&#39;</span><span class="p">:</span> <span class="n">best_model_name</span><span class="p">,</span>
+    <span class="s1">&#39;best_accuracy&#39;</span><span class="p">:</span> <span class="nb">float</span><span class="p">(</span><span class="n">best_accuracy</span><span class="p">),</span>
+    <span class="s1">&#39;n_train_samples&#39;</span><span class="p">:</span> <span class="nb">len</span><span class="p">(</span><span class="n">X_train</span><span class="p">),</span>
+    <span class="s1">&#39;n_test_samples&#39;</span><span class="p">:</span> <span class="nb">len</span><span class="p">(</span><span class="n">X_test</span><span class="p">),</span>
+    <span class="s1">&#39;results&#39;</span><span class="p">:</span> <span class="n">results_df</span><span class="o">.</span><span class="n">to_dict</span><span class="p">(</span><span class="s1">&#39;records&#39;</span><span class="p">)</span>
+<span class="p">}</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">json</span>
+<span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">models_dir</span> <span class="o">/</span> <span class="s1">&#39;classical_models_metadata.json&#39;</span><span class="p">,</span> <span class="s1">&#39;w&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+    <span class="n">json</span><span class="o">.</span><span class="n">dump</span><span class="p">(</span><span class="n">metadata</span><span class="p">,</span> <span class="n">f</span><span class="p">,</span> <span class="n">indent</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;✓ Saved: </span><span class="si">{</span><span class="n">models_dir</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="s1">&#39;classical_models_metadata.json&#39;</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">✅ All models and metadata saved successfully!&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>======================================================================
+                         SAVING MODELS
+======================================================================
+✓ Saved: models\knn_euclidean.pkl
+✓ Saved: models\knn_dtw.pkl
+✓ Saved: models\random_forest.pkl
+✓ Saved: models\xgboost.pkl
+✓ Saved: models\svm.pkl
+✓ Saved: models\svm_scaler.pkl
+✓ Saved: models\classical_models_results.csv
+✓ Saved: models\classical_models_metadata.json
+
+✅ All models and metadata saved successfully!
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="summary-insights">
+<h2>10. Summary &amp; Insights<a class="headerlink" href="#summary-insights" title="Link to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span> <span class="o">+</span> <span class="s2">&quot;=&quot;</span> <span class="o">*</span> <span class="mi">80</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot; &quot;</span> <span class="o">*</span> <span class="mi">25</span> <span class="o">+</span> <span class="s2">&quot;FINAL SUMMARY &amp; INSIGHTS&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;=&quot;</span> <span class="o">*</span> <span class="mi">80</span><span class="p">)</span>
+
+<span class="n">summary</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;&quot;&quot;</span>
+<span class="s2">📊 CLASSICAL MODELS EVALUATION COMPLETED</span>
+
+<span class="s2">🏆 BEST MODEL: </span><span class="si">{</span><span class="n">best_model_name</span><span class="si">}</span>
+<span class="s2">   • Accuracy:  </span><span class="si">{</span><span class="n">best_accuracy</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span>
+<span class="s2">   • F1-Score:  </span><span class="si">{</span><span class="n">results_df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">best_model_idx</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;F1-Score&#39;</span><span class="p">]</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span>
+<span class="s2">   • ROC-AUC:   </span><span class="si">{</span><span class="n">results_df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">best_model_idx</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;ROC-AUC&#39;</span><span class="p">]</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span>
+
+<span class="s2">📈 TOP 3 MODELS:</span>
+<span class="s2">&quot;&quot;&quot;</span>
+
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">min</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">results_df</span><span class="p">))):</span>
+    <span class="n">summary</span> <span class="o">+=</span> <span class="sa">f</span><span class="s2">&quot;   </span><span class="si">{</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="si">}</span><span class="s2">. </span><span class="si">{</span><span class="n">results_df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">i</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;Model&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="n">results_df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">i</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;Accuracy&#39;</span><span class="p">]</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="se">\n</span><span class="s2">&quot;</span>
+
+<span class="n">summary</span> <span class="o">+=</span> <span class="sa">f</span><span class="s2">&quot;&quot;&quot;</span>
+<span class="s2">💡 KEY INSIGHTS:</span>
+
+<span class="s2">1. BASELINE PERFORMANCE:</span>
+<span class="s2">   • 1-NN Euclidean: </span><span class="si">{</span><span class="n">test_metrics_euclidean</span><span class="p">[</span><span class="s1">&#39;accuracy&#39;</span><span class="p">]</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span>
+<span class="s2">   • 1-NN DTW: </span><span class="si">{</span><span class="n">test_metrics_dtw</span><span class="p">[</span><span class="s1">&#39;accuracy&#39;</span><span class="p">]</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span>
+<span class="s2">   • DTW </span><span class="si">{</span><span class="s1">&#39;outperforms&#39;</span><span class="w"> </span><span class="k">if</span><span class="w"> </span><span class="n">test_metrics_dtw</span><span class="p">[</span><span class="s1">&#39;accuracy&#39;</span><span class="p">]</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="n">test_metrics_euclidean</span><span class="p">[</span><span class="s1">&#39;accuracy&#39;</span><span class="p">]</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="s1">&#39;underperforms&#39;</span><span class="si">}</span><span class="s2"> Euclidean distance</span>
+
+<span class="s2">2. FEATURE-BASED MODELS:</span>
+<span class="s2">   • Random Forest: </span><span class="si">{</span><span class="n">test_metrics_rf</span><span class="p">[</span><span class="s1">&#39;accuracy&#39;</span><span class="p">]</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span>
+<span class="s2">   • XGBoost: </span><span class="si">{</span><span class="n">test_metrics_xgb</span><span class="p">[</span><span class="s1">&#39;accuracy&#39;</span><span class="p">]</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span>
+<span class="s2">   • SVM: </span><span class="si">{</span><span class="n">test_metrics_svm</span><span class="p">[</span><span class="s1">&#39;accuracy&#39;</span><span class="p">]</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span>
+<span class="s2">&quot;&quot;&quot;</span>
+
+
+<span class="nb">print</span><span class="p">(</span><span class="n">summary</span><span class="p">)</span>
+
+<span class="c1"># %%</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">🎉 Classical Models Notebook Completed Successfully!&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;=&quot;</span> <span class="o">*</span> <span class="mi">80</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>================================================================================
+                         FINAL SUMMARY &amp; INSIGHTS
+================================================================================
+
+📊 CLASSICAL MODELS EVALUATION COMPLETED
+
+🏆 BEST MODEL: 1-NN Euclidean
+   • Accuracy:  0.8699
+   • F1-Score:  0.8692
+   • ROC-AUC:   0.8704
+
+📈 TOP 3 MODELS:
+   1. 1-NN Euclidean: 0.8699
+   2. Random Forest: 0.8281
+   3. 1-NN DTW: 0.7596
+
+💡 KEY INSIGHTS:
+
+1. BASELINE PERFORMANCE:
+   • 1-NN Euclidean: 0.8699
+   • 1-NN DTW: 0.7596
+   • DTW underperforms Euclidean distance
+
+2. FEATURE-BASED MODELS:
+   • Random Forest: 0.8281
+   • XGBoost: 0.4400
+   • SVM: 0.4000
+
+
+🎉 Classical Models Notebook Completed Successfully!
+================================================================================
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./."
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#installation-commands">Installation Commands</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#setup-imports">1. Setup &amp; Imports</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#load-preprocessed-data">2. Load Preprocessed Data</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#helper-functions-for-evaluation">3. Helper Functions for Evaluation</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#feature-engineering-for-feature-based-models">4. Feature Engineering (for Feature-based Models)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#model-training-evaluation">5. Model Training &amp; Evaluation</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#model-1-baseline-1-nn-euclidean-distance">Model 1: Baseline - 1-NN Euclidean Distance</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#model-2-baseline-1-nn-dtw">Model 2: Baseline - 1-NN DTW</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#model-3-random-forest-with-grid-search">Model 3: Random Forest with Grid Search</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#model-4-xgboost-with-grid-search">Model 4: XGBoost with Grid Search</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#model-5-svm-with-grid-search">Model 5: SVM with Grid Search</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#model-comparison">6. Model Comparison</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#save-models">9. Save Models</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#summary-insights">10. Summary &amp; Insights</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By The Jupyter Book Community
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2023.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>
