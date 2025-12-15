@@ -1,0 +1,49 @@
+{
+  "timestamp": "2025-12-09 18:37:17",
+  "best_model": "1-NN Euclidean",
+  "best_accuracy": 0.8699186991869918,
+  "n_train_samples": 368,
+  "n_test_samples": 861,
+  "results": [
+    {
+      "Model": "1-NN Euclidean",
+      "Accuracy": 0.8699186991869918,
+      "F1-Score": 0.8691629294966907,
+      "Precision": 0.87948905869969,
+      "Recall": 0.8699186991869918,
+      "ROC-AUC": 0.8703729684228703
+    },
+    {
+      "Model": "Random Forest",
+      "Accuracy": 0.8281068524970964,
+      "F1-Score": 0.8280525815830118,
+      "Precision": 0.8287229949783039,
+      "Recall": 0.8281068524970964,
+      "ROC-AUC": 0.9326018216744728
+    },
+    {
+      "Model": "1-NN DTW",
+      "Accuracy": 0.759581881533101,
+      "F1-Score": 0.7547847369594658,
+      "Precision": 0.7830064050220236,
+      "Recall": 0.759581881533101,
+      "ROC-AUC": 0.7604034016101532
+    },
+    {
+      "Model": "XGBoost",
+      "Accuracy": 0.44,
+      "F1-Score": 0.36363636363636365,
+      "Precision": 0.38095238095238093,
+      "Recall": 0.34782608695652173,
+      "ROC-AUC": 0.42190016103059585
+    },
+    {
+      "Model": "SVM",
+      "Accuracy": 0.4,
+      "F1-Score": 0.5,
+      "Precision": 0.45454545454545453,
+      "Recall": 0.5555555555555556,
+      "ROC-AUC": 0.610305958132045
+    }
+  ]
+}
