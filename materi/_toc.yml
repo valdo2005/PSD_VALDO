@@ -54,7 +54,7 @@ parts:
       title: Business Understanding ECGFiveDays
     - file: EDA.ipynb
       title: Data Understanding ECGFiveDays
-    - file: preprocesing.ipynb
+    - file: prepocesing.ipynb
       title: Preprocessing Data ECGFiveDays
     - file: modeling.ipynb
       title: Modeling ECGFiveDays
